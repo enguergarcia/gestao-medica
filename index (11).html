@@ -1,0 +1,3104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestão Médica — Dr. Enguer Beraldo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1A2E; --ink-2:#102439; --ink-3:#163150;
+    --gold:#C9A24E; --gold-soft:#E4C982;
+    --paper:#F4EFE3; --mist:#9DB2C8; --blue:#5fa8d3; --blue-soft:#9fd0ec;
+    --danger:#E08A6B;
+    --line:rgba(201,162,78,.22); --line-soft:rgba(157,178,200,.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--ink);color:var(--paper);
+    font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(120% 80% at 90% -10%, rgba(201,162,78,.10), transparent 55%);
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:0 26px;}
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em;line-height:1.14;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand .mark{width:30px;height:30px;flex:none;}
+  .brand .name{font-family:'Fraunces',serif;font-size:16px;}
+  .brand .name span{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--mist);text-transform:uppercase;margin-top:2px;}
+
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* ============ HOME ============ */
+  #home{padding:0 0 60px;}
+
+  /* cover */
+  .cover{position:relative;overflow:hidden;padding:48px 0 40px;margin-bottom:36px;
+    border-bottom:1px solid var(--line-soft);}
+  .cover-inner{position:relative;z-index:2;}
+  .cover h1{font-size:clamp(28px,5vw,44px);color:#fff;margin:.3em 0 .3em;max-width:16ch;}
+  .cover h1 .accent{color:var(--gold-soft);font-style:italic;}
+  .cover .lede{color:var(--mist);max-width:54ch;font-size:clamp(15px,2vw,17px);}
+  .tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;}
+  .tool{
+    text-align:left;background:var(--ink-2);border:1px solid var(--line);border-radius:18px;
+    padding:32px 30px 34px;cursor:pointer;color:var(--paper);font-family:inherit;
+    transition:transform .08s ease, border-color .15s ease, background .15s ease;position:relative;overflow:hidden;
+  }
+  .tool:hover{transform:translateY(-3px);border-color:var(--gold);background:linear-gradient(180deg,rgba(201,162,78,.08),rgba(201,162,78,.02));}
+  .tool:active{transform:translateY(0);}
+  .tool .ticon{width:54px;height:54px;border-radius:14px;background:rgba(201,162,78,.12);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:22px;}
+  .tool .ticon svg{width:28px;height:28px;}
+  .tool h3{font-size:23px;color:#fff;margin:0 0 9px;line-height:1.2;}
+  .tool p{font-size:15px;color:var(--mist);margin:0;line-height:1.55;}
+  .tool .go{margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+  .tool.soon{cursor:default;opacity:.62;}
+  .tool.soon:hover{transform:none;border-color:var(--line);background:var(--ink-2);}
+  .tool.soon .go{color:var(--mist);}
+  .badge{position:absolute;top:18px;right:18px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);border:1px solid var(--line-soft);border-radius:20px;padding:3px 9px;}
+
+  /* ============ SIM ============ */
+  #sim{padding:26px 0 60px;}
+  #sim .wrap{max-width:1680px;}
+  #cost .wrap{max-width:1360px;}
+  #effects{padding:26px 0 60px;}
+  #effects h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
+  #effects h1 .accent{color:var(--gold-soft);font-style:italic;}
+  #effects .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
+  .fx-search{margin-bottom:18px;}
+  .fx-search input{width:100%;max-width:520px;background:var(--ink-2);border:1px solid var(--line);border-radius:11px;color:var(--paper);font-family:'Inter',sans-serif;font-size:15px;padding:12px 15px;}
+  .fx-search input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .fx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:18px;align-items:start;}
+  .fx-card{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .fx-head{display:flex;align-items:center;gap:14px;padding:19px 20px;cursor:pointer;user-select:none;transition:background .15s;}
+  .fx-head:hover{background:rgba(201,162,78,.05);}
+  .fx-ic{width:44px;height:44px;flex:none;border-radius:11px;background:rgba(201,162,78,.12);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;}
+  .fx-ti{flex:1;}
+  .fx-ti .nm{font-family:'Fraunces',serif;font-size:18.5px;color:#fff;line-height:1.15;}
+  .fx-ti .freq{font-size:12px;color:var(--mist);font-family:'IBM Plex Mono',monospace;margin-top:3px;}
+  .fx-chev{color:var(--gold);transition:transform .2s;flex:none;}
+  .fx-card.open .fx-chev{transform:rotate(180deg);}
+  .fx-body{display:none;padding:0 20px 20px;}
+  .fx-card.open .fx-body{display:block;}
+  .fx-sec{margin-top:13px;}
+  .fx-sec .lab{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+  .fx-sec ul{margin:0;padding-left:18px;}
+  .fx-sec li{font-size:14.5px;color:var(--paper);margin-bottom:5px;line-height:1.55;}
+  .fx-sec.warn{background:rgba(224,138,107,.08);border:1px solid rgba(224,138,107,.25);border-radius:10px;padding:11px 13px;}
+  .fx-sec.warn .lab{color:var(--danger);}
+  .fx-step{display:flex;gap:11px;margin-bottom:10px;}
+  .fx-step .stp-n{flex:none;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--gold);background:rgba(201,162,78,.1);border:1px solid var(--line);border-radius:20px;padding:4px 9px;height:fit-content;white-space:nowrap;}
+  .fx-step .stp-t{font-size:15px;color:#fff;font-weight:600;margin-bottom:3px;}
+  .fx-step .stp-d{font-size:14px;color:var(--mist);line-height:1.55;}
+  .fx-empty{color:var(--mist);font-size:14px;padding:20px 4px;}
+  .fx-alert{margin-top:22px;background:rgba(224,138,107,.08);border:1px solid rgba(224,138,107,.3);border-radius:12px;padding:15px 17px;font-size:13.5px;color:var(--paper);line-height:1.6;}
+  .fx-alert b{color:var(--danger);}
+
+  /* cost tab */
+  #cost{padding:26px 0 60px;}
+  #cost h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
+  #cost h1 .accent{color:var(--gold-soft);font-style:italic;}
+  #cost .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
+  .cost-controls{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+  .cost-monthwrap{margin-bottom:22px;}
+  .cmw-title{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .cost-months{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+  .cmonth{background:var(--ink-2);border:1px solid var(--line);border-radius:11px;padding:11px 12px;}
+  .cmonth .ml{font-size:11px;color:var(--mist);font-family:'IBM Plex Mono',monospace;margin-bottom:6px;}
+  .cmonth select{width:100%;background:var(--ink);border:1px solid var(--line-soft);border-radius:8px;color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:13.5px;padding:7px 9px;}
+  .cmonth select:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .cost-field{flex:1;min-width:150px;}
+  .cost-field label{display:block;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
+  .cost-field select,.cost-field input{width:100%;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:15px;padding:10px 12px;}
+  .cost-field select:focus,.cost-field input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .cost-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;}
+  @media(max-width:620px){.cost-cards{grid-template-columns:1fr;}}
+  .ccard{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:20px;position:relative;overflow:hidden;}
+  .ccard.clinic{border-color:rgba(127,211,187,.4);}
+  .ccard.pharm{border-color:rgba(201,162,78,.3);}
+  .ccard .ctag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+  .ccard.clinic .ctag{color:#7fd3bb;}
+  .ccard.pharm .ctag{color:var(--gold-soft);}
+  .ccard .cname{font-family:'Fraunces',serif;font-size:17px;color:#fff;margin-bottom:14px;line-height:1.2;}
+  .ccard .crow{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-top:1px solid var(--line-soft);}
+  .ccard .crow .rk{font-size:12.5px;color:var(--mist);}
+  .ccard .crow .rv{font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--paper);}
+  .ccard .big{font-family:'Fraunces',serif;font-size:30px;color:var(--gold-soft);line-height:1;margin-top:4px;}
+  .ccard.clinic .big{color:#9be3cd;}
+  .cost-save{background:linear-gradient(180deg,rgba(127,211,187,.14),rgba(127,211,187,.03));border:1px solid rgba(127,211,187,.4);border-radius:16px;padding:18px 20px;margin-bottom:22px;text-align:center;}
+  .cost-save .sv-l{font-size:13px;color:var(--mist);margin-bottom:4px;}
+  .cost-save .sv-v{font-family:'Fraunces',serif;font-size:clamp(26px,5vw,38px);color:#9be3cd;line-height:1.05;}
+  .cost-save .sv-s{font-size:13px;color:var(--paper);margin-top:6px;}
+  .cost-bars{margin-bottom:22px;}
+  .cbar-row{margin-bottom:14px;}
+  .cbar-row .cbl{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px;}
+  .cbar-row .cbl .nm{color:var(--paper);}
+  .cbar-row .cbl .vl{font-family:'IBM Plex Mono',monospace;color:var(--mist);}
+  .cbar-track{height:26px;background:var(--ink);border:1px solid var(--line-soft);border-radius:8px;overflow:hidden;}
+  .cbar-fill{height:100%;border-radius:7px 0 0 7px;transition:width .35s ease;}
+  .cbar-fill.clinic{background:linear-gradient(90deg,#4FA890,#7fd3bb);}
+  .cbar-fill.pharm{background:linear-gradient(90deg,#C9A24E,#E4C982);}
+  .cost-edit{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;margin-bottom:18px;overflow:hidden;}
+  .cost-edit summary{padding:15px 18px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--gold-soft);user-select:none;}
+  .cost-edit summary:hover{background:rgba(201,162,78,.05);}
+  .cost-edit-body{padding:4px 18px 20px;}
+  .cost-edit-block{margin-top:16px;}
+  .ceb-title{font-size:12px;font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .ce-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+  .ce-item label{display:block;font-size:11px;color:var(--mist);margin-bottom:4px;}
+  .ce-inp{position:relative;display:flex;align-items:center;background:var(--ink);border:1px solid var(--line-soft);border-radius:8px;overflow:hidden;}
+  .ce-inp:focus-within{outline:2px solid var(--gold);outline-offset:1px;}
+  .ce-inp .pre{flex:none;padding:0 5px 0 11px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mist);pointer-events:none;}
+  .ce-inp input{flex:1;min-width:0;background:transparent!important;border:none!important;border-radius:0!important;color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:13.5px!important;padding:8px 10px 8px 2px!important;}
+  .ce-inp input:focus{outline:none!important;}
+  .ce-inp input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .ce-note{font-size:12px;color:var(--mist);margin-top:14px;line-height:1.5;}
+  .cost-foot{font-size:12px;color:var(--mist);line-height:1.6;background:var(--ink);border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px;}
+  .cost-foot b{color:var(--gold-soft);}
+  .cost-break{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg,rgba(201,162,78,.10),rgba(201,162,78,.02));border:1px solid rgba(201,162,78,.35);border-radius:14px;padding:16px 18px;margin:4px 0 18px;}
+  .cost-break .cb-ic{flex:none;width:34px;height:34px;border-radius:9px;background:rgba(201,162,78,.16);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--gold-soft);font-family:'IBM Plex Mono',monospace;font-size:18px;}
+  .cost-break .cb-tx{font-size:14.5px;color:var(--paper);line-height:1.5;}
+  .cost-break .cb-tx b{color:var(--gold-soft);font-size:16px;}
+  .cost-break .cb-sub{display:block;font-size:12.5px;color:var(--mist);margin-top:4px;line-height:1.5;}
+  .cost-chartcard{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:18px;}
+  .cost-chartcard .cc-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:8px;}
+  .cost-chartcard .cc-title{font-family:'Fraunces',serif;font-size:16px;color:#fff;}
+  .cost-chartcard .cc-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--mist);}
+  .cost-chartcard .cc-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .cost-chartcard .cc-legend .swatch{width:12px;height:12px;border-radius:3px;display:inline-block;}
+  .cost-detail{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:4px;}
+  .cost-detail .cd-title{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .cost-detail .crow{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-top:1px solid var(--line-soft);}
+  .cost-detail .crow .rk{font-size:12.5px;color:var(--mist);}
+  .cost-detail .crow .rv{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--paper);}
+  /* ============ CONSULTATIONS ============ */
+  #consult{padding:26px 0 60px;}
+  #consult .wrap{max-width:1440px;}
+  #consult h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
+  #consult h1 .accent{color:var(--gold-soft);font-style:italic;}
+  #consult .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
+  .con-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center;}
+  .con-toolbar button{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;border-radius:9px;padding:8px 14px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(201,162,78,.16),rgba(201,162,78,.04));color:var(--gold-soft);transition:background .15s;}
+  .con-toolbar button:hover{background:rgba(201,162,78,.2);}
+  .con-toolbar .con-sync{margin-left:auto;font-size:12px;font-family:'IBM Plex Mono',monospace;color:#9be3cd;}
+  .con-summary{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px;}
+  .con-scard{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;flex:1;min-width:120px;}
+  .con-scard .csv{font-family:'Fraunces',serif;font-size:26px;color:var(--gold-soft);line-height:1;}
+  .con-scard .csl{font-size:12px;color:var(--mist);margin-top:4px;}
+  .con-scard.alert .csv{color:var(--danger);}
+  .con-scard.ok .csv{color:#9be3cd;}
+  .con-patients{display:grid;grid-template-columns:1fr;gap:14px;}
+  .con-pat{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;cursor:pointer;transition:border-color .15s;}
+  .con-pat:hover{border-color:var(--gold);}
+  .con-pat-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;flex-wrap:wrap;}
+  .con-pat-name{font-family:'Fraunces',serif;font-size:18px;color:#fff;line-height:1.2;}
+  .con-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border-radius:7px;white-space:nowrap;font-weight:600;}
+  .con-badge.ok{background:rgba(127,211,187,.15);color:#9be3cd;border:1px solid rgba(127,211,187,.3);}
+  .con-badge.complete{background:rgba(157,178,200,.12);color:var(--mist);border:1px solid rgba(157,178,200,.3);}
+  .con-badge.warn{background:rgba(228,201,130,.12);color:var(--gold-soft);border:1px solid rgba(228,201,130,.3);}
+  .con-badge.danger{background:rgba(224,138,107,.12);color:var(--danger);border:1px solid rgba(224,138,107,.3);}
+  .con-pat-meta{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--mist);margin-bottom:12px;}
+  .con-pat-meta b{color:var(--paper);}
+  .con-timeline{display:flex;gap:6px;flex-wrap:wrap;}
+  .con-dot{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;}
+  .con-dot.done{background:rgba(127,211,187,.2);color:#9be3cd;border:1px solid rgba(127,211,187,.3);}
+  .con-dot.pending{background:var(--ink);color:var(--mist);border:1px solid var(--line-soft);}
+  .con-dot.late{background:rgba(228,201,130,.18);color:var(--gold-soft);border:1px solid rgba(228,201,130,.35);}
+  .con-pat-next{font-size:12px;color:var(--mist);margin-top:10px;font-family:'IBM Plex Mono',monospace;}
+  .con-dot.indic{background:rgba(160,130,220,.2);color:#b8a0e8;border:1px solid rgba(160,130,220,.4);font-size:14px;}
+  .con-pat-next b{color:var(--gold-soft);}
+  .con-hide-btn{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid var(--line-soft);background:transparent;color:var(--mist);cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap;}
+  .con-hide-btn:hover{border-color:var(--gold);color:var(--gold-soft);}
+  .con-hidden-list{margin-top:20px;border-top:1px solid var(--line-soft);padding-top:18px;}
+  .con-hidden-list h3{font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mist);margin:0 0 14px;}
+  .con-hidden-item{display:flex;align-items:center;justify-content:space-between;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:8px;}
+  .con-hidden-item .chi-name{font-size:14px;color:var(--paper);}
+  .con-hidden-item button{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:5px 12px;border-radius:7px;border:1px solid rgba(127,211,187,.4);background:transparent;color:#9be3cd;cursor:pointer;transition:background .15s;}
+  .con-hidden-item button:hover{background:rgba(127,211,187,.1);}
+
+  /* consultation modal */
+  .con-modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(6,12,22,.88);display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto;}
+  .con-modal-overlay.open{display:flex;}
+  .con-modal{background:var(--ink-2);border:1px solid var(--line);border-radius:18px;padding:26px 28px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;}
+  .con-modal h3{font-family:'Fraunces',serif;font-size:20px;color:#fff;margin:0 0 18px;}
+  .con-modal .sf{margin-bottom:14px;}
+  .con-modal .sf label{display:block;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+  .con-modal .sf input,.con-modal .sf select,.con-modal .sf textarea{width:100%;box-sizing:border-box;background:var(--ink);border:1px solid var(--line-soft);border-radius:9px;color:var(--paper);font-family:'Inter',sans-serif;font-size:14px;padding:9px 11px;}
+  .con-modal .sf textarea{min-height:50px;resize:vertical;}
+  .con-modal .sf input:focus,.con-modal .sf select:focus,.con-modal .sf textarea:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .con-modal .sf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .con-modal .sf small{display:block;font-size:11px;color:var(--mist);margin-top:4px;}
+  .con-modal-btns{display:flex;gap:10px;margin-top:20px;}
+  .con-modal-btns button{flex:1;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-radius:9px;padding:10px 14px;transition:background .15s;}
+  .con-modal-btns .con-save{border:none;background:var(--gold);color:var(--ink);}
+  .con-modal-btns .con-save:hover{background:var(--gold-soft);}
+  .con-modal-btns .con-cancel{border:1px solid var(--line);background:transparent;color:var(--mist);}
+  .con-modal-btns .con-delete{border:1px solid rgba(224,138,107,.4);background:transparent;color:var(--danger);flex:.5;}
+  .con-consults-edit{margin-top:14px;border-top:1px solid var(--line-soft);padding-top:14px;}
+  .con-consults-edit h4{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin:0 0 12px;}
+  .con-row{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:8px;align-items:center;margin-bottom:8px;font-size:13px;}
+  .con-row .cr-n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gold-soft);font-weight:600;}
+  .con-row input{background:var(--ink);border:1px solid var(--line-soft);border-radius:7px;color:var(--paper);font-size:13px;padding:7px 8px;font-family:'IBM Plex Mono',monospace;}
+  .con-row input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .con-row .cr-lbl{font-size:10px;color:var(--mist);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;}
+
+  /* ============ INJECTABLES ============ */
+  #inject{padding:26px 0 60px;}
+  #inject .wrap{max-width:1440px;}
+  #inject h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
+  #inject h1 .accent{color:var(--gold-soft);font-style:italic;}
+  #inject .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
+  .inj-pat{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;cursor:pointer;transition:border-color .15s;}
+  .inj-pat:hover{border-color:var(--gold);}
+  .inj-pat-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;flex-wrap:wrap;}
+  .inj-phases{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;}
+  .inj-dot{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;position:relative;}
+  .inj-dot.done{background:rgba(127,211,187,.2);color:#9be3cd;border:1px solid rgba(127,211,187,.3);}
+  .inj-dot.pending{background:var(--ink);color:var(--mist);border:1px solid var(--line-soft);}
+  .inj-dot.late{background:rgba(224,138,107,.15);color:var(--danger);border:1px solid rgba(224,138,107,.3);}
+  .inj-dot.next{background:rgba(201,162,78,.18);color:var(--gold-soft);border:1px solid rgba(201,162,78,.4);}
+  .inj-phase-sep{width:2px;background:var(--line-soft);border-radius:1px;align-self:stretch;margin:0 4px;}
+  .inj-avulsos{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+  .inj-avulso{font-size:11px;font-family:'IBM Plex Mono',monospace;padding:4px 10px;border-radius:7px;background:var(--ink);border:1px solid var(--line-soft);color:var(--mist);}
+  .inj-avulso b{color:var(--paper);}
+  .inj-meta{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--mist);margin-bottom:8px;}
+  .inj-meta b{color:var(--paper);}
+  .inj-next-info{font-size:12px;color:var(--mist);font-family:'IBM Plex Mono',monospace;margin-top:6px;}
+  .inj-next-info b{color:var(--gold-soft);}
+  .inj-kit-tag{font-size:9px;font-family:'IBM Plex Mono',monospace;position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);white-space:nowrap;color:var(--mist);opacity:.7;}
+  .inj-modal .sf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .inj-sessions-grid{margin-top:14px;border-top:1px solid var(--line-soft);padding-top:14px;}
+  .inj-sessions-grid h4{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin:0 0 10px;}
+  .inj-sg-phase{margin-bottom:14px;}
+  .inj-sg-phase-title{font-size:12px;color:var(--mist);margin-bottom:6px;font-weight:600;}
+  .inj-sg-row{display:grid;grid-template-columns:30px 1fr 70px 1fr 1fr;gap:6px;align-items:center;margin-bottom:6px;font-size:12px;}
+  .inj-sg-row .isr-n{font-family:'IBM Plex Mono',monospace;color:var(--gold-soft);font-weight:600;font-size:12px;}
+  .inj-sg-row .isr-kit{font-size:11px;color:var(--mist);}
+  .inj-sg-row input{background:var(--ink);border:1px solid var(--line-soft);border-radius:7px;color:var(--paper);font-size:12px;padding:6px 7px;font-family:'IBM Plex Mono',monospace;width:100%;box-sizing:border-box;}
+  .inj-sg-avulso{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+  .inj-sg-avulso label{font-size:10px;color:var(--mist);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;display:block;margin-bottom:4px;}
+  .inj-sg-avulso input{background:var(--ink);border:1px solid var(--line-soft);border-radius:7px;color:var(--paper);font-size:12px;padding:6px 7px;font-family:'IBM Plex Mono',monospace;width:100%;box-sizing:border-box;}
+
+  /* ============ SCHEDULE ============ */
+  #schedule{padding:26px 0 60px;}
+  #schedule .wrap{max-width:1440px;}
+  #schedule h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
+  #schedule h1 .accent{color:var(--gold-soft);font-style:italic;}
+  #schedule .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
+  .sch-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center;}
+  .sch-toolbar button{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;border-radius:9px;padding:8px 14px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(201,162,78,.16),rgba(201,162,78,.04));color:var(--gold-soft);transition:background .15s;}
+  .sch-toolbar button:hover{background:rgba(201,162,78,.2);}
+  .sch-toolbar select{background:var(--ink);border:1px solid var(--line-soft);border-radius:9px;color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:13px;padding:7px 10px;}
+  .sch-toolbar select:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .sch-toolbar .sch-info{margin-left:auto;font-size:12px;color:var(--mist);font-family:'IBM Plex Mono',monospace;}
+  .sch-grid-wrap{overflow-x:auto;margin-bottom:22px;border-radius:14px;border:1px solid var(--line);background:var(--ink-2);}
+  .sch-grid{min-width:700px;border-collapse:collapse;width:100%;table-layout:fixed;}
+  .sch-grid col.sch-col-time{width:90px;}
+  .sch-grid th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);padding:12px 10px;text-align:center;border-bottom:1px solid var(--line);background:var(--ink-3);position:sticky;top:0;z-index:2;}
+  .sch-grid th:first-child{text-align:left;padding-left:16px;}
+  .sch-grid td{padding:0;text-align:center;border-bottom:1px solid var(--line-soft);height:52px;vertical-align:top;}
+  .sch-grid td:first-child{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--mist);text-align:left;padding:0 10px;vertical-align:middle;background:var(--ink-2);}
+  .sch-cell{border-radius:6px;margin:2px 3px;padding:6px 5px;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .12s;user-select:none;line-height:1.2;display:flex;align-items:center;justify-content:center;text-align:center;height:calc(100% - 4px);box-sizing:border-box;overflow:hidden;}
+  .sch-cell:hover{opacity:.82;}
+  .sch-cell.empty{background:transparent;cursor:pointer;border:1px dashed var(--line-soft);opacity:.4;}
+  .sch-cell.empty:hover{opacity:.7;border-color:var(--gold);}
+  .sch-legend-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
+  .sch-legend-item{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--paper);cursor:pointer;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;transition:border-color .15s;}
+  .sch-legend-item:hover{border-color:var(--gold);}
+  .sch-legend-swatch{width:16px;height:16px;border-radius:5px;flex:none;}
+  .sch-legend-dur{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);margin-left:2px;}
+
+  /* schedule modal */
+  .sch-modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(6,12,22,.88);display:none;align-items:center;justify-content:center;padding:20px;}
+  .sch-modal-overlay.open{display:flex;}
+  .sch-modal{background:var(--ink-2);border:1px solid var(--line);border-radius:18px;padding:26px 28px;max-width:420px;width:100%;}
+  .sch-modal h3{font-family:'Fraunces',serif;font-size:20px;color:#fff;margin:0 0 18px;}
+  .sch-modal .sf{margin-bottom:14px;}
+  .sch-modal .sf label{display:block;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+  .sch-modal .sf input,.sch-modal .sf select{width:100%;background:var(--ink);border:1px solid var(--line-soft);border-radius:9px;color:var(--paper);font-family:'Inter',sans-serif;font-size:14px;padding:9px 11px;}
+  .sch-modal .sf input[type="color"]{height:42px;padding:4px 6px;cursor:pointer;}
+  .sch-modal .sf input:focus,.sch-modal .sf select:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .sch-modal .sf small{display:block;font-size:11px;color:var(--mist);margin-top:4px;}
+  .sch-modal-btns{display:flex;gap:10px;margin-top:20px;}
+  .sch-modal-btns button{flex:1;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-radius:9px;padding:10px 14px;transition:background .15s;}
+  .sch-modal-btns .sch-save{border:none;background:var(--gold);color:var(--ink);}
+  .sch-modal-btns .sch-save:hover{background:var(--gold-soft);}
+  .sch-modal-btns .sch-cancel{border:1px solid var(--line);background:transparent;color:var(--mist);}
+  .sch-modal-btns .sch-cancel:hover{border-color:var(--gold);color:var(--gold-soft);}
+  .sch-modal-btns .sch-delete{border:1px solid rgba(224,138,107,.4);background:transparent;color:var(--danger);flex:0.6;}
+  .sch-modal-btns .sch-delete:hover{background:rgba(224,138,107,.1);}
+
+  .backbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:22px;flex-wrap:wrap;}
+  .back{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid var(--line-soft);color:var(--mist);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;border-radius:9px;padding:8px 13px;cursor:pointer;transition:border-color .15s,color .15s;}
+  .back:hover{border-color:var(--gold);color:var(--gold-soft);}
+  #sim h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
+  #sim h1 .accent{color:var(--gold-soft);font-style:italic;}
+  #sim .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
+
+  .layout{display:grid;grid-template-columns:330px 1fr;gap:24px;align-items:start;}
+  @media(max-width:900px){.layout{grid-template-columns:1fr;}}
+
+  .panel{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:20px;}
+  .panel h2{font-size:18px;color:#fff;margin:0 0 4px;}
+  .panel .hint{font-size:12.5px;color:var(--mist);margin:0 0 16px;}
+  .field{margin-bottom:15px;}
+  .field > label{display:block;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
+  input[type="number"]{width:100%;background:var(--ink);border:1px solid var(--line-soft);border-radius:9px;color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:15px;padding:9px 11px;}
+  input[type="number"]:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  select{width:100%;background:var(--ink);border:1px solid var(--line-soft);border-radius:9px;color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:14px;padding:8px 10px;}
+  .check{display:flex;align-items:flex-start;gap:9px;background:var(--ink);border:1px solid var(--line-soft);border-radius:9px;padding:11px 12px;cursor:pointer;}
+  .check input{margin-top:2px;accent-color:var(--gold);width:16px;height:16px;flex:none;}
+  .check .ctext{font-size:13px;color:var(--paper);}
+  .check .ctext small{display:block;color:var(--mist);font-size:11.5px;margin-top:2px;}
+  .sub-field{margin-top:11px;padding-left:2px;}
+  .sub-field label{font-size:11px;color:var(--mist);font-family:'IBM Plex Mono',monospace;letter-spacing:.05em;display:block;margin-bottom:6px;}
+
+  .btnrow{display:flex;gap:8px;margin:4px 0 6px;flex-wrap:wrap;}
+  button.act{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 13px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(201,162,78,.16),rgba(201,162,78,.04));color:var(--gold-soft);transition:transform .06s,background .15s;}
+  button.act:hover{background:rgba(201,162,78,.2);}
+  button.act:active{transform:translateY(1px);}
+  button.act.ghost{background:transparent;color:var(--mist);}
+
+  .dlabel{font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin:16px 0 8px;display:flex;align-items:center;gap:8px;}
+  .dlabel.taper{color:var(--blue-soft);}
+  .dlabel.cmp{color:#7fd3bb;}
+  .dlabel.frac{color:#e87fb0;}
+  .wkrow.brow .dinput input{border-color:rgba(127,211,187,.35);}
+  .wkrow.crow2{display:grid;grid-template-columns:50px 1fr 1fr;gap:7px;align-items:center;margin-bottom:7px;}
+  .wkrow.crow2 .wk{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#e87fb0;}
+  .wkrow.crow2 .dinput input{border-color:rgba(207,93,146,.4);padding-right:34px;}
+  .wkrow.crow2 .dinput .unit{font-size:10px;}
+  .crow2-head{display:grid;grid-template-columns:50px 1fr 1fr;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--mist);margin-bottom:6px;padding:0 2px;}
+  .dlabel .ln{flex:1;height:1px;background:var(--line-soft);}
+  .doses-scroll{max-height:248px;overflow-y:auto;padding-right:4px;}
+  .doses-scroll::-webkit-scrollbar{width:8px;}
+  .doses-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px;}
+  .wkrow{display:grid;grid-template-columns:58px 1fr 64px;gap:8px;align-items:center;margin-bottom:7px;}
+  .wkrow .wk{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--gold-soft);}
+  .dinput{position:relative;display:flex;align-items:center;}
+  .dinput input{width:100%;background:var(--ink);border:1px solid var(--line-soft);border-radius:8px;color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:14px;padding:7px 30px 7px 10px;}
+  .dinput input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .dinput .unit{position:absolute;right:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);pointer-events:none;}
+  .wkrow.tpr .dinput input{border-color:rgba(95,168,211,.3);}
+  .wkrow.tpr .wk{color:var(--blue-soft);}
+  .wkrow .tag{font-size:9.5px;font-family:'IBM Plex Mono',monospace;text-align:center;border-radius:20px;padding:3px 0;}
+  .tag.up{color:var(--gold);border:1px solid var(--line);}
+  .tag.down{color:var(--blue-soft);border:1px solid rgba(95,168,211,.4);}
+  .tag.same{color:var(--mist);border:1px solid var(--line-soft);}
+  .tag.off{color:var(--danger);border:1px solid rgba(224,138,107,.4);}
+
+  /* chart */
+  .chartcard{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:20px 22px 18px;}
+  .charthead{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:12px;}
+  .chartcard h2{font-size:18px;color:#fff;margin:0 0 2px;}
+  .chartcard .sub{font-size:12.5px;color:var(--mist);margin:0;}
+  .expand{flex:none;display:inline-flex;align-items:center;gap:7px;background:none;border:1px solid var(--line-soft);color:var(--mist);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;border-radius:8px;padding:7px 11px;cursor:pointer;transition:border-color .15s,color .15s;}
+  .expand:hover{border-color:var(--gold);color:var(--gold-soft);}
+  .chart-holder{width:100%;overflow-x:auto;}
+  svg.chart{display:block;width:100%;min-width:560px;height:auto;min-height:560px;}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:12px;color:var(--mist);}
+  .legend span{display:inline-flex;align-items:center;gap:7px;}
+  .swatch{width:16px;height:3px;border-radius:2px;display:inline-block;}
+  .swatch.dot{width:9px;height:9px;border-radius:50%;}
+  .swatch.dash{height:0;border-top:2px dashed var(--blue);}
+
+  .statsintro{font-size:13px;color:var(--mist);margin:18px 0 10px;line-height:1.55;}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  @media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stat{background:var(--ink);border:1px solid var(--line-soft);border-radius:12px;padding:14px 12px;}
+  .stat .v{font-family:'Fraunces',serif;font-size:23px;color:var(--gold-soft);line-height:1;}
+  .stat .k{font-size:12px;color:var(--paper);font-weight:600;margin:7px 0 3px;}
+  .stat .l{font-size:11px;color:var(--mist);line-height:1.4;}
+
+  .note{font-size:12.5px;color:var(--mist);background:var(--ink);border:1px solid var(--line-soft);border-radius:12px;padding:14px 16px;margin-top:18px;line-height:1.6;}
+  .note b{color:var(--gold-soft);}
+
+  /* fullscreen modal */
+  .modal{position:fixed;inset:0;z-index:80;background:rgba(6,12,22,.96);display:none;flex-direction:column;padding:18px;}
+  .modal.open{display:flex;}
+  .modal .mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .modal .mhead h3{color:#fff;font-size:17px;margin:0;}
+  .modal .mclose{background:none;border:1px solid var(--line);color:var(--gold-soft);border-radius:9px;padding:8px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .modal .mbody{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;}
+  .modal svg.chart{width:100%;height:100%;max-height:100%;min-width:0;}
+  .modal .mlegend{margin-top:8px;}
+  .rotate-hint{display:none;font-size:11px;color:var(--mist);text-align:center;margin-top:6px;}
+  @media(max-width:700px){.rotate-hint{display:block;}}
+
+  .tip{position:fixed;pointer-events:none;z-index:120;background:#06101d;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font-size:12px;color:var(--paper);opacity:0;transition:opacity .1s;box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:240px;}
+  .tip b{color:var(--gold-soft);}
+  .tip .mono{font-family:'IBM Plex Mono',monospace;}
+  .tip.big{font-size:16px;padding:14px 18px;max-width:320px;border-radius:12px;line-height:1.5;}
+  .tip.big .mono{font-size:15.5px;}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;}}
+
+  /* ============ TABLET (≤ 768px) ============ */
+  @media(max-width:768px){
+    .wrap{padding:0 18px;}
+    .cover{padding:32px 0 28px;margin-bottom:24px;}
+    .cover h1{font-size:28px;}
+    .tools{grid-template-columns:1fr;gap:14px;}
+    .tool{padding:22px 20px 24px;}
+    .tool .ticon{width:44px;height:44px;border-radius:11px;margin-bottom:16px;}
+    .tool .ticon svg{width:22px;height:22px;}
+    .tool h3{font-size:19px;margin-bottom:6px;}
+    .tool p{font-size:14px;}
+    .tool .go{margin-top:14px;}
+    .backbar{padding:14px 0 8px;gap:10px;}
+    .back{font-size:12px;padding:7px 11px;}
+
+    /* schedule */
+    #schedule h1{font-size:24px;}
+    .sch-toolbar{gap:8px;}
+    .sch-toolbar button{padding:7px 10px;font-size:11px;}
+    .sch-toolbar select{font-size:12px;padding:7px 8px;}
+    .sch-legend-bar{gap:8px;}
+    .sch-legend-item{padding:6px 10px;font-size:12px;}
+    .sch-legend-swatch{width:14px;height:14px;}
+    .sch-grid{min-width:600px;}
+    .sch-grid td{height:44px;}
+    .sch-cell{font-size:11px;padding:4px 3px;}
+
+    /* tirz hub */
+    #tirz h1{font-size:24px;}
+
+    /* consultations */
+    .con-pat{padding:16px;}
+    .con-pat-name{font-size:16px;}
+    .con-row{grid-template-columns:30px 1fr 1fr 1fr;gap:6px;}
+    .con-modal{max-width:95vw;}
+
+    /* sim */
+    .layout{grid-template-columns:1fr!important;}
+    .layout main{order:-1;}
+    svg.chart{min-width:100%;min-height:340px;}
+    .panel{border-radius:14px;}
+    .charthead{flex-direction:column;gap:8px;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+
+    /* effects */
+    .fx-cards{grid-template-columns:1fr!important;}
+
+    /* cost */
+    .cost-cards{grid-template-columns:1fr;}
+    .cost-controls{flex-direction:column;}
+  }
+
+  /* ============ MOBILE (≤ 480px) ============ */
+  @media(max-width:480px){
+    .wrap{padding:0 14px;}
+    .cover{padding:24px 0 20px;margin-bottom:18px;}
+    .cover h1{font-size:24px;margin:.2em 0 .25em;}
+    .cover .lede{font-size:14px;}
+    .brand .name{font-size:14px;}
+    .brand .name span{font-size:8px;}
+    .brand .mark{width:26px;height:26px;}
+    .brand{gap:9px;}
+    .eyebrow{font-size:10px;letter-spacing:.2em;}
+    .tools{gap:12px;}
+    .tool{padding:18px 16px 20px;border-radius:14px;}
+    .tool .ticon{width:40px;height:40px;border-radius:10px;margin-bottom:14px;}
+    .tool h3{font-size:17px;}
+    .tool p{font-size:13px;line-height:1.45;}
+    .tool .go{margin-top:12px;font-size:11px;}
+
+    /* schedule mobile */
+    #schedule{padding:18px 0 40px;}
+    #schedule h1{font-size:22px;}
+    #schedule .intro{font-size:13px;margin-bottom:16px;}
+    .sch-toolbar{gap:6px;margin-bottom:14px;}
+    .sch-toolbar button{padding:6px 9px;font-size:10px;border-radius:7px;}
+    .sch-toolbar select{font-size:11px;padding:6px 7px;border-radius:7px;}
+    #schSyncStatus{font-size:10px!important;}
+    .sch-info{font-size:10px!important;}
+    .sch-legend-bar{gap:6px;margin-bottom:14px;}
+    .sch-legend-item{padding:5px 8px;font-size:11px;border-radius:8px;gap:5px;}
+    .sch-legend-swatch{width:12px;height:12px;border-radius:4px;}
+    .sch-legend-dur{font-size:10px;}
+    .sch-grid-wrap{border-radius:10px;margin-bottom:16px;}
+    .sch-grid{min-width:520px;}
+    .sch-grid col.sch-col-time{width:64px;}
+    .sch-grid th{padding:9px 6px;font-size:10px;}
+    .sch-grid td{height:40px;}
+    .sch-grid td:first-child{font-size:11px;padding:0 6px;}
+    .sch-cell{font-size:10px;margin:1px 2px;padding:3px 2px;border-radius:5px;line-height:1.15;}
+
+    /* modals mobile */
+    .sch-modal-overlay{padding:12px;}
+    .sch-modal{padding:20px 18px;border-radius:14px;}
+    .sch-modal h3{font-size:17px;margin-bottom:14px;}
+    .sch-modal .sf label{font-size:10px;}
+    .sch-modal .sf input,.sch-modal .sf select{font-size:13px;padding:8px 10px;}
+    .sch-modal-btns{gap:8px;margin-top:16px;}
+    .sch-modal-btns button{padding:9px 10px;font-size:12px;border-radius:8px;}
+
+    /* tirz */
+    #tirz h1{font-size:22px;}
+    #tirz .intro{font-size:13px;}
+
+    /* consultations mobile */
+    #consult h1{font-size:22px;}
+    #consult .intro{font-size:13px;}
+
+    /* injectables mobile */
+    #inject h1{font-size:22px;}
+    #inject .intro{font-size:13px;}
+    .inj-pat{padding:14px;border-radius:12px;}
+    .inj-dot{width:28px;height:28px;font-size:10px;border-radius:6px;}
+    .inj-phase-sep{margin:0 2px;}
+    .inj-meta{font-size:12px;gap:10px;}
+    .inj-next-info{font-size:11px;}
+    .inj-avulso{font-size:10px;}
+    .inj-modal .sf-row{grid-template-columns:1fr;}
+    .inj-sg-row{grid-template-columns:24px 1fr 50px 1fr 1fr;gap:3px;}
+    .inj-sg-row .isr-kit{font-size:9px;}
+    .inj-sg-row input{font-size:11px;padding:5px 4px;}
+    .con-summary{gap:8px;}
+    .con-scard{padding:10px 12px;border-radius:10px;}
+    .con-scard .csv{font-size:22px;}
+    .con-scard .csl{font-size:11px;}
+    .con-patients{gap:10px;}
+    .con-pat{padding:14px;border-radius:12px;}
+    .con-pat-name{font-size:15px;}
+    .con-badge{font-size:10px;padding:3px 8px;}
+    .con-pat-meta{font-size:12px;gap:10px;}
+    .con-dot{width:30px;height:30px;font-size:11px;border-radius:7px;}
+    .con-pat-next{font-size:11px;}
+    .con-modal{padding:18px 16px;border-radius:14px;}
+    .con-modal h3{font-size:17px;}
+    .con-modal .sf-row{grid-template-columns:1fr;}
+    .con-row{grid-template-columns:24px 1fr;gap:4px;}
+    .con-row .cr-lbl{font-size:9px;}
+    .con-row input{font-size:12px;padding:6px 7px;}
+
+    /* sim mobile */
+    #sim{padding:18px 0 40px;}
+    #sim h1{font-size:22px;}
+    #sim .intro{font-size:13px;margin-bottom:16px;}
+    #sim .wrap{max-width:100%;}
+    .layout{gap:16px!important;}
+    .layout main{order:-1;}
+    svg.chart{min-width:100%;min-height:280px;}
+    .chartcard{padding:12px;border-radius:12px;}
+    .chartcard h2{font-size:15px;}
+    .chartcard .sub{font-size:11px;}
+    .charthead{flex-direction:column;gap:6px;margin-bottom:8px;}
+    .expand{padding:6px 9px;font-size:10px;}
+    .legend{gap:8px;margin-top:8px;font-size:11px;}
+    .legend span{gap:5px;}
+    .swatch{width:12px;}
+    .swatch.dot{width:7px;height:7px;}
+    .statsintro{font-size:12px;margin:12px 0 8px;}
+    .stat .v{font-size:19px;}
+    .stat .k{font-size:11px;}
+    .stat .l{font-size:10px;}
+    .stat{padding:11px 10px;border-radius:10px;}
+    .stats{gap:8px;}
+    .note{font-size:11px;padding:12px 14px;margin-top:14px;border-radius:10px;}
+    .panel{padding:16px;border-radius:12px;}
+    .panel h2{font-size:16px;}
+    .panel .hint{font-size:11px;margin-bottom:12px;}
+    .field{margin-bottom:12px;}
+    .field > label{font-size:10px;margin-bottom:5px;}
+    .field input[type="number"],.field select{font-size:14px!important;padding:9px 10px!important;}
+    .check{padding:9px 10px;border-radius:8px;gap:8px;}
+    .check .ctext{font-size:12px;}
+    .check .ctext small{font-size:10.5px;}
+    .check input{width:18px;height:18px;}
+    .btnrow{gap:6px;}
+    .act{font-size:11px!important;padding:8px 10px!important;border-radius:7px!important;}
+    .dlabel{font-size:10px;margin:12px 0 6px;}
+    .doses-scroll{max-height:200px;padding-right:2px;}
+    .sub-field label{font-size:10px;}
+    .sub-field input,.sub-field select{font-size:14px!important;padding:9px 10px!important;}
+
+    /* effects mobile */
+    #effects h1{font-size:22px;}
+    .fx-search input{font-size:14px;padding:10px 12px;}
+    .fx-name{font-size:15px!important;}
+
+    /* cost mobile */
+    #cost h1{font-size:22px;}
+    .ccard{padding:16px;border-radius:12px;}
+    .ccard .cname{font-size:15px;}
+    .ccard .big{font-size:24px;}
+    .cost-save .sv-v{font-size:24px;}
+    .cost-save{padding:14px 16px;border-radius:12px;}
+    .cbar-row .cbl{font-size:11px;}
+    .cost-edit summary{padding:12px 14px;font-size:12px;}
+    .cost-break{padding:12px 14px;border-radius:12px;}
+    .cost-break .cb-tx{font-size:13px;}
+    .cost-chartcard{padding:14px;border-radius:12px;}
+    .cost-chartcard .cc-title{font-size:14px;}
+    .cost-detail{padding:12px 14px;border-radius:10px;}
+
+    /* fullscreen modal */
+    .modal{padding:10px;}
+    .modal .mhead h3{font-size:14px;}
+    .modal .mclose{padding:6px 10px;font-size:11px;}
+    .modal svg.chart{min-width:0!important;min-height:0!important;}
+
+    /* general */
+    .backbar{padding:12px 0 6px;}
+  }
+
+  /* ============ SMALL MOBILE (≤ 360px) ============ */
+  @media(max-width:360px){
+    .wrap{padding:0 10px;}
+    .cover h1{font-size:21px;}
+    .tool h3{font-size:15px;}
+    .tool p{font-size:12px;}
+    .sch-grid{min-width:460px;}
+    .sch-grid col.sch-col-time{width:54px;}
+    .sch-cell{font-size:9px;}
+    .sch-grid td:first-child{font-size:10px;}
+    svg.chart{min-height:240px;}
+    .panel{padding:14px;}
+    .stat .v{font-size:17px;}
+  }
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<!-- ================= HOME ================= -->
+<section class="view active" id="home">
+  <div class="cover">
+    <div class="wrap cover-inner">
+      <div class="brand">
+        <svg class="mark" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#C9A24E" stroke-width="1.4"/><circle cx="15" cy="15" r="5" fill="#C9A24E"/></svg>
+        <div class="name">Dr. Enguer Beraldo<span>Sistema de gestão médica</span></div>
+      </div>
+      <h1>Gestão <span class="accent">médica</span></h1>
+      <p class="lede">Ferramentas interativas para organização da clínica e apoio às decisões do dia a dia.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="tools" id="tools">
+      <button class="tool" data-tool="schedule">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#E4C982" stroke-width="1.6"/><path d="M3 9h18" stroke="#E4C982" stroke-width="1.6"/><path d="M8 2v4M16 2v4" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round"/><rect x="7" y="12" width="3" height="2" rx=".5" fill="#E4C982"/><rect x="14" y="12" width="3" height="2" rx=".5" fill="#9DB2C8"/></svg>
+        </div>
+        <h3>Grade de horários</h3>
+        <p>Visualize e edite a organização semanal dos atendimentos: consultas, injetáveis, bloqueios e telemedicina.</p>
+        <div class="go">Abrir ferramenta →</div>
+      </button>
+
+      <button class="tool" data-tool="consult">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" stroke="#E4C982" stroke-width="1.6"/><rect x="8" y="2" width="8" height="4" rx="1" stroke="#E4C982" stroke-width="1.6"/><path d="M9 12h6M9 16h4" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Controle de consultas</h3>
+        <p>Plano de acompanhamento dos pacientes: datas sugeridas, realizadas, alertas e próximas consultas.</p>
+        <div class="go">Abrir ferramenta →</div>
+      </button>
+
+      <button class="tool" data-tool="inject">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M18.5 2.5l3 3M14 7l-8.5 8.5a2 2 0 000 2.83l.17.17a2 2 0 002.83 0L17 10" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round"/><path d="M14 7l3-3 3 3-3 3" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 14l5 5" stroke="#E4C982" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Sessões de injetáveis IM</h3>
+        <p>Protocolo de 12 sessões em 3 fases, rotação de kits, avulsos e acompanhamento por paciente.</p>
+        <div class="go">Abrir ferramenta →</div>
+      </button>
+
+      <button class="tool" data-tool="tirz">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v13M9 6l3-3 3 3" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="16" width="10" height="5" rx="2" stroke="#E4C982" stroke-width="1.6"/></svg>
+        </div>
+        <h3>Tirzepatida</h3>
+        <p>Simulador de acúmulo, manejo de efeitos colaterais e comparativo de custos manipulada × Mounjaro.</p>
+        <div class="go">Abrir ferramentas →</div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TIRZEPATIDA HUB ================= -->
+<section class="view" id="tirz">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHomeTirz">← Início</button>
+      <div class="eyebrow">Tirzepatida</div>
+    </div>
+    <h1>Ferramentas de <span class="accent">tirzepatida</span></h1>
+    <p class="intro" style="margin-bottom:28px;">Escolha a ferramenta que deseja usar.</p>
+
+    <div class="tools">
+      <button class="tool" data-tool="sim">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 17c3-1 4-9 6-9s2 6 4 6 2-7 4-7 2 4 4 4" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round"/><path d="M3 21h18" stroke="#9DB2C8" stroke-width="1.2"/></svg>
+        </div>
+        <h3>Simulador de acúmulo de doses</h3>
+        <p>Monte um esquema de doses semanais e veja quanto da medicação se acumula no corpo ao longo do tempo, pela meia-vida.</p>
+        <div class="go">Abrir ferramenta →</div>
+      </button>
+
+      <button class="tool" data-tool="effects">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#E4C982" stroke-width="1.6"/><path d="M9 10h.01M15 10h.01M8.5 15c1-1.2 5-1.2 7 0" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Manejo de efeitos colaterais</h3>
+        <p>Guia rápido por sintoma: o que orientar em casa, sinais de alerta e quando reavaliar a conduta ou a dose.</p>
+        <div class="go">Abrir ferramenta →</div>
+      </button>
+
+      <button class="tool" data-tool="cost">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round"/><path d="M16 7.5C16 5.6 14.2 4.5 12 4.5S8 5.6 8 7.5 9.8 10.5 12 10.5s4 1.1 4 3-1.8 3-4 3-4-1.1-4-3" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Custos: manipulada × Mounjaro</h3>
+        <p>Compare o investimento na tirzepatida manipulada da clínica com o preço da caneta Mounjaro na farmácia.</p>
+        <div class="go">Abrir ferramenta →</div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONSULTATIONS ================= -->
+<section class="view" id="consult">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHome5">← Início</button>
+      <div class="eyebrow">Plano de acompanhamento</div>
+    </div>
+    <h1>Controle de <span class="accent">consultas</span></h1>
+    <p class="intro">Gerencie os planos de acompanhamento dos pacientes. Clique em um paciente para editar detalhes e registrar consultas realizadas.</p>
+
+    <div class="con-toolbar">
+      <button id="conAddPat">+ Paciente</button>
+      <button id="conShowHidden">Ocultos (0)</button>
+      <span class="con-sync" id="conSync">Sincronizando...</span>
+    </div>
+
+    <div class="con-summary" id="conSummary"></div>
+    <div class="con-patients" id="conPatients"></div>
+    <div class="con-hidden-list" id="conHiddenList" style="display:none">
+      <h3>Pacientes ocultos</h3>
+      <div id="conHiddenItems"></div>
+    </div>
+  </div>
+</section>
+
+<!-- consultation modal -->
+<div class="con-modal-overlay" id="conModal">
+  <div class="con-modal">
+    <h3 id="conModalTitle">Novo paciente</h3>
+    <div class="sf-row">
+      <div class="sf"><label>Nome do paciente</label><input type="text" id="conName"></div>
+      <div class="sf"><label>Indicações recebidas</label><input type="number" id="conIndic" min="0" value="0"></div>
+    </div>
+    <div class="sf-row">
+      <div class="sf"><label>Início do plano</label><input type="date" id="conStart"></div>
+      <div class="sf"><label>Duração (meses)</label><input type="number" id="conDur" min="1" max="24" value="6"></div>
+    </div>
+    <div class="sf">
+      <label>Final do plano (calculado)</label>
+      <input type="date" id="conEnd" disabled style="opacity:.7;">
+    </div>
+    <div class="sf-row">
+      <div class="sf"><label>Consultas no plano</label><input type="number" id="conTotal" min="1" max="12" value="6"></div>
+      <div class="sf"><label>Próx. consulta (obs)</label><input type="text" id="conNext" placeholder="Data ou observação"></div>
+    </div>
+
+    <div class="con-consults-edit">
+      <h4>Consultas</h4>
+      <div id="conRows"></div>
+    </div>
+
+    <div class="con-modal-btns">
+      <button class="con-cancel" id="conCancel">Cancelar</button>
+      <button class="con-delete" id="conDelete" style="display:none">Excluir</button>
+      <button class="con-save" id="conSave">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- delete confirmation modal -->
+<div class="con-modal-overlay" id="conConfirmModal">
+  <div class="sch-modal" style="max-width:380px;text-align:center;">
+    <h3 style="color:var(--danger);">Excluir paciente?</h3>
+    <p style="color:var(--mist);font-size:14px;margin:0 0 8px;">Tem certeza que deseja excluir o cadastro de:</p>
+    <p style="color:#fff;font-size:16px;font-weight:600;margin:0 0 20px;" id="conConfirmName"></p>
+    <p style="color:var(--mist);font-size:12px;margin:0 0 20px;">Esta ação não pode ser desfeita.</p>
+    <div class="con-modal-btns">
+      <button class="con-cancel" id="conConfirmCancel">Cancelar</button>
+      <button class="con-save" id="conConfirmYes" style="background:var(--danger);color:#fff;">Sim, excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= INJECTABLES ================= -->
+<section class="view" id="inject">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHome6">← Início</button>
+      <div class="eyebrow">Protocolo IM</div>
+    </div>
+    <h1>Sessões de <span class="accent">injetáveis</span></h1>
+    <p class="intro">Protocolo de 12 sessões em 3 fases com rotação de kits. Clique em um paciente para registrar sessões.</p>
+
+    <details style="margin-bottom:18px;background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:0;">
+      <summary style="padding:14px 18px;cursor:pointer;font-size:13px;color:var(--gold-soft);font-weight:600;list-style:none;">▸ Composição dos kits, ordem das sessões e injetáveis avulsos</summary>
+      <div style="padding:0 18px 18px;font-size:13px;color:var(--mist);line-height:1.7;">
+
+        <div style="display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:18px;">
+          <div style="background:var(--ink);border-radius:10px;padding:14px 16px;border:1px solid var(--line-soft);">
+            <div style="font-weight:600;color:var(--gold-soft);margin-bottom:8px;font-size:14px;">Kit 1 — Otimização Nutricional e Energética</div>
+            <div style="margin-bottom:6px;"><b style="color:var(--paper);">Complexo B (1 ml)</b> — Metabolismo energético, sistema nervoso e síntese de neurotransmissores</div>
+            <div style="padding-left:14px;font-size:12px;margin-bottom:6px;line-height:1.6;">
+              • Tiamina (B1): 5 mg/ml<br>
+              • Riboflavina (B2): 1,25 mg/ml<br>
+              • Nicotinamida (B3): 15 mg/ml<br>
+              • Piridoxina (B6): 1,25 mg/ml<br>
+              • D-Pantenol (B5): 3 mg/ml
+            </div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">Metilcobalamina (B12) 2.500 mcg (1 ml)</b> — Função neurológica, produção de glóbulos vermelhos e disposição</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">Curcumina 200 mg (2 ml)</b> — Anti-inflamatório e antioxidante sistêmico; melhora sensibilidade à insulina</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">L-Carnitina 600 mg (2 ml)</b> — Transporta gordura para as mitocôndrias; favorece a queima de gordura</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">NAC (N-Acetilcisteína) 300 mg (2 ml)</b> — Precursor da glutationa; detoxificação hepática e redução da inflamação</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">Lidocaína 2% (1 ml)</b> — Anestésico local (conforto na aplicação)</div>
+            <div style="color:var(--gold);font-size:11px;font-family:'IBM Plex Mono',monospace;margin-top:6px;">Volume total: 9 ml</div>
+          </div>
+
+          <div style="background:var(--ink);border-radius:10px;padding:14px 16px;border:1px solid var(--line-soft);">
+            <div style="font-weight:600;color:var(--gold-soft);margin-bottom:8px;font-size:14px;">Kit 2 — Suporte Mitocondrial</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">L-Carnitina 600 mg (2 ml)</b> — Transporta gordura para as mitocôndrias; favorece a queima de gordura</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">Curcumina 200 mg (2 ml)</b> — Anti-inflamatório; potencializa a função mitocondrial</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">Coenzima Q10 100 mg (2 ml, veículo oleoso)</b> — Produção de energia (ATP) nas mitocôndrias; antioxidante mitocondrial</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">Lidocaína 2% (1 ml)</b> — Anestésico local (conforto na aplicação)</div>
+            <div style="color:var(--gold);font-size:11px;font-family:'IBM Plex Mono',monospace;margin-top:6px;">Volume total: 7 ml</div>
+          </div>
+
+          <div style="background:var(--ink);border-radius:10px;padding:14px 16px;border:1px solid var(--line-soft);">
+            <div style="font-weight:600;color:var(--gold-soft);margin-bottom:8px;font-size:14px;">Kit 3 — Antioxidante e Anti-inflamatório</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">NAC (N-Acetilcisteína) 300 mg (2 ml)</b> — Precursor da glutationa; detoxificação e redução da inflamação sistêmica</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">L-Glutationa 100 mg (2 ml)</b> — Principal antioxidante intracelular; detoxificação hepática e regeneração celular</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">Coenzima Q10 100 mg (2 ml, veículo oleoso)</b> — Energia mitocondrial e proteção contra estresse oxidativo</div>
+            <div style="margin-bottom:4px;"><b style="color:var(--paper);">Lidocaína 2% (1 ml)</b> — Anestésico local (conforto na aplicação)</div>
+            <div style="color:var(--gold);font-size:11px;font-family:'IBM Plex Mono',monospace;margin-top:6px;">Volume total: 7 ml</div>
+          </div>
+        </div>
+
+        <div style="background:var(--ink);border-radius:10px;padding:14px 16px;border:1px solid var(--line-soft);margin-bottom:18px;">
+          <div style="font-weight:600;color:var(--gold-soft);margin-bottom:8px;font-size:14px;">Injetáveis Avulsos</div>
+          <div style="margin-bottom:4px;"><b style="color:var(--paper);">Vitamina D (Colecalciferol) 600.000 UI (1 ml, oleoso)</b> — Imunidade, metabolismo do cálcio, função muscular e hormonal</div>
+          <div style="margin-bottom:4px;"><b style="color:var(--paper);">Complexo B + B12</b> — B1, B2, B3, B5, B6 + Metilcobalamina 2.500 mcg (2 ml) — Energia, sistema nervoso e metabolismo</div>
+        </div>
+
+        <div style="background:var(--ink);border-radius:10px;padding:14px 16px;border:1px solid var(--line-soft);">
+          <div style="font-weight:600;color:var(--gold-soft);margin-bottom:10px;font-size:14px;">Rotação dos kits por sessão</div>
+          <div style="font-size:13px;line-height:1.8;">
+            <div style="margin-bottom:8px;"><b style="color:var(--paper);">Fase 1 — Otimização Nutricional (intervalo ~10 dias)</b><br>
+              Sessão 1: Otimização Nutricional · Sessão 2: Antioxidante · Sessão 3: Otimização Nutricional · Sessão 4: Antioxidante</div>
+            <div style="margin-bottom:8px;"><b style="color:var(--paper);">Fase 2 — Suporte Metabólico (intervalo ~10 dias)</b><br>
+              Sessão 5: Suporte Mitocondrial · Sessão 6: Antioxidante · Sessão 7: Suporte Mitocondrial · Sessão 8: Suporte Mitocondrial</div>
+            <div><b style="color:var(--paper);">Fase 3 — Consolidação e Manutenção (intervalo ~14 dias)</b><br>
+              Sessão 9: Antioxidante · Sessão 10: Suporte Mitocondrial · Sessão 11: Otimização Nutricional · Sessão 12: Antioxidante</div>
+          </div>
+        </div>
+
+      </div>
+    </details>
+
+    <div class="con-toolbar">
+      <button id="injAddPat">+ Paciente</button>
+      <button id="injShowHidden">Ocultos (0)</button>
+      <span class="con-sync" id="injSync">Sincronizando...</span>
+    </div>
+
+    <div class="con-summary" id="injSummary"></div>
+    <div id="injPatients"></div>
+    <div class="con-hidden-list" id="injHiddenList" style="display:none">
+      <h3>Pacientes ocultos</h3>
+      <div id="injHiddenItems"></div>
+    </div>
+  </div>
+</section>
+
+<!-- inject modal -->
+<div class="con-modal-overlay" id="injModal">
+  <div class="con-modal inj-modal">
+    <h3 id="injModalTitle">Novo paciente</h3>
+    <div class="sf-row">
+      <div class="sf"><label>Nome do paciente</label><input type="text" id="injName"></div>
+      <div class="sf"><label>Próx. sessão (obs)</label><input type="text" id="injObs" placeholder="Observação livre"></div>
+    </div>
+    <div class="sf-row">
+      <div class="sf"><label>Início do plano</label><input type="date" id="injStart"></div>
+      <div class="sf"><label>Duração (meses)</label><input type="number" id="injDur" min="1" max="24" value="6"></div>
+    </div>
+    <div class="sf">
+      <label>Final do plano (calculado)</label>
+      <input type="date" id="injEnd" disabled style="opacity:.7;">
+    </div>
+    <div class="inj-sessions-grid">
+      <h4>Sessões (12) — intervalo, data sugerida e data realizada</h4>
+      <div id="injSessRows"></div>
+      <h4 style="margin-top:14px;">Avulsos — última aplicação</h4>
+      <div class="inj-sg-avulso">
+        <div><label>Vitamina D</label><input type="date" id="injAvVitD"></div>
+        <div><label>Complexo B + B12</label><input type="date" id="injAvB12"></div>
+      </div>
+    </div>
+    <div class="con-modal-btns" style="margin-top:20px;">
+      <button class="con-cancel" id="injCancel">Cancelar</button>
+      <button class="con-delete" id="injDelete" style="display:none">Excluir</button>
+      <button class="con-save" id="injSave">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="con-modal-overlay" id="injConfirmModal">
+  <div class="sch-modal" style="max-width:380px;text-align:center;">
+    <h3 style="color:var(--danger);">Excluir paciente?</h3>
+    <p style="color:var(--mist);font-size:14px;margin:0 0 8px;">Tem certeza que deseja excluir:</p>
+    <p style="color:#fff;font-size:16px;font-weight:600;margin:0 0 20px;" id="injConfirmName"></p>
+    <p style="color:var(--mist);font-size:12px;margin:0 0 20px;">Esta ação não pode ser desfeita.</p>
+    <div class="con-modal-btns">
+      <button class="con-cancel" id="injConfirmCancel">Cancelar</button>
+      <button class="con-save" id="injConfirmYes" style="background:var(--danger);color:#fff;">Sim, excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= SCHEDULE ================= -->
+<section class="view" id="schedule">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHome4">← Início</button>
+      <div class="eyebrow">Organização da clínica</div>
+    </div>
+    <h1>Grade de <span class="accent">horários</span></h1>
+    <p class="intro">Visualize a organização semanal dos atendimentos. Clique em qualquer célula para editar, ou nos itens da legenda para ajustar cores e duração.</p>
+
+    <div class="sch-toolbar">
+      <button id="schAddSlot">+ Horário</button>
+      <button id="schAddActivity">+ Tipo de agendamento</button>
+      <select id="schGranularity">
+        <option value="10">10 em 10 min</option>
+        <option value="15">15 em 15 min</option>
+        <option value="30" selected>30 em 30 min</option>
+        <option value="60">60 em 60 min</option>
+      </select>
+      <span id="schSyncStatus" style="font-size:12px;font-family:'IBM Plex Mono',monospace;color:#9be3cd;">Sincronizando...</span>
+      <span class="sch-info" id="schInfo"></span>
+    </div>
+
+    <div class="sch-legend-bar" id="schLegend"></div>
+    <div class="sch-scroll-hint" id="schScrollHint" style="display:none;font-size:12px;color:var(--mist);margin-bottom:8px;font-family:'IBM Plex Mono',monospace;">← Deslize para ver todos os dias →</div>
+    <div class="sch-grid-wrap">
+      <table class="sch-grid" id="schTable">
+        <colgroup id="schColgroup"></colgroup>
+        <thead><tr id="schHead"></tr></thead>
+        <tbody id="schBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- schedule modals -->
+<div class="sch-modal-overlay" id="schCellModal">
+  <div class="sch-modal">
+    <h3 id="schCellTitle">Editar célula</h3>
+    <div class="sf">
+      <label>Tipo de agendamento</label>
+      <select id="schCellActivity"></select>
+    </div>
+    <div class="sf">
+      <label>Ocupar quantos slots</label>
+      <select id="schCellSpan"></select>
+    </div>
+    <div class="sch-modal-btns">
+      <button class="sch-cancel" id="schCellCancel">Cancelar</button>
+      <button class="sch-delete" id="schCellClear">Limpar</button>
+      <button class="sch-save" id="schCellSave">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="sch-modal-overlay" id="schActModal">
+  <div class="sch-modal">
+    <h3 id="schActTitle">Editar tipo de agendamento</h3>
+    <div class="sf">
+      <label>Nome</label>
+      <input type="text" id="schActName">
+    </div>
+    <div class="sf">
+      <label>Duração padrão</label>
+      <select id="schActDuration"></select>
+    </div>
+    <div class="sf">
+      <label>Cor</label>
+      <input type="color" id="schActColor" value="#C9A24E">
+    </div>
+    <div class="sch-modal-btns">
+      <button class="sch-cancel" id="schActCancel">Cancelar</button>
+      <button class="sch-delete" id="schActDelete">Excluir</button>
+      <button class="sch-save" id="schActSave">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="sch-modal-overlay" id="schSlotModal">
+  <div class="sch-modal">
+    <h3>Adicionar horário</h3>
+    <div class="sf">
+      <label>Horário de início</label>
+      <input type="time" id="schSlotTime" value="18:30">
+      <small>Será adicionado como um slot de 30 min</small>
+    </div>
+    <div class="sch-modal-btns">
+      <button class="sch-cancel" id="schSlotCancel">Cancelar</button>
+      <button class="sch-save" id="schSlotSave">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= EFFECTS ================= -->
+<section class="view" id="effects">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHome2">← Tirzepatida</button>
+      <div class="eyebrow">Apoio à conduta</div>
+    </div>
+    <h1>Manejo de <span class="accent">efeitos colaterais</span></h1>
+    <p class="intro">Selecione um sintoma para ver as orientações iniciais, o que pode ser usado sob prescrição e quando procurar avaliação. Conteúdo educativo; a conduta é sempre individualizada pelo médico.</p>
+
+    <div class="fx-search">
+      <input type="text" id="fxSearch" placeholder="Filtrar sintoma (ex.: náusea, cabelo, prisão de ventre)…" autocomplete="off">
+    </div>
+    <div class="fx-grid" id="fxGrid"></div>
+
+    <div class="fx-alert">
+      <b>⚠ Sinais que pedem avaliação imediata:</b> dor abdominal intensa e persistente (pancreatite), dor no lado superior direito do abdome com febre ou icterícia (vesícula), desidratação importante por vômitos ou diarreia, ou reação alérgica (inchaço, falta de ar, urticária).
+    </div>
+  </div>
+</section>
+
+<!-- ================= COST ================= -->
+<section class="view" id="cost">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHome3">← Tirzepatida</button>
+      <div class="eyebrow">Comparativo de custos</div>
+    </div>
+    <h1>Custos: <span class="accent">manipulada × Mounjaro</span></h1>
+    <p class="intro">Compare o investimento na tirzepatida manipulada da clínica com a caneta Mounjaro da farmácia ao longo do tratamento. Aplicações semanais (4 por mês). Escolha a dose de cada mês — o cálculo acompanha o escalonamento. Todos os preços são editáveis.</p>
+
+    <div class="cost-controls">
+      <div class="cost-field">
+        <label for="costMonths">Período do tratamento (meses)</label>
+        <input type="number" id="costMonths" min="1" max="12" value="3" step="1">
+      </div>
+      <div class="cost-field">
+        <label for="costSession">Preço da sessão na clínica (R$)</label>
+        <div class="ce-inp"><span class="pre">R$</span><input type="number" id="costSession" min="0" step="1" value="300"></div>
+      </div>
+    </div>
+
+    <div class="cost-monthwrap">
+      <div class="cmw-title">Dose de cada mês</div>
+      <div class="cost-months" id="costMonthsGrid"></div>
+    </div>
+
+    <div class="cost-cards" id="costCards"></div>
+    <div class="cost-bars" id="costBars"></div>
+
+    <div class="cost-chartcard">
+      <div class="cc-head">
+        <div class="cc-title">Gasto acumulado ao longo do tratamento</div>
+        <div class="cc-legend">
+          <span><i class="swatch" style="background:#7fd3bb"></i> Manipulada (clínica)</span>
+          <span><i class="swatch" style="background:#E4C982"></i> Mounjaro (farmácia)</span>
+        </div>
+      </div>
+      <div id="costChart"></div>
+    </div>
+
+    <details class="cost-edit">
+      <summary>Atualizar preço das canetas Mounjaro (por caixa)</summary>
+      <div class="cost-edit-body">
+        <div class="cost-edit-block">
+          <div class="ceb-title">Preço da caixa de Mounjaro por dose — cada caixa traz 4 canetas/aplicações</div>
+          <div class="ce-grid" id="cePharm"></div>
+        </div>
+        <p class="ce-note">Informe o preço da CAIXA conforme a dose da caneta; o app divide por 4 para obter o valor por aplicação. Os valores iniciais vêm da sua planilha (Droga Raia/Drogasil, programa Lilly) e devem ser conferidos na cotação atual. O preço da sessão da manipulada é único, independente da dose.</p>
+      </div>
+    </details>
+
+    <div class="cost-foot" id="costFoot"></div>
+  </div>
+</section>
+
+<!-- ================= SIMULATOR ================= -->
+<section class="view" id="sim">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHome">← Tirzepatida</button>
+      <div class="eyebrow">Farmacocinética interativa</div>
+    </div>
+
+    <h1>Simulador de <span class="accent">acúmulo da tirzepatida</span></h1>
+    <p class="intro">Defina o número de semanas e a dose de cada uma. Ative o desmame para configurar quantas semanas terá e a dose de cada uma. O gráfico soma as doses ao longo do tempo considerando a meia-vida de 5 dias.</p>
+
+    <div class="layout">
+      <!-- controls -->
+      <aside class="panel" aria-label="Controles">
+        <h2>Parâmetros</h2>
+        <p class="hint">Tudo é editável; o gráfico atualiza sozinho.</p>
+
+        <div class="field">
+          <label for="nweeks">Semanas de tratamento</label>
+          <input type="number" id="nweeks" min="1" max="48" value="24" step="1">
+        </div>
+
+        <div class="btnrow">
+          <button class="act" id="applyStd">Escalonamento padrão</button>
+          <button class="act ghost" id="fillSame">Igualar à 1ª</button>
+        </div>
+
+        <div class="dlabel"><span>Doses do tratamento</span><span class="ln"></span></div>
+        <div class="doses-scroll" id="treatList"></div>
+
+        <div class="field" style="margin-top:18px;">
+          <label>Desmame</label>
+          <label class="check" for="taperon">
+            <input type="checkbox" id="taperon">
+            <span class="ctext">Incluir desmame
+              <small>Semanas de redução após o tratamento, com a dose que você definir para cada uma.</small>
+            </span>
+          </label>
+          <div class="sub-field" id="tapercfg" style="display:none;">
+            <label for="taperweeks">Quantas semanas de desmame</label>
+            <input type="number" id="taperweeks" min="1" max="12" value="3" step="1">
+          </div>
+        </div>
+
+        <div id="taperBlock" style="display:none;">
+          <div class="dlabel taper"><span>Doses do desmame</span><span class="ln"></span></div>
+          <div class="doses-scroll" id="taperList"></div>
+        </div>
+
+        <div class="field" style="margin-top:18px;">
+          <label>Comparação</label>
+          <label class="check" for="compareon">
+            <input type="checkbox" id="compareon">
+            <span class="ctext">Sobrepor um 2º esquema (B)
+              <small>Plota um segundo escalonamento por cima, para comparar duas estratégias de dose.</small>
+            </span>
+          </label>
+        </div>
+
+        <div id="compareBlock" style="display:none;">
+          <div class="btnrow">
+            <button class="act" id="applyStdB">Padrão no B</button>
+            <button class="act ghost" id="copyAtoB">Copiar de A</button>
+          </div>
+          <div class="dlabel cmp"><span>Doses do esquema B</span><span class="ln"></span></div>
+          <div class="doses-scroll" id="bList"></div>
+        </div>
+
+        <div class="field" style="margin-top:18px;">
+          <label>Fracionamento</label>
+          <label class="check" for="fracon">
+            <input type="checkbox" id="fracon">
+            <span class="ctext">Fracionar em 2 aplicações/semana (C)
+              <small>Divide a dose semanal do tratamento (A) em duas aplicações: uma no 1º dia (junto da semana) e outra no 5º dia. Sobrepõe um 3º esquema.</small>
+            </span>
+          </label>
+          <div class="sub-field" id="fraccfg" style="display:none;">
+            <label for="fracmode">Como dividir a dose</label>
+            <select id="fracmode">
+              <option value="equal" selected>Igualmente (metade em cada)</option>
+              <option value="custom">Personalizar cada aplicação</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="fracBlock" style="display:none;">
+          <div class="dlabel frac"><span>Aplicações do esquema C (1º e 5º dia)</span><span class="ln"></span></div>
+          <div class="doses-scroll" id="cList"></div>
+        </div>
+
+        <div class="field" style="margin-top:18px;">
+          <label>Fase sem aplicação</label>
+          <label class="check" for="washon">
+            <input type="checkbox" id="washon">
+            <span class="ctext">Mostrar 4 semanas sem aplicação
+              <small>Acrescenta 4 semanas finais sem dose para visualizar quanto ainda permanece no organismo.</small>
+            </span>
+          </label>
+        </div>
+
+        <div class="field" style="margin-top:6px;">
+          <label for="hl">Meia-vida (dias)</label>
+          <input type="number" id="hl" min="1" max="10" value="5" step="0.5">
+        </div>
+      </aside>
+
+      <!-- chart -->
+      <main>
+        <div class="chartcard">
+          <div class="charthead">
+            <div>
+              <h2>Medicação acumulada no corpo</h2>
+              <p class="sub">Eixo: <b style="color:var(--gold-soft)">mg ainda presentes</b> no corpo (soma do que resta de cada dose).</p>
+            </div>
+            <button class="expand" id="expandBtn" title="Ver em tela cheia">⛶ Expandir</button>
+          </div>
+          <div class="chart-holder">
+            <svg class="chart" id="chart" viewBox="0 0 1000 500" role="img" aria-label="Gráfico da concentração acumulada de tirzepatida"></svg>
+          </div>
+          <div class="legend" id="legend">
+            <span class="aleg"><i class="swatch" style="background:#E4C982"></i> <span class="lbl">Total presente (mg)</span></span>
+            <span class="cmpleg" style="display:none;"><i class="swatch" style="background:#7fd3bb"></i> Esquema B</span>
+            <span class="fracleg" style="display:none;"><i class="swatch" style="background:#e87fb0"></i> Esquema C (fracionado)</span>
+            <span><i class="swatch dot" style="background:#C9A24E"></i> Aplicação</span>
+            <span class="washleg"><i class="swatch dash"></i> Sem aplicação</span>
+          </div>
+
+          <p class="statsintro" id="statsintro"></p>
+          <div class="stats" id="stats"></div>
+
+          <div class="note">
+            <b>Como ler.</b> O eixo mostra os <b>mg da medicação que ainda estão no corpo</b> a cada momento. Cada dose decai pela metade a cada 5 dias; a curva dourada é a soma do que resta de todas as doses anteriores mais a dose atual. Por isso ela sobe em "dente de serra" e tende a um platô (equilíbrio) quando a dose é mantida; no desmame, desce em degraus. <b>Importante:</b> isto é o <b>mg administrado que ainda não foi eliminado</b> (modelo didático pela meia-vida), e não a concentração medida no sangue (ng/mL), que depende de peso, distribuição e fatores individuais.
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+
+<!-- fullscreen modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Gráfico em tela cheia">
+  <div class="mhead">
+    <h3>Medicação acumulada no corpo (mg)</h3>
+    <button class="mclose" id="mclose">Fechar ✕</button>
+  </div>
+  <div class="mbody"><svg class="chart" id="chartFull" viewBox="0 0 1000 500"></svg></div>
+  <div class="legend mlegend">
+    <span class="aleg"><i class="swatch" style="background:#E4C982"></i> <span class="lbl">Total presente (mg)</span></span>
+    <span class="cmpleg" style="display:none;"><i class="swatch" style="background:#7fd3bb"></i> Esquema B</span>
+            <span class="fracleg" style="display:none;"><i class="swatch" style="background:#e87fb0"></i> Esquema C (fracionado)</span>
+    <span><i class="swatch dot" style="background:#C9A24E"></i> Aplicação</span>
+    <span class="washleg"><i class="swatch dash"></i> Sem aplicação</span>
+  </div>
+  <div class="rotate-hint">Gire o aparelho na horizontal para ver melhor.</div>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============ FIREBASE INIT ============
+  firebase.initializeApp({
+    apiKey: "AIzaSyBtpUuhley5T_sL1SezVliPK7CfyyfskF0",
+    authDomain: "gestao-medica-9ead6.firebaseapp.com",
+    databaseURL: "https://gestao-medica-9ead6-default-rtdb.firebaseio.com",
+    projectId: "gestao-medica-9ead6",
+    storageBucket: "gestao-medica-9ead6.firebasestorage.app",
+    messagingSenderId: "882921430579",
+    appId: "1:882921430579:web:121382d9a5325a74cf0d46"
+  });
+  var fbDb = firebase.database();
+  var fbRef = fbDb.ref('schedule');
+
+  var OPTS=[0,2.5,5,7.5,10,12.5,15], REF=5, SPD=4, WASH=4;
+  var STD=[2.5,2.5,2.5,2.5,5,5,5,5,7.5,7.5,7.5,7.5,10,10,10,10,12.5,12.5,12.5,12.5,15,15,15,15];
+
+  var treat=[], taper=[], dosesB=[], fracC=[];
+  var el=function(id){return document.getElementById(id);};
+  var E={
+    home:el('home'), sim:el('sim'),
+    nweeks:el('nweeks'), hl:el('hl'),
+    taperon:el("taperon"), taperweeks:el("taperweeks"),
+    taperBlock:el('taperBlock'), taperList:el('taperList'), treatList:el('treatList'),
+    washon:el('washon'),
+    compareon:el('compareon'), compareBlock:el('compareBlock'), bList:el('bList'),
+    fracon:el('fracon'), fracmode:el('fracmode'), fracBlock:el('fracBlock'), cList:el('cList'),
+    chart:el('chart'), chartFull:el('chartFull'),
+    stats:el('stats'), statsintro:el('statsintro'),
+    legend:el('legend'),
+    tip:el('tip'), modal:el('modal')
+  };
+  E.tapercfg=el('tapercfg');
+  var COLOR={a:'#E4C982', aMark:'#C9A24E', b:'#7fd3bb', bMark:'#4FA890', c:'#e87fb0', cMark:'#cf5d92', wash:'#5fa8d3'};
+  var FRAC_OFF=[0,4]; // dia 0 (junto com a padrao) e dia 4
+
+  function clamp(v,a,b){v=Math.round(v||0);return Math.max(a,Math.min(b,v));}
+  function nearest(v){var b=OPTS[0],bd=1e9;OPTS.forEach(function(o){var d=Math.abs(o-v);if(d<bd){bd=d;b=o;}});return b;}
+
+  function buildStandard(n){var a=[];for(var i=0;i<n;i++)a.push(STD[i]!==undefined?STD[i]:15);return a;}
+  function defaultTaper(last,weeks){
+    var oi=OPTS.indexOf(nearest(last)),step=oi-1,arr=[];
+    for(var i=0;i<weeks;i++){arr.push(OPTS[Math.max(1,step)]);step--;if(step<1)step=1;}
+    return arr;
+  }
+
+  function syncLengths(){
+    var n=clamp(parseInt(E.nweeks.value,10),1,48); E.nweeks.value=n;
+    while(treat.length<n) treat.push(treat.length?treat[treat.length-1]:2.5);
+    if(treat.length>n) treat.length=n;
+    if(E.taperon.checked){
+      var tw=clamp(parseInt(E.taperweeks.value,10),1,12); E.taperweeks.value=tw;
+      if(taper.length!==tw){ taper=defaultTaper(treat[treat.length-1], tw); }
+    }
+    // keep scheme B the same dosing length as A
+    if(E.compareon.checked){
+      var dl=dosingWeeks().length;
+      while(dosesB.length<dl) dosesB.push(dosesB.length?dosesB[dosesB.length-1]:2.5);
+      if(dosesB.length>dl) dosesB.length=dl;
+    }
+    // keep scheme C (fractionated) pairs synced to dosing weeks; default = half of A
+    if(E.fracon.checked){
+      var dw=dosingWeeks();
+      if(fracC.length!==dw.length){ fracC=dw.map(function(d){return [d/2,d/2];}); }
+      // in equal mode, always mirror A split in half
+      if(E.fracmode.value==='equal'){ fracC=dw.map(function(d){return [d/2,d/2];}); }
+    }
+  }
+
+  function dosingWeeks(){ return E.taperon.checked ? treat.concat(taper) : treat.slice(); }
+  function washTail(){ return E.washon.checked ? WASH : 0; }
+  function allWeeks(){
+    var w=dosingWeeks();
+    for(var i=0;i<washTail();i++) w.push(0);
+    return w;
+  }
+  function allWeeksB(){
+    var w=dosesB.slice();
+    for(var i=0;i<washTail();i++) w.push(0);
+    return w;
+  }
+
+  function tagFor(cur,prev){
+    if(cur===0) return ['off','sem dose'];
+    if(prev===null) return ['same','início'];
+    if(cur>prev) return ['up','▲'];
+    if(cur<prev) return ['down','▼'];
+    return ['same','mantém'];
+  }
+
+  function clampDose(v){ v=parseFloat(v); if(isNaN(v)) v=0; if(v<0) v=0; if(v>15) v=15; return Math.round(v*100)/100; }
+
+  function liveUpdate(){
+    currentSim=simulate(); draw(E.chart,currentSim);
+    if(E.modal.classList.contains('open')) draw(E.chartFull,currentSim);
+    renderStats(currentSim); refreshTags();
+  }
+
+  function renderDoseLists(){
+    var html='';
+    for(var i=0;i<treat.length;i++){
+      var t=tagFor(treat[i], i>0?treat[i-1]:null);
+      html+='<div class="wkrow"><span class="wk">Sem '+(i+1)+'</span>'
+        +'<div class="dinput"><input type="number" min="0" max="15" step="0.5" value="'+treat[i]+'" data-g="t" data-i="'+i+'"><span class="unit">mg</span></div>'
+        +'<span class="tag '+t[0]+'">'+t[1]+'</span></div>';
+    }
+    E.treatList.innerHTML=html;
+
+    if(E.taperon.checked){
+      var th='';
+      for(var j=0;j<taper.length;j++){
+        var prev = j>0?taper[j-1]:treat[treat.length-1];
+        var tt=tagFor(taper[j], prev);
+        th+='<div class="wkrow tpr"><span class="wk">Sem '+(treat.length+j+1)+'</span>'
+          +'<div class="dinput"><input type="number" min="0" max="15" step="0.5" value="'+taper[j]+'" data-g="p" data-i="'+j+'"><span class="unit">mg</span></div>'
+          +'<span class="tag '+tt[0]+'">'+tt[1]+'</span></div>';
+      }
+      E.taperList.innerHTML=th;
+    }
+
+    if(E.compareon.checked){
+      var bh='';
+      for(var b=0;b<dosesB.length;b++){
+        var bt=tagFor(dosesB[b], b>0?dosesB[b-1]:null);
+        bh+='<div class="wkrow brow"><span class="wk">Sem '+(b+1)+'</span>'
+          +'<div class="dinput"><input type="number" min="0" max="15" step="0.5" value="'+dosesB[b]+'" data-g="b" data-i="'+b+'"><span class="unit">mg</span></div>'
+          +'<span class="tag '+bt[0]+'">'+bt[1]+'</span></div>';
+      }
+      E.bList.innerHTML=bh;
+    }
+
+    if(E.fracon.checked && E.fracmode.value==='custom'){
+      var ch='<div class="crow2-head"><span>Sem</span><span>1º dia (mg)</span><span>5º dia (mg)</span></div>';
+      for(var c=0;c<fracC.length;c++){
+        var pair=fracC[c]||[0,0];
+        ch+='<div class="wkrow crow2"><span class="wk">'+(c+1)+'</span>'
+          +'<div class="dinput"><input type="number" min="0" max="15" step="0.5" value="'+pair[0]+'" data-g="c0" data-i="'+c+'"><span class="unit">mg</span></div>'
+          +'<div class="dinput"><input type="number" min="0" max="15" step="0.5" value="'+pair[1]+'" data-g="c1" data-i="'+c+'"><span class="unit">mg</span></div>'
+          +'</div>';
+      }
+      E.cList.innerHTML=ch;
+    }
+
+    document.querySelectorAll('#treatList input, #taperList input, #bList input, #cList input').forEach(function(inp){
+      inp.addEventListener('input',function(){
+        var i=parseInt(this.getAttribute('data-i'),10), g=this.getAttribute('data-g'), v=clampDose(this.value);
+        if(g==='t') treat[i]=v;
+        else if(g==='p') taper[i]=v;
+        else if(g==='b') dosesB[i]=v;
+        else if(g==='c0'){ if(!fracC[i])fracC[i]=[0,0]; fracC[i][0]=v; }
+        else if(g==='c1'){ if(!fracC[i])fracC[i]=[0,0]; fracC[i][1]=v; }
+        liveUpdate();
+      });
+      inp.addEventListener('blur',function(){ this.value=clampDose(this.value); refreshTags(); });
+    });
+  }
+
+  // update only the variation tags without rebuilding inputs (preserves focus)
+  function refreshTags(){
+    var trows=E.treatList.querySelectorAll('.wkrow');
+    treat.forEach(function(d,i){
+      var t=tagFor(d, i>0?treat[i-1]:null), tag=trows[i] && trows[i].querySelector('.tag');
+      if(tag){ tag.className='tag '+t[0]; tag.textContent=t[1]; }
+    });
+    if(E.taperon.checked){
+      var prows=E.taperList.querySelectorAll('.wkrow');
+      taper.forEach(function(d,j){
+        var prev=j>0?taper[j-1]:treat[treat.length-1], t=tagFor(d,prev), tag=prows[j] && prows[j].querySelector('.tag');
+        if(tag){ tag.className='tag '+t[0]; tag.textContent=t[1]; }
+      });
+    }
+    if(E.compareon.checked){
+      var brows=E.bList.querySelectorAll('.wkrow');
+      dosesB.forEach(function(d,b){
+        var t=tagFor(d, b>0?dosesB[b-1]:null), tag=brows[b] && brows[b].querySelector('.tag');
+        if(tag){ tag.className='tag '+t[0]; tag.textContent=t[1]; }
+      });
+    }
+  }
+
+  // ---- PK ----
+  function sampleSeries(events, totalDays, k, scale){
+    var step=1/SPD, daySet={};
+    for(var d=0; d<=totalDays+1e-9; d+=step){ daySet[(Math.round(d*1000)/1000)]=true; }
+    events.forEach(function(e){ daySet[e.day]=true; });
+    var days=Object.keys(daySet).map(parseFloat).sort(function(a,b){return a-b;});
+    var pts=[];
+    days.forEach(function(d){
+      var c=0; for(var i=0;i<events.length;i++){ if(events[i].day<=d) c+=events[i].mg*scale*Math.exp(-k*(d-events[i].day)); }
+      pts.push({day:d,week:d/7,c:c});
+    });
+    var lastDoseDay = events.length?events[events.length-1].day:0;
+    return {pts:pts, events:events, lastDoseDay:lastDoseDay};
+  }
+  function seriesFrom(weeks, k, scale){
+    var n=weeks.length, events=[];
+    for(var w=0;w<n;w++) if(weeks[w]>0) events.push({day:w*7,mg:weeks[w]});
+    return sampleSeries(events, n*7, k, scale);
+  }
+  // scheme C: each dosing week split into two sub-injections at FRAC_OFF days
+  function seriesC(k, scale, totalDays){
+    var dw=dosingWeeks(), events=[];
+    for(var w=0;w<dw.length;w++){
+      var pair = (E.fracmode.value==='custom' && fracC[w]) ? fracC[w] : [dw[w]/2, dw[w]/2];
+      if(pair[0]>0) events.push({day:w*7+FRAC_OFF[0], mg:pair[0]});
+      if(pair[1]>0) events.push({day:w*7+FRAC_OFF[1], mg:pair[1]});
+    }
+    return sampleSeries(events, totalDays, k, scale);
+  }
+
+  function simulate(){
+    var hl=parseFloat(E.hl.value)||5, k=Math.log(2)/hl, scale=1;
+    var weeksA=allWeeks(), n=weeksA.length;
+    var A=seriesFrom(weeksA,k,scale);
+    var B=null, C=null;
+    if(E.compareon.checked){ B=seriesFrom(allWeeksB(),k,scale); }
+    if(E.fracon.checked){ C=seriesC(k,scale,n*7); }
+    var dosingLen = dosingWeeks().length;
+    return {A:A,B:B,C:C,k:k,scale:scale,n:n,dosingLen:dosingLen,lastDoseDay:A.lastDoseDay,treatLen:treat.length,washOn:E.washon.checked,compare:!!B,frac:!!C};
+  }
+
+  function valAt(pts,day){
+    var lo=0,hi=pts.length-1;
+    for(var i=0;i<pts.length;i++){ if(pts[i].day>=day){hi=i;lo=Math.max(0,i-1);break;} }
+    var a=pts[lo],b=pts[hi];
+    return b.day===a.day?a.c:a.c+(b.c-a.c)*((day-a.day)/(b.day-a.day));
+  }
+
+  // ---- draw into a target svg ----
+  function draw(svgEl, sim){
+    var W=1000,H=500,padL=60,padR=24,padT=28,padB=48;
+    var plotW=W-padL-padR, plotH=H-padT-padB;
+    var maxC=0;
+    sim.A.pts.forEach(function(p){if(p.c>maxC)maxC=p.c;});
+    if(sim.B) sim.B.pts.forEach(function(p){if(p.c>maxC)maxC=p.c;});
+    if(sim.C) sim.C.pts.forEach(function(p){if(p.c>maxC)maxC=p.c;});
+    // choose a "nice" step (in mg) so we get ~4-6 gridlines
+    var rawStep=Math.max(maxC,5)/5;
+    var mag=Math.pow(10,Math.floor(Math.log10(rawStep)));
+    var norm=rawStep/mag;
+    var niceStep=(norm<1.5?1:norm<3?2:norm<7?5:10)*mag;
+    var yMax=Math.max(niceStep, Math.ceil(maxC/niceStep)*niceStep);
+    var totalWeeks=sim.n;
+    function X(w){return padL+(w/totalWeeks)*plotW;}
+    function Y(c){return padT+plotH-(c/yMax)*plotH;}
+    var s='';
+
+    function fmt(v){ return (Math.round(v*10)/10).toString().replace('.',','); }
+    for(var val=0; val<=yMax+1e-9; val+=niceStep){
+      var y=Y(val);
+      s+='<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y.toFixed(1)+'" stroke="rgba(157,178,200,.10)"/>';
+      s+='<text x="'+(padL-8)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="#9DB2C8">'+fmt(val)+'</text>';
+    }
+    s+='<text x="15" y="'+(padT+plotH/2)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9DB2C8" transform="rotate(-90 15 '+(padT+plotH/2)+')">mg ainda presentes</text>';
+
+    // taper region shading
+    if(E.taperon.checked && taper.length){
+      var tx0=X(sim.treatLen), tx1=X(sim.dosingLen);
+      s+='<rect x="'+tx0.toFixed(1)+'" y="'+padT+'" width="'+(tx1-tx0).toFixed(1)+'" height="'+plotH+'" fill="rgba(95,168,211,.05)"/>';
+      s+='<text x="'+((tx0+tx1)/2).toFixed(1)+'" y="'+(padT+14)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#9fd0ec">desmame</text>';
+    }
+    // washout region shading
+    if(sim.washOn){
+      var wx=X(sim.dosingLen);
+      s+='<rect x="'+wx.toFixed(1)+'" y="'+padT+'" width="'+(W-padR-wx).toFixed(1)+'" height="'+plotH+'" fill="rgba(95,168,211,.09)"/>';
+      s+='<text x="'+((wx+(W-padR))/2).toFixed(1)+'" y="'+(padT+14)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#9fd0ec">sem aplicação</text>';
+    }
+
+    var tickEvery=totalWeeks<=16?1:(totalWeeks<=28?2:4);
+    for(var w=0;w<=totalWeeks;w++){
+      if(w%tickEvery!==0 && w!==totalWeeks) continue;
+      var x=X(w);
+      s+='<line x1="'+x.toFixed(1)+'" y1="'+(padT+plotH)+'" x2="'+x.toFixed(1)+'" y2="'+(padT+plotH+4)+'" stroke="rgba(157,178,200,.3)"/>';
+      s+='<text x="'+x.toFixed(1)+'" y="'+(padT+plotH+18)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#9DB2C8">'+w+'</text>';
+    }
+    s+='<text x="'+(padL+plotW/2)+'" y="'+(H-6)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9DB2C8">semanas</text>';
+    s+='<line x1="'+padL+'" y1="'+padT+'" x2="'+padL+'" y2="'+(padT+plotH)+'" stroke="rgba(157,178,200,.3)"/>';
+    s+='<line x1="'+padL+'" y1="'+(padT+plotH)+'" x2="'+(W-padR)+'" y2="'+(padT+plotH)+'" stroke="rgba(157,178,200,.3)"/>';
+
+    var splitW=sim.dosingLen;
+
+    // helper: build solid (dosing) + dashed (washout) paths for a series
+    function curvePaths(pts){
+      var solid='',dash='',st=false,ds=false;
+      pts.forEach(function(p){
+        var x=X(p.week).toFixed(1),y=Y(p.c).toFixed(1);
+        if(p.week<=splitW+1e-9){ solid+=(st?'L':'M')+x+' '+y+' '; st=true; }
+        if(p.week>=splitW-1e-9){ dash+=(ds?'L':'M')+x+' '+y+' '; ds=true; }
+      });
+      return {solid:solid,dash:dash};
+    }
+    function markersFor(series){
+      var mk=[];
+      series.events.forEach(function(e){
+        var total=0; series.events.forEach(function(e2){ if(e2.day<=e.day) total+=e2.mg*sim.scale*Math.exp(-sim.k*(e.day-e2.day)); });
+        mk.push({week:e.day/7, dose:e.mg, total:total, x:X(e.day/7), y:Y(total)});
+      });
+      return mk;
+    }
+
+    // area only for A (keeps it clean)
+    var pA=curvePaths(sim.A.pts);
+    var area=pA.solid+'L'+X(Math.min(splitW,totalWeeks)).toFixed(1)+' '+(padT+plotH)+' L'+X(0).toFixed(1)+' '+(padT+plotH)+' Z';
+    s+='<path d="'+area+'" fill="rgba(201,162,78,.10)"/>';
+
+    // draw B first (under A) when comparing
+    var markersB=[];
+    if(sim.compare){
+      var pB=curvePaths(sim.B.pts);
+      if(sim.washOn) s+='<path d="'+pB.dash+'" fill="none" stroke="'+COLOR.b+'" stroke-width="2.2" stroke-dasharray="5 4" stroke-linejoin="round" opacity=".95"/>';
+      s+='<path d="'+pB.solid+'" fill="none" stroke="'+COLOR.b+'" stroke-width="2.6" stroke-linejoin="round"/>';
+      markersB=markersFor(sim.B);
+    }
+    // draw C (fractionated) under A as well
+    var markersC=[];
+    if(sim.frac){
+      var pC=curvePaths(sim.C.pts);
+      if(sim.washOn) s+='<path d="'+pC.dash+'" fill="none" stroke="'+COLOR.c+'" stroke-width="2.2" stroke-dasharray="5 4" stroke-linejoin="round" opacity=".95"/>';
+      s+='<path d="'+pC.solid+'" fill="none" stroke="'+COLOR.c+'" stroke-width="2.4" stroke-linejoin="round"/>';
+      markersC=markersFor(sim.C);
+    }
+    // draw A on top
+    if(sim.washOn) s+='<path d="'+pA.dash+'" fill="none" stroke="'+COLOR.wash+'" stroke-width="2.4" stroke-dasharray="5 4" stroke-linejoin="round"/>';
+    s+='<path d="'+pA.solid+'" fill="none" stroke="'+COLOR.a+'" stroke-width="2.8" stroke-linejoin="round"/>';
+
+    var markersA=markersFor(sim.A);
+    markersC.forEach(function(m){ s+='<circle cx="'+m.x.toFixed(1)+'" cy="'+m.y.toFixed(1)+'" r="3.2" fill="'+COLOR.cMark+'" stroke="#0B1A2E" stroke-width="1"/>'; });
+    markersB.forEach(function(m){ s+='<circle cx="'+m.x.toFixed(1)+'" cy="'+m.y.toFixed(1)+'" r="3.6" fill="'+COLOR.bMark+'" stroke="#0B1A2E" stroke-width="1"/>'; });
+    markersA.forEach(function(m){ s+='<circle cx="'+m.x.toFixed(1)+'" cy="'+m.y.toFixed(1)+'" r="4" fill="'+COLOR.aMark+'" stroke="#0B1A2E" stroke-width="1"/>'; });
+
+    s+='<rect class="hit" x="'+padL+'" y="'+padT+'" width="'+plotW+'" height="'+plotH+'" fill="transparent" style="cursor:crosshair"/>';
+    svgEl.setAttribute('viewBox','0 0 '+W+' '+H);
+    svgEl.innerHTML=s;
+    svgEl._sim=sim; svgEl._map={padL:padL,plotW:plotW,plotH:plotH,padT:padT,W:W,H:H,totalWeeks:totalWeeks,markersA:markersA,markersB:markersB,markersC:markersC};
+    attachHover(svgEl);
+  }
+
+  function attachHover(svgEl){
+    var hit=svgEl.querySelector('.hit'); if(!hit) return;
+    var sim=svgEl._sim,m=svgEl._map;
+    var rings=[];
+    function clearRing(){ rings.forEach(function(r){ if(r.parentNode) r.parentNode.removeChild(r); }); rings=[]; }
+    function addRing(mk,color){
+      var r=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      r.setAttribute('cx',mk.x.toFixed(1)); r.setAttribute('cy',mk.y.toFixed(1));
+      r.setAttribute('r','7'); r.setAttribute('fill','none');
+      r.setAttribute('stroke',color||COLOR.a); r.setAttribute('stroke-width','1.6');
+      svgEl.appendChild(r); rings.push(r);
+    }
+    var fmt=function(v){ return (Math.round(v*10)/10).toString().replace('.',','); };
+    function phaseOf(week){ return week>sim.dosingLen+1e-6 ? 'sem aplicação' : (E.taperon.checked && week>sim.treatLen ? 'desmame' : 'tratamento'); }
+    var serMeta={A:{lbl:'Esquema A',col:COLOR.aMark,line:COLOR.a}, B:{lbl:'Esquema B',col:COLOR.bMark,line:COLOR.b}, C:{lbl:'Esquema C',col:COLOR.cMark,line:COLOR.c}};
+    function move(ev){
+      var rect=svgEl.getBoundingClientRect(), sx=m.W/rect.width;
+      var gx=(ev.clientX-rect.left)*sx;
+      var band=Math.max(12, (m.plotW/m.totalWeeks)*0.5);
+      // build combined marker list
+      var all=[];
+      (m.markersA||[]).forEach(function(mk){ all.push({mk:mk,ser:'A'}); });
+      (m.markersB||[]).forEach(function(mk){ all.push({mk:mk,ser:'B'}); });
+      (m.markersC||[]).forEach(function(mk){ all.push({mk:mk,ser:'C'}); });
+      // nearest anchor by horizontal distance
+      var anchor=null, bestdx=band;
+      all.forEach(function(o){ var dx=Math.abs(o.mk.x-gx); if(dx<=bestdx){bestdx=dx;anchor=o;} });
+      clearRing();
+      if(anchor){
+        // group every marker at essentially the same x (same application instant)
+        var group=all.filter(function(o){ return Math.abs(o.mk.x-anchor.mk.x)<=8; });
+        // order A,B,C
+        var order={A:0,B:1,C:2};
+        group.sort(function(a,b){return order[a.ser]-order[b.ser];});
+        var wk=Math.floor(anchor.mk.week+1e-6), off=Math.round((anchor.mk.week-wk)*7)+1;
+        var head = off===1 ? ('Semana '+(wk+1)+' · aplicação') : ('Semana '+(wk+1)+' · '+off+'º dia');
+        var multi = (sim.compare||sim.frac);
+        var html='<b>'+head+'</b>';
+        group.forEach(function(o){
+          var meta=serMeta[o.ser];
+          addRing(o.mk, meta.col);
+          if(multi){
+            html+='<br><span class="mono" style="color:'+meta.line+'">'+meta.lbl+': '+fmt(o.mk.dose)+' mg → '+fmt(o.mk.total)+' mg</span>';
+          } else {
+            html+='<br><span class="mono">dose: '+fmt(o.mk.dose)+' mg</span><br><span class="mono">total no corpo: '+fmt(o.mk.total)+' mg</span>';
+          }
+        });
+        if(multi){ html+='<br><span class="mono" style="color:var(--mist);font-size:.92em">dose aplicada → total no corpo</span>'; }
+        E.tip.innerHTML=html;
+      } else {
+        var week=(gx-m.padL)/m.plotW*m.totalWeeks; week=Math.max(0,Math.min(m.totalWeeks,week));
+        var cA=valAt(sim.A.pts,week*7);
+        var html2='<b>Semana '+fmt(week)+'</b> <span class="mono">('+phaseOf(week)+')</span>';
+        if(sim.compare||sim.frac){
+          html2+='<br><span class="mono" style="color:'+COLOR.a+'">A: '+fmt(cA)+' mg</span>';
+          if(sim.compare){ var cB=valAt(sim.B.pts,week*7); html2+='<br><span class="mono" style="color:'+COLOR.b+'">B: '+fmt(cB)+' mg</span>'; }
+          if(sim.frac){ var cC=valAt(sim.C.pts,week*7); html2+='<br><span class="mono" style="color:'+COLOR.c+'">C: '+fmt(cC)+' mg</span>'; }
+        } else {
+          html2+='<br><span class="mono">'+fmt(cA)+' mg presentes</span>';
+        }
+        E.tip.innerHTML=html2;
+      }
+      E.tip.style.opacity='1';
+      var tx=ev.clientX+14,ty=ev.clientY-10;
+      if(tx>window.innerWidth-260) tx=ev.clientX-244;
+      E.tip.style.left=tx+'px'; E.tip.style.top=ty+'px';
+    }
+    function leave(){ E.tip.style.opacity='0'; clearRing(); }
+    hit.addEventListener('mousemove',move);
+    hit.addEventListener('mouseleave',leave);
+    hit.addEventListener('touchmove',function(e){if(e.touches[0]){move(e.touches[0]);e.preventDefault();}},{passive:false});
+    hit.addEventListener('touchend',leave);
+  }
+
+  function renderStats(sim){
+    var pts=sim.A.pts;
+    var peak=0,pw=0; pts.forEach(function(p){if(p.c>peak){peak=p.c;pw=p.week;}});
+    var atStop=valAt(pts,sim.lastDoseDay);
+    function mg(v){ return (Math.round(v*10)/10).toString().replace('.',',')+' mg'; }
+
+    if(sim.compare){
+      var peakB=0; sim.B.pts.forEach(function(p){if(p.c>peakB)peakB=p.c;});
+      E.statsintro.innerHTML='Comparando dois esquemas: <b style="color:'+COLOR.a+'">A</b> tem pico de <b>'+mg(peak)+'</b> e <b style="color:'+COLOR.b+'">B</b> de <b>'+mg(peakB)+'</b>. Os cartões abaixo referem-se ao <b style="color:'+COLOR.a+'">esquema A</b>.';
+    } else {
+      E.statsintro.innerHTML='Os números mostram o <b>pico</b> de medicação acumulada, o quanto havia <b>no momento de parar</b> e quanto <b>ainda resta no corpo</b> depois de parar — evidenciando que ela não desaparece de imediato.';
+    }
+
+    var cards=[
+      {v:mg(peak), k:'Pico máximo', l:'maior quantidade acumulada (semana '+(Math.round(pw*10)/10).toFixed(1)+')'},
+      {v:mg(atStop), k:'Ao parar', l:'presente na última aplicação com dose'}
+    ];
+    var p1=valAt(pts,sim.lastDoseDay+7), p4=valAt(pts,sim.lastDoseDay+28);
+    var pct1=atStop>0?Math.round(p1/atStop*100):0, pct4=atStop>0?Math.round(p4/atStop*100):0;
+    if(sim.washOn){
+      cards.push({v:mg(p1), k:'1 semana depois', l:'ainda no corpo ('+pct1+'% do que havia ao parar)'});
+      cards.push({v:mg(p4), k:'4 semanas depois', l:'ainda no corpo ('+pct4+'% do que havia ao parar)'});
+    } else {
+      cards.push({v:mg(p1), k:'1 semana após parar', l:'ainda no corpo ('+pct1+'% do que havia ao parar)'});
+      cards.push({v:'~5 dias', k:'Meia-vida', l:'tempo para cair à metade'});
+    }
+    E.stats.innerHTML=cards.map(function(c){
+      return '<div class="stat"><div class="v">'+c.v+'</div><div class="k">'+c.k+'</div><div class="l">'+c.l+'</div></div>';
+    }).join('');
+  }
+
+  var currentSim=null;
+  function updateLegend(){
+    document.querySelectorAll('.washleg').forEach(function(x){x.style.display=E.washon.checked?'inline-flex':'none';});
+    document.querySelectorAll('.cmpleg').forEach(function(x){x.style.display=E.compareon.checked?'inline-flex':'none';});
+    document.querySelectorAll('.fracleg').forEach(function(x){x.style.display=E.fracon.checked?'inline-flex':'none';});
+    document.querySelectorAll('.aleg').forEach(function(x){x.querySelector('.lbl').textContent = (E.compareon.checked||E.fracon.checked)?'Esquema A':'Total presente (mg)';});
+  }
+  function update(){
+    syncLengths();
+    E.taperBlock.style.display=E.taperon.checked?'block':'none';
+    E.compareBlock.style.display=E.compareon.checked?'block':'none';
+    E.fracBlock.style.display=(E.fracon.checked && E.fracmode.value==='custom')?'block':'none';
+    renderDoseLists();
+    updateLegend();
+    currentSim=simulate();
+    draw(E.chart,currentSim);
+    if(E.modal.classList.contains('open')) draw(E.chartFull,currentSim);
+    renderStats(currentSim);
+  }
+
+  // ---- view switching ----
+  function showView(v){
+    ['home','tirz','sim','effects','cost','schedule','consult','inject'].forEach(function(id){
+      document.getElementById(id).classList.toggle('active', id===v);
+    });
+    window.scrollTo(0,0);
+  }
+  document.querySelectorAll('.tool[data-tool]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=this.getAttribute('data-tool');
+      if(t==='sim'){ showView('sim'); update(); }
+      else if(t==='effects'){ showView('effects'); renderEffects(); }
+      else if(t==='cost'){ showView('cost'); renderCost(); }
+      else if(t==='schedule'){ showView('schedule'); renderSchedule(); }
+      else if(t==='tirz'){ showView('tirz'); }
+      else if(t==='consult'){ showView('consult'); renderConsult(); }
+      else if(t==='inject'){ showView('inject'); renderInject(); }
+    });
+  });
+  el('backHome').addEventListener('click',function(){ showView('tirz'); });
+  el('backHome2').addEventListener('click',function(){ showView('tirz'); });
+  el('backHome4').addEventListener('click',function(){ showView('home'); });
+  el('backHome5').addEventListener('click',function(){ showView('home'); });
+  el('backHome6').addEventListener('click',function(){ showView('home'); });
+  el('backHomeTirz').addEventListener('click',function(){ showView('home'); });
+
+  // ---- events ----
+  E.nweeks.addEventListener('input',update);
+  E.hl.addEventListener('input',update);
+  E.washon.addEventListener('change',update);
+  E.taperon.addEventListener('change',function(){
+    document.getElementById('tapercfg').style.display=this.checked?'block':'none';
+    if(this.checked && taper.length===0){ taper=defaultTaper(treat[treat.length-1], clamp(parseInt(E.taperweeks.value,10),1,12)); }
+    update();
+  });
+  E.taperweeks.addEventListener('input',function(){
+    var tw=clamp(parseInt(this.value,10),1,12); this.value=tw;
+    taper=defaultTaper(treat[treat.length-1], tw);
+    update();
+  });
+  el('applyStd').addEventListener('click',function(){ treat=buildStandard(clamp(parseInt(E.nweeks.value,10),1,48)); update(); });
+  el('fillSame').addEventListener('click',function(){ var f=treat[0]||2.5; for(var i=0;i<treat.length;i++)treat[i]=f; update(); });
+
+  // scheme B
+  E.compareon.addEventListener('change',function(){
+    if(this.checked && dosesB.length===0){ dosesB=dosingWeeks().slice(); }
+    update();
+  });
+  el('applyStdB').addEventListener('click',function(){ dosesB=buildStandard(dosingWeeks().length); update(); });
+  el('copyAtoB').addEventListener('click',function(){ dosesB=dosingWeeks().slice(); update(); });
+
+  // scheme C (fractionated)
+  E.fracon.addEventListener('change',function(){
+    document.getElementById('fraccfg').style.display=this.checked?'block':'none';
+    if(this.checked){ var dw=dosingWeeks(); fracC=dw.map(function(d){return [d/2,d/2];}); }
+    update();
+  });
+  E.fracmode.addEventListener('change',function(){
+    if(this.value==='equal'){ var dw=dosingWeeks(); fracC=dw.map(function(d){return [d/2,d/2];}); }
+    update();
+  });
+
+  // ---- fullscreen ----
+  el('expandBtn').addEventListener('click',function(){
+    E.modal.classList.add('open');
+    E.tip.classList.add('big');
+    if(currentSim) draw(E.chartFull,currentSim);
+  });
+  function closeModal(){ E.modal.classList.remove('open'); E.tip.classList.remove('big'); E.tip.style.opacity='0'; }
+  el('mclose').addEventListener('click',closeModal);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
+
+  // ---- EFFECTS TAB ----
+  // Conteúdo baseado no protocolo de suporte da clínica (Dr. Enguer).
+  var FX=[
+    {ic:'🤢',nm:'Náusea',freq:'mais comum · início e aumentos',tags:'nausea enjoo vomito',
+      steps:[
+        {n:'1º passo',t:'Gengibre 250 mg',d:'Para náusea leve: 1 a 2 cápsulas antes das refeições principais. Cápsula comum, engolida com água. Encontra em qualquer drogaria, sem receita.'},
+        {n:'2º passo',t:'Ondansetrona 4 mg (Vonau Flash)',d:'Se o gengibre não resolver (náusea forte ou vômito): 1 comprimido até 3x ao dia, sublingual (dissolve sob a língua, útil quando engolir está difícil) ou oral. O genérico oral também funciona, engolido com água.'}
+      ],
+      home:['Refeições menores e mais frequentes; comer devagar e parar ao se sentir satisfeito.','Evitar frituras, gordura e alimentos muito doces; preferir leves. Não deitar logo após comer.'],
+      warn:['Vômitos que não cessam por mais de 24 horas pedem avaliação.']},
+
+    {ic:'🔥',nm:'Azia / refluxo',freq:'comum',tags:'azia refluxo queimacao dispepsia estomago pantoprazol',
+      steps:[
+        {n:'Único',t:'Pantoprazol 40 mg',d:'Só se houver azia, queimação ou desconforto no estômago. 1 comprimido ao dia, em jejum, 30 min antes do café. Iniciar na MANHÃ SEGUINTE ao aparecimento dos sintomas e manter por 30 dias contínuos, mesmo que melhore antes.'}
+      ],
+      home:['Não é alívio imediato: age bloqueando a produção de ácido, por isso precisa de uso contínuo.','Se persistir após 30 dias, renovar na consulta. Sem sintomas, não precisa tomar.']},
+
+    {ic:'💨',nm:'Gases / distensão',freq:'comum',tags:'gases distensao flatulencia barriga inchada simeticona luftal',
+      steps:[
+        {n:'Único',t:'Simeticona 125 mg (Luftal)',d:'Para barriga inchada e excesso de gases: 1 cápsula após as refeições, até 3x ao dia, quando houver desconforto.'}
+      ]},
+
+    {ic:'🏥',nm:'Cólicas abdominais leves',freq:'eventual',tags:'colica dor abdominal caimbra buscopan butilescopolamina',
+      steps:[
+        {n:'Único',t:'Butilescopolamina 10 mg (Buscopan)',d:'Para cólica leve e passageira (dor em câimbra que vem e vai): 1 comprimido até 3x ao dia, quando precisar.'}
+      ],
+      warn:['Só para cólica leve. Se a dor for intensa, constante ou irradiar para as costas, NÃO use Buscopan nem outro analgésico: vá ao pronto-socorro e informe o uso de tirzepatida.','O Buscopan mascara a dor sem tratar a causa; em dor intensa ou que irradia para as costas pode atrasar o diagnóstico de pancreatite ou problema de vesícula.']},
+
+    {ic:'🚽',nm:'Constipação',freq:'comum · come-se menos',tags:'constipacao prisao de ventre intestino preso psyllium macrogol muvinlax',
+      steps:[
+        {n:'1º passo',t:'Psyllium 5 g',d:'1 dose ao dia com pelo menos 300 ml de água, ingerida imediatamente. Formatos: pó (5 g), sachê (5 g manipulado ou 7-8 g comercial) ou cápsulas 500 mg (6/dia). Sem água suficiente pode causar obstrução. Usar por 3 dias.'},
+        {n:'2º passo',t:'Macrogol (Muvinlax 14 g ou PEG-Lax 17 g)',d:'Se após 3 dias o psyllium não resolver, TROCAR (não somar): 1 sachê ao dia, de manhã. Se preciso, 2 sachês (manhã e noite). Muvinlax e PEG-Lax são equivalentes.'}
+      ],
+      warn:['Não usar psyllium e macrogol juntos sem orientação: pode causar o efeito contrário (diarreia).']},
+
+    {ic:'💧',nm:'Diarreia',freq:'comum',tags:'diarreia loperamida imosec floratil saccharomyces',
+      steps:[
+        {n:'Conter',t:'Loperamida 2 mg (Imosec)',d:'1 comprimido após cada evacuação diarreica. Máximo 2 por episódio e 4 ao dia. Usar somente se NÃO houver febre nem sangue nas fezes.'},
+        {n:'Repor flora',t:'Saccharomyces boulardii 200 mg (Floratil)',d:'Junto com o Imosec: 1 sachê/cápsula de 12 em 12 horas, por 5 dias. Probiótico que ajuda a restaurar a flora intestinal.'}
+      ],
+      home:['Hidratação reforçada com água ou soro de reidratação oral.'],
+      warn:['Não usar Imosec com febre ou sangue nas fezes (pode represar uma infecção). Hidrate e procure atendimento no mesmo dia.','Se após iniciar o Imosec a barriga inchar muito com dor forte ou ausência prolongada de evacuação, PARE e vá ao pronto-socorro (risco de parada intestinal).']},
+
+    {ic:'💉',nm:'Reação no local da injeção',freq:'pequena parcela',tags:'local aplicacao injecao pele vermelhidao coceira prurido compressa loratadina claritin',
+      steps:[
+        {n:'1º passo',t:'Compressa fria',d:'Aplicar no local por 10 a 15 minutos. Pode repetir a cada 2 a 3 horas nas primeiras 24 a 48 horas. Resolve a maioria das reações leves.'},
+        {n:'2º passo',t:'Loratadina 10 mg (Claritin)',d:'Se a coceira ou vermelhidão persistirem mesmo com a compressa: 1 comprimido ao dia enquanto durar o incômodo.'}
+      ],
+      home:['Fazer rodízio dos locais de aplicação; não esfregar.'],
+      warn:['Se a reação for extensa, com inchaço importante ou sintomas em outras partes do corpo, procurar avaliação.']},
+
+    {ic:'🍽️',nm:'Redução do apetite',freq:'esperado',tags:'apetite fome inapetencia massa magra proteina',
+      home:['Efeito esperado do tratamento. Garantir proteína suficiente e hidratação mesmo sem fome.','Manter refeições estruturadas para proteger a massa magra.'],
+      med:['Se a ingestão ficar muito baixa ou a perda de peso for rápida demais, reavaliação nutricional.']},
+
+    {ic:'💇',nm:'Queda de cabelo',freq:'~5–6% · mais em mulheres',tags:'cabelo queda eflúvio telogeno alopecia colageno zinco',
+      home:['Geralmente é eflúvio telógeno, desencadeado pela perda de peso rápida (não a medicação "atacando" o fio). Costuma ser temporário.','Proteína adequada é a medida mais importante; manter perda de peso gradual. O protocolo de colágeno + vitamina C e zinco ajuda.'],
+      med:['Avaliar e repor, se necessário, ferro (ferritina), zinco, vitamina D e B12.','Se durar mais de 6 meses, for em falhas ou com alteração do couro cabeludo, investigar (dermatologista). Minoxidil só em casos selecionados.']},
+
+    {ic:'🩸',nm:'Hipoglicemia',freq:'atenção se usa insulina/sulfonilureia',tags:'hipoglicemia glicose baixa acucar',
+      home:['Sinais: tremor, suor frio, fome súbita, tontura, confusão.','Conduta imediata: 15 g de carboidrato rápido (meio copo de suco ou refrigerante comum), aguardar 15 min e repetir se necessário.'],
+      med:['O ajuste da insulina ou da sulfonilureia é feito pelo médico, não pelo paciente.'],
+      warn:['Hipoglicemia grave (desmaio, confusão importante) é emergência.']},
+
+    {ic:'🧴',nm:'Suplementação de apoio',freq:'rotina diária',tags:'suplemento colageno vitamina c zinco b12 magnesio pele',
+      home:['Colágeno tipo I e III 10 g + Vitamina C 500 mg: 1x ao dia, de preferência em jejum (a vitamina C é necessária para o corpo produzir colágeno). Protege firmeza e elasticidade da pele na perda de peso rápida.','Zinco bisglicinato 15 mg: 1 cápsula ao dia com refeição (reavaliar em 3-4 meses).','Magnésio glicinato 200 mg: 1 dose ao dia (omitir se já usa a Fórmula do Sono).','Vitamina B12 1.000 mcg: 1 ao dia com refeição (omitir se em protocolo de injetáveis IM).'],
+      med:['São de uso diário (rotina), diferentemente dos medicamentos de suporte, que só se usam quando o sintoma aparece.']}
+  ];
+
+  function renderEffects(filter){
+    filter=(filter||'').toLowerCase().trim();
+    var grid=document.getElementById('fxGrid');
+    var list=FX.filter(function(f){
+      if(!filter) return true;
+      return (f.nm+' '+f.tags).toLowerCase().indexOf(filter)>=0;
+    });
+    if(!list.length){ grid.innerHTML='<div class="fx-empty">Nenhum sintoma encontrado para esse termo.</div>'; return; }
+    grid.innerHTML=list.map(function(f){
+      var body='';
+      if(f.steps){
+        body+='<div class="fx-sec"><div class="lab">Conduta em passos</div>';
+        f.steps.forEach(function(s){
+          body+='<div class="fx-step"><div class="stp-n">'+s.n+'</div><div class="stp-c"><div class="stp-t">'+s.t+'</div><div class="stp-d">'+s.d+'</div></div></div>';
+        });
+        body+='</div>';
+      }
+      if(f.home) body+='<div class="fx-sec"><div class="lab">Orientações</div><ul>'+f.home.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div>';
+      if(f.med) body+='<div class="fx-sec"><div class="lab">Sob orientação médica</div><ul>'+f.med.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div>';
+      if(f.warn) body+='<div class="fx-sec warn"><div class="lab">Atenção / quando procurar avaliação</div><ul>'+f.warn.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul></div>';
+      return '<div class="fx-card"><div class="fx-head">'
+        +'<div class="fx-ic">'+f.ic+'</div>'
+        +'<div class="fx-ti"><div class="nm">'+f.nm+'</div><div class="freq">'+f.freq+'</div></div>'
+        +'<svg class="fx-chev" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+        +'</div><div class="fx-body">'+body+'</div></div>';
+    }).join('');
+    grid.querySelectorAll('.fx-head').forEach(function(h){
+      h.addEventListener('click',function(){ this.parentNode.classList.toggle('open'); });
+    });
+  }
+  el('fxSearch').addEventListener('input',function(){ renderEffects(this.value); });
+
+  window.addEventListener('resize',function(){ if(currentSim){ draw(E.chart,currentSim); if(E.modal.classList.contains('open')) draw(E.chartFull,currentSim);} });
+
+  // ---- COST TAB ----
+  var DOSE_KEYS=['2.5','5','7.5','10','12.5','15'];
+  // Preço da CAIXA de Mounjaro (4 canetas) por dose — Droga Raia/Drogasil (planilha): preço/aplicação x4
+  var penBoxPrices={'2.5':1406.76,'5':1759.64,'7.5':2299.00,'10':2699.00,'12.5':3373.76,'15':4048.52};
+  var monthDoses=[];        // dose escolhida por mês (string key)
+  var PENS_PER_BOX=4, APPS_PER_MONTH=4;
+
+  function brl(v){ return 'R$ ' + (Math.round(v*100)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function penPerApp(doseKey){ return (penBoxPrices[doseKey]||0)/PENS_PER_BOX; }
+
+  function buildPriceEditors(){
+    var cp=document.getElementById('cePharm');
+    function item(k,val){
+      return '<div class="ce-item"><label>caixa '+k.replace('.',',')+' mg</label>'
+        +'<div class="ce-inp"><span class="pre">R$</span>'
+        +'<input type="number" min="0" step="0.01" value="'+val+'" data-k="'+k+'"></div></div>';
+    }
+    cp.innerHTML=DOSE_KEYS.map(function(k){return item(k,penBoxPrices[k]);}).join('');
+    document.querySelectorAll('#cePharm input').forEach(function(inp){
+      inp.addEventListener('input',function(){
+        var v=parseFloat(this.value); if(isNaN(v)||v<0) v=0;
+        penBoxPrices[this.getAttribute('data-k')]=v; renderCost();
+      });
+    });
+  }
+
+  function syncMonths(){
+    var months=Math.max(1,Math.min(12,parseInt(document.getElementById('costMonths').value,10)||1));
+    document.getElementById('costMonths').value=months;
+    // default escalation by month: 2.5, 5, 7.5, 10, 12.5, 15, then 15...
+    var def=['2.5','5','7.5','10','12.5','15'];
+    while(monthDoses.length<months) monthDoses.push(def[monthDoses.length]||'15');
+    if(monthDoses.length>months) monthDoses.length=months;
+    return months;
+  }
+
+  function renderMonthGrid(){
+    var grid=document.getElementById('costMonthsGrid');
+    grid.innerHTML=monthDoses.map(function(d,i){
+      var opts=DOSE_KEYS.map(function(k){return '<option value="'+k+'"'+(k===d?' selected':'')+'>'+k.replace('.',',')+' mg</option>';}).join('');
+      return '<div class="cmonth"><div class="ml">Mês '+(i+1)+'</div><select data-m="'+i+'">'+opts+'</select></div>';
+    }).join('');
+    grid.querySelectorAll('select').forEach(function(s){
+      s.addEventListener('change',function(){ monthDoses[parseInt(this.getAttribute('data-m'),10)]=this.value; renderCost(); });
+    });
+  }
+
+  function renderCost(){
+    var months=syncMonths();
+    renderMonthGrid();
+    var session=parseFloat(document.getElementById('costSession').value); if(isNaN(session)||session<0) session=0;
+
+    // accumulate per-month and total
+    var clinicTotal=0, pharmTotal=0, rows='';
+    var cumClinic=[0], cumPharm=[0];
+    for(var i=0;i<months;i++){
+      var dk=monthDoses[i];
+      var clinicMonth=session*APPS_PER_MONTH;            // sessão única, independente da dose
+      var pharmMonth=penPerApp(dk)*APPS_PER_MONTH;        // = preço da caixa (4 aplic.)
+      clinicTotal+=clinicMonth; pharmTotal+=pharmMonth;
+      cumClinic.push(clinicTotal); cumPharm.push(pharmTotal);
+      rows+='<div class="crow"><span class="rk">Mês '+(i+1)+' · '+dk.replace('.',',')+' mg</span>'
+        +'<span class="rv">'+brl(clinicMonth)+' <span style="color:var(--mist)">·</span> '+brl(pharmMonth)+'</span></div>';
+    }
+
+    // cards
+    var cards='<div class="ccard clinic"><div class="ctag">Clínica · manipulada</div>'
+      +'<div class="cname">Tirzepatida manipulada</div>'
+      +'<div class="big">'+brl(clinicTotal)+'</div>'
+      +'<div class="crow" style="border-top:none;margin-top:8px;"><span class="rk">sessão (cada aplicação)</span><span class="rv">'+brl(session)+'</span></div>'
+      +'<div class="crow"><span class="rk">por mês (4 aplicações)</span><span class="rv">'+brl(session*APPS_PER_MONTH)+'</span></div>'
+      +'<div class="crow"><span class="rk">total em '+months+' '+(months>1?'meses':'mês')+'</span><span class="rv">'+brl(clinicTotal)+'</span></div></div>';
+    var cardsP='<div class="ccard pharm"><div class="ctag">Farmácia · Droga Raia/Drogasil</div>'
+      +'<div class="cname">Mounjaro (caneta)</div>'
+      +'<div class="big">'+brl(pharmTotal)+'</div>'
+      +'<div class="crow" style="border-top:none;margin-top:8px;"><span class="rk">por aplicação (varia c/ dose)</span><span class="rv">'+brl(pharmTotal/(months*APPS_PER_MONTH))+' méd.</span></div>'
+      +'<div class="crow"><span class="rk">1 caixa = 4 aplicações</span><span class="rv">1 mês</span></div>'
+      +'<div class="crow"><span class="rk">total em '+months+' '+(months>1?'meses':'mês')+'</span><span class="rv">'+brl(pharmTotal)+'</span></div></div>';
+    document.getElementById('costCards').innerHTML=cards+cardsP;
+
+    // savings + bars
+    var diff=pharmTotal-clinicTotal, pct=pharmTotal>0?Math.round(diff/pharmTotal*100):0, saveHtml;
+    if(diff>0){
+      saveHtml='<div class="cost-save"><div class="sv-l">Economia no período ('+months+' '+(months>1?'meses':'mês')+')</div>'
+        +'<div class="sv-v">'+brl(diff)+'</div>'
+        +'<div class="sv-s">A manipulada sai <b>'+pct+'% mais barata</b> que a caneta nesse tratamento.</div></div>';
+    } else if(diff<0){
+      saveHtml='<div class="cost-save" style="border-color:rgba(224,138,107,.4);background:linear-gradient(180deg,rgba(224,138,107,.12),transparent);"><div class="sv-l">Diferença no período</div>'
+        +'<div class="sv-v" style="color:var(--danger)">'+brl(-diff)+'</div>'
+        +'<div class="sv-s">Neste cenário a manipulada está mais cara. Revise o preço da sessão.</div></div>';
+    } else {
+      saveHtml='<div class="cost-save"><div class="sv-l">Diferença</div><div class="sv-v">R$ 0,00</div><div class="sv-s">Mesmo custo.</div></div>';
+    }
+    var maxV=Math.max(clinicTotal,pharmTotal,1);
+    var bars='<div class="cbar-row"><div class="cbl"><span class="nm">Manipulada (clínica)</span><span class="vl">'+brl(clinicTotal)+'</span></div>'
+      +'<div class="cbar-track"><div class="cbar-fill clinic" style="width:'+(clinicTotal/maxV*100).toFixed(1)+'%"></div></div></div>'
+      +'<div class="cbar-row"><div class="cbl"><span class="nm">Mounjaro (Droga Raia/Drogasil)</span><span class="vl">'+brl(pharmTotal)+'</span></div>'
+      +'<div class="cbar-track"><div class="cbar-fill pharm" style="width:'+(pharmTotal/maxV*100).toFixed(1)+'%"></div></div></div>';
+    var detail='<div class="cost-detail"><div class="cd-title">Mês a mês (manipulada · Mounjaro)</div>'+rows+'</div>';
+
+    // break-even: preço de sessão que iguala o total do Mounjaro
+    var beSession = (months*APPS_PER_MONTH)>0 ? pharmTotal/(months*APPS_PER_MONTH) : 0;
+    var beHtml='<div class="cost-break"><div class="cb-ic">＝</div><div class="cb-tx">'
+      +'Para igualar o custo total do Mounjaro neste período, a sessão da manipulada poderia ser cobrada em até <b>'+brl(beSession)+'</b> por aplicação '
+      +'<span class="cb-sub">(equivale a '+brl(beSession*APPS_PER_MONTH)+'/mês · '+brl(pharmTotal)+' no tratamento). Acima disso, a manipulada fica mais cara que a caneta; abaixo, mais barata.</span>'
+      +'</div></div>';
+
+    document.getElementById('costBars').innerHTML=saveHtml+bars+beHtml+detail;
+    drawCostChart(cumClinic,cumPharm);
+
+    document.getElementById('costFoot').innerHTML='<b>Como ler.</b> Aplicações semanais (4 por mês). O custo da manipulada usa o preço único da sessão, independente da dose. O custo do Mounjaro acompanha a dose de cada mês: o preço da caixa (4 canetas) equivale a 1 mês de aplicações. A referência de farmácia é a Droga Raia/Drogasil (mais barata, programa Lilly). Valores editáveis e ilustrativos; confirme a cotação vigente.';
+  }
+
+  function drawCostChart(cumClinic,cumPharm){
+    var host=document.getElementById('costChart'); if(!host) return;
+    var n=cumClinic.length; // months+1 points (0..months)
+    if(n<2){ host.innerHTML=''; return; }
+    var W=1000,H=420,padL=78,padR=24,padT=26,padB=46;
+    var plotW=W-padL-padR, plotH=H-padT-padB;
+    var maxV=Math.max(cumClinic[n-1],cumPharm[n-1],1);
+    // nice y step
+    var rawStep=maxV/5, mag=Math.pow(10,Math.floor(Math.log10(rawStep))), norm=rawStep/mag;
+    var niceStep=(norm<1.5?1:norm<3?2:norm<7?5:10)*mag;
+    var yMax=Math.max(niceStep,Math.ceil(maxV/niceStep)*niceStep);
+    var months=n-1;
+    function X(m){ return padL + (months===0?0:m/months)*plotW; }
+    function Y(v){ return padT + plotH - (v/yMax)*plotH; }
+    var s='';
+    // y grid + labels (R$)
+    for(var g=0; g<=yMax+1e-6; g+=niceStep){
+      var y=Y(g);
+      s+='<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y.toFixed(1)+'" stroke="rgba(157,178,200,.13)"/>';
+      s+='<text x="'+(padL-8)+'" y="'+(y+3.5).toFixed(1)+'" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="#9DB2C8">'+('R$ '+Math.round(g/1000*10)/10+'k').replace('.',',')+'</text>';
+    }
+    // x ticks (months)
+    for(var m=0;m<=months;m++){
+      var x=X(m);
+      s+='<line x1="'+x.toFixed(1)+'" y1="'+(padT+plotH)+'" x2="'+x.toFixed(1)+'" y2="'+(padT+plotH+4)+'" stroke="rgba(157,178,200,.3)"/>';
+      s+='<text x="'+x.toFixed(1)+'" y="'+(padT+plotH+18)+'" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#9DB2C8">'+(m===0?'início':'mês '+m)+'</text>';
+    }
+    s+='<line x1="'+padL+'" y1="'+padT+'" x2="'+padL+'" y2="'+(padT+plotH)+'" stroke="rgba(157,178,200,.3)"/>';
+    s+='<line x1="'+padL+'" y1="'+(padT+plotH)+'" x2="'+(W-padR)+'" y2="'+(padT+plotH)+'" stroke="rgba(157,178,200,.3)"/>';
+    function path(arr){ var d=''; arr.forEach(function(v,m){ d+=(m?'L':'M')+X(m).toFixed(1)+' '+Y(v).toFixed(1)+' '; }); return d; }
+    // pharm area + line (gold), clinic line (teal)
+    s+='<path d="'+path(cumPharm)+'L'+X(months).toFixed(1)+' '+(padT+plotH)+' L'+padL+' '+(padT+plotH)+' Z" fill="rgba(201,162,78,.10)"/>';
+    s+='<path d="'+path(cumPharm)+'" fill="none" stroke="#E4C982" stroke-width="2.8" stroke-linejoin="round"/>';
+    s+='<path d="'+path(cumClinic)+'" fill="none" stroke="#7fd3bb" stroke-width="2.8" stroke-linejoin="round"/>';
+    cumPharm.forEach(function(v,m){ s+='<circle cx="'+X(m).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="3.4" fill="#C9A24E" stroke="#0B1A2E" stroke-width="1"/>'; });
+    cumClinic.forEach(function(v,m){ s+='<circle cx="'+X(m).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="3.4" fill="#4FA890" stroke="#0B1A2E" stroke-width="1"/>'; });
+    s+='<text x="'+(padL+plotW/2)+'" y="'+(H-6)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#9DB2C8">gasto acumulado ao longo do tratamento</text>';
+    s+='<rect class="cchit" x="'+padL+'" y="'+padT+'" width="'+plotW+'" height="'+plotH+'" fill="transparent" style="cursor:crosshair"/>';
+    host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" style="display:block;width:100%;height:auto;min-height:340px;">'+s+'</svg>';
+
+    // hover: show both cumulative values at the nearest month
+    var svg=host.querySelector('svg'), hit=svg.querySelector('.cchit'), tip=document.getElementById('tip');
+    var markdots=null;
+    function ccLeave(){ tip.style.opacity='0'; if(markdots){markdots.forEach(function(d){if(d.parentNode)d.parentNode.removeChild(d);});markdots=null;} }
+    function ccMove(ev){
+      var rect=svg.getBoundingClientRect(), scaleX=W/rect.width;
+      var gx=(ev.clientX-rect.left)*scaleX;
+      var mm=Math.round((gx-padL)/plotW*months); mm=Math.max(0,Math.min(months,mm));
+      if(markdots){markdots.forEach(function(d){if(d.parentNode)d.parentNode.removeChild(d);});}
+      markdots=[];
+      [{v:cumClinic[mm],c:'#7fd3bb'},{v:cumPharm[mm],c:'#C9A24E'}].forEach(function(o){
+        var d=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        d.setAttribute('cx',X(mm).toFixed(1)); d.setAttribute('cy',Y(o.v).toFixed(1));
+        d.setAttribute('r','6'); d.setAttribute('fill','none'); d.setAttribute('stroke',o.c); d.setAttribute('stroke-width','1.8');
+        svg.appendChild(d); markdots.push(d);
+      });
+      var diff=cumPharm[mm]-cumClinic[mm];
+      tip.innerHTML='<b>'+(mm===0?'Início':'Mês '+mm)+'</b>'
+        +'<br><span class="mono" style="color:#7fd3bb">Manipulada: '+brl(cumClinic[mm])+'</span>'
+        +'<br><span class="mono" style="color:#E4C982">Mounjaro: '+brl(cumPharm[mm])+'</span>'
+        +(mm>0?'<br><span class="mono" style="color:var(--mist)">economia: '+brl(diff)+'</span>':'');
+      tip.style.opacity='1';
+      var tx=ev.clientX+14,ty=ev.clientY-10;
+      if(tx>window.innerWidth-260) tx=ev.clientX-244;
+      tip.style.left=tx+'px'; tip.style.top=ty+'px';
+    }
+    hit.addEventListener('mousemove',ccMove);
+    hit.addEventListener('mouseleave',ccLeave);
+    hit.addEventListener('touchmove',function(e){if(e.touches[0]){ccMove(e.touches[0]);e.preventDefault();}},{passive:false});
+    hit.addEventListener('touchend',ccLeave);
+  }
+
+  // ============ SCHEDULE ============
+  var SCH_DAYS = ['Seg','Ter','Qua','Qui','Sex'];
+  var schActivities = [
+    {id:'consulta', name:'Primeira Consulta ou Retorno', color:'#5b8fb9', duration:2},
+    {id:'injetaveis', name:'Injetáveis', color:'#d4a24e', duration:1},
+    {id:'bloqueada', name:'Agenda bloqueada', color:'#6b6b6b', duration:1},
+    {id:'telemedicina', name:'Primeira Consulta (Telemedicina)', color:'#7a6bbf', duration:2}
+  ];
+  var schBaseSlots = [
+    '13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30'
+  ];
+  var schSlots = schBaseSlots.slice();
+  var schGranularity = 30;
+  // grid[slotIndex][dayIndex] = {actId, span} or null
+  var schGrid = [];
+  var schNextId = 10;
+
+  function schMinutes(t){
+    var p=t.split(':'); return parseInt(p[0])*60+parseInt(p[1]);
+  }
+  function schTimeFromMin(m){
+    var h=Math.floor(m/60), mm=m%60;
+    return (h<10?'0':'')+h+':'+(mm<10?'0':'')+mm;
+  }
+
+  function schBuildSlots(gran){
+    if(!schBaseSlots.length) return;
+    var minT=schMinutes(schBaseSlots[0]);
+    var maxT=schMinutes(schBaseSlots[schBaseSlots.length-1])+30;
+    var slots=[];
+    for(var m=minT; m<maxT; m+=gran){
+      slots.push(schTimeFromMin(m));
+    }
+    return slots;
+  }
+
+  function schDefault(){
+    schGranularity=30;
+    if(el('schGranularity')) el('schGranularity').value='30';
+    schBaseSlots=['13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30'];
+    schSlots=schBaseSlots.slice();
+    schGrid=[];
+    for(var i=0;i<schSlots.length;i++){
+      schGrid[i]=[null,null,null,null,null];
+    }
+    for(var s=0;s<schSlots.length;s++){
+      schGrid[s][0]={actId:'injetaveis',span:1};
+      schGrid[s][3]={actId:'injetaveis',span:1};
+    }
+    [0,3,6].forEach(function(si){
+      [1,2,4].forEach(function(di){
+        schGrid[si][di]={actId:'consulta',span:2};
+        if(si+1<schSlots.length) schGrid[si+1][di]={actId:'__skip',master:si};
+      });
+    });
+  }
+  schDefault();
+
+  function schGetState(){
+    return {
+      activities:schActivities,
+      slots:schSlots,
+      granularity:schGranularity,
+      grid:schGrid.map(function(row){
+        var clean=[];
+        for(var d=0;d<5;d++){
+          var c=row[d];
+          if(!c) clean.push(null);
+          else if(c.actId==='__skip') clean.push({actId:'__skip',master:c.master});
+          else clean.push({actId:c.actId,span:c.span});
+        }
+        return clean;
+      }),
+      nextId:schNextId
+    };
+  }
+
+  function schApplyState(data){
+    schActivities=data.activities;
+    schSlots=data.slots;
+    schGranularity=data.granularity||30;
+    schNextId=data.nextId||10;
+    schGrid=[];
+    for(var i=0;i<data.grid.length;i++){
+      schGrid[i]=data.grid[i];
+      schGrid[i]._slot=schSlots[i];
+    }
+    if(el('schGranularity')) el('schGranularity').value=String(schGranularity);
+  }
+
+  var schSaving=false;
+  function schSyncStatus(msg,ok){
+    var s=el('schSyncStatus');
+    if(!s) return;
+    s.textContent=msg;
+    s.style.color=ok?'#9be3cd':'var(--danger)';
+    if(ok) setTimeout(function(){ if(s.textContent===msg) s.textContent='Sincronizado'; },2000);
+  }
+
+  function schSaveCloud(){
+    // always save to localStorage as offline cache
+    try{ localStorage.setItem('sch_data',JSON.stringify(schGetState())); }catch(e){}
+    // save to Firebase
+    schSaving=true;
+    schSyncStatus('Salvando...',true);
+    fbRef.set(schGetState()).then(function(){
+      schSaving=false;
+      schSyncStatus('Salvo na nuvem ✓',true);
+    }).catch(function(err){
+      schSaving=false;
+      schSyncStatus('Erro ao salvar',false);
+    });
+  }
+
+  // Load from Firebase on init, fallback to localStorage, then default
+  var schInitLoaded=false;
+  fbRef.once('value').then(function(snap){
+    var data=snap.val();
+    if(data&&data.activities&&data.slots&&data.grid){
+      schApplyState(data);
+      schInitLoaded=true;
+      // if schedule view is currently open, re-render
+      if(document.getElementById('schedule').classList.contains('active')) renderSchedule();
+      schSyncStatus('Sincronizado',true);
+    } else {
+      // no cloud data, try localStorage
+      schLoadLocalFallback();
+    }
+  }).catch(function(){
+    // offline, try localStorage
+    schLoadLocalFallback();
+  });
+
+  function schLoadLocalFallback(){
+    try{
+      var raw=localStorage.getItem('sch_data');
+      if(raw){
+        var data=JSON.parse(raw);
+        if(data.activities&&data.slots&&data.grid){
+          schApplyState(data);
+          schInitLoaded=true;
+          if(document.getElementById('schedule').classList.contains('active')) renderSchedule();
+          return;
+        }
+      }
+    }catch(e){}
+    // stay with defaults, tag slots
+    for(var _si=0;_si<schGrid.length;_si++) schGrid[_si]._slot=schSlots[_si];
+  }
+
+  // Real-time listener: if another device saves, update here automatically
+  fbRef.on('value',function(snap){
+    if(schSaving) return; // ignore echo from own save
+    var data=snap.val();
+    if(data&&data.activities&&data.slots&&data.grid){
+      schApplyState(data);
+      if(document.getElementById('schedule').classList.contains('active')) renderSchedule();
+      schSyncStatus('Atualizado de outro dispositivo ✓',true);
+    }
+  });
+
+  function schApplyGranularity(newGran){
+    var oldGran=schGranularity;
+    if(newGran===oldGran) return;
+    var oldSlots=schSlots.slice();
+    var oldGrid=schGrid.slice();
+    // calculate new slots covering same time range
+    var minT=schMinutes(oldSlots[0]);
+    var maxT=schMinutes(oldSlots[oldSlots.length-1])+oldGran;
+    var newSlots=[];
+    for(var m=minT;m<maxT;m+=newGran) newSlots.push(schTimeFromMin(m));
+    // rebuild grid: try to map old activities
+    var newGrid=[];
+    for(var i=0;i<newSlots.length;i++) newGrid[i]=[null,null,null,null,null];
+    // for each old filled cell, place it in the new grid
+    for(var osi=0;osi<oldSlots.length;osi++){
+      for(var di=0;di<5;di++){
+        var c=oldGrid[osi]?oldGrid[osi][di]:null;
+        if(!c||c.actId==='__skip') continue;
+        var startMin=schMinutes(oldSlots[osi]);
+        var endMin=startMin+c.span*oldGran;
+        // find corresponding new slot indices
+        var nsi=-1;
+        for(var ni=0;ni<newSlots.length;ni++){
+          if(schMinutes(newSlots[ni])===startMin){nsi=ni;break;}
+          if(schMinutes(newSlots[ni])>startMin){nsi=ni;break;}
+        }
+        if(nsi<0) continue;
+        var neiMin=schMinutes(newSlots[nsi]);
+        var durSlots=Math.max(1,Math.round((endMin-neiMin)/newGran));
+        if(nsi+durSlots>newSlots.length) durSlots=newSlots.length-nsi;
+        if(!newGrid[nsi][di]){
+          newGrid[nsi][di]={actId:c.actId,span:durSlots};
+          for(var k=1;k<durSlots;k++){
+            if(!newGrid[nsi+k][di]) newGrid[nsi+k][di]={actId:'__skip',master:nsi};
+          }
+        }
+      }
+    }
+    schSlots=newSlots;
+    schGrid=newGrid;
+    schGranularity=newGran;
+  }
+
+  function schFindActivity(id){
+    for(var i=0;i<schActivities.length;i++){
+      if(schActivities[i].id===id) return schActivities[i];
+    }
+    return null;
+  }
+
+  function schEndTime(slotIdx,span){
+    var startMin=schMinutes(schSlots[slotIdx]);
+    var endMin=startMin+span*schGranularity;
+    return schTimeFromMin(endMin);
+  }
+
+  function renderSchedule(){
+    // colgroup for equal widths
+    var cgHtml='<col class="sch-col-time">';
+    for(var d=0;d<SCH_DAYS.length;d++) cgHtml+='<col>';
+    el('schColgroup').innerHTML=cgHtml;
+
+    // legend
+    var legHtml='';
+    schActivities.forEach(function(a){
+      var durMin=a.duration*schGranularity;
+      legHtml+='<div class="sch-legend-item" data-act="'+a.id+'">'
+        +'<div class="sch-legend-swatch" style="background:'+a.color+'"></div>'
+        +'<span>'+a.name+'</span>'
+        +'<span class="sch-legend-dur">'+durMin+'min</span>'
+        +'</div>';
+    });
+    el('schLegend').innerHTML=legHtml;
+    document.querySelectorAll('.sch-legend-item').forEach(function(item){
+      item.addEventListener('click',function(){ openActModal(this.getAttribute('data-act')); });
+    });
+
+    // header
+    var headHtml='<th>Horário</th>';
+    SCH_DAYS.forEach(function(d){ headHtml+='<th>'+d+'</th>'; });
+    el('schHead').innerHTML=headHtml;
+
+    // body
+    var bodyHtml='';
+    for(var si=0;si<schSlots.length;si++){
+      bodyHtml+='<tr>';
+      bodyHtml+='<td>'+schSlots[si]+'</td>';
+      for(var di=0;di<SCH_DAYS.length;di++){
+        var cell=schGrid[si]?schGrid[si][di]:null;
+        if(cell&&cell.actId==='__skip') continue;
+        var span=cell?cell.span:1;
+        var act=cell?schFindActivity(cell.actId):null;
+        var rs=span>1?' rowspan="'+span+'"':'';
+        if(act){
+          var textColor=schLuminance(act.color)>0.4?'#0B1A2E':'#fff';
+          bodyHtml+='<td'+rs+'><div class="sch-cell" data-si="'+si+'" data-di="'+di+'" style="background:'+act.color+';color:'+textColor+'">'
+            +act.name+'</div></td>';
+        } else {
+          bodyHtml+='<td'+rs+'><div class="sch-cell empty" data-si="'+si+'" data-di="'+di+'"></div></td>';
+        }
+      }
+      bodyHtml+='</tr>';
+    }
+    el('schBody').innerHTML=bodyHtml;
+
+    document.querySelectorAll('.sch-cell').forEach(function(c){
+      c.addEventListener('click',function(){
+        openCellModal(parseInt(this.getAttribute('data-si')),parseInt(this.getAttribute('data-di')));
+      });
+    });
+
+    el('schInfo').textContent=schSlots.length+' horários · '+SCH_DAYS.length+' dias · '+schGranularity+'min por slot';
+    // show scroll hint on narrow screens
+    var hint=document.getElementById('schScrollHint');
+    if(hint) hint.style.display=window.innerWidth<=768?'block':'none';
+    schSaveCloud();
+  }
+
+  function schLuminance(hex){
+    var r=parseInt(hex.slice(1,3),16)/255;
+    var g=parseInt(hex.slice(3,5),16)/255;
+    var b=parseInt(hex.slice(5,7),16)/255;
+    return 0.299*r+0.587*g+0.114*b;
+  }
+
+  // Granularity change
+  el('schGranularity').addEventListener('change',function(){
+    var newGran=parseInt(this.value);
+    schApplyGranularity(newGran);
+    renderSchedule();
+  });
+
+  // Cell modal
+  function openCellModal(si,di){
+    var cell=schGrid[si]?schGrid[si][di]:null;
+    el('schCellTitle').textContent=schSlots[si]+' — '+SCH_DAYS[di];
+    var selAct=el('schCellActivity');
+    selAct.innerHTML='<option value="">(vazio)</option>';
+    schActivities.forEach(function(a){
+      var sel=(cell&&cell.actId===a.id)?' selected':'';
+      selAct.innerHTML+='<option value="'+a.id+'"'+sel+'>'+a.name+'</option>';
+    });
+    var maxSpan=schSlots.length-si;
+    var spanSel=el('schCellSpan');
+    spanSel.innerHTML='';
+    for(var s=1;s<=Math.min(maxSpan,6);s++){
+      var mins=s*schGranularity;
+      var sel2=(cell&&cell.span===s)?' selected':'';
+      spanSel.innerHTML+='<option value="'+s+'"'+sel2+'>'+s+' slot'+(s>1?'s':'')+' ('+mins+' min)</option>';
+    }
+    if(!cell) spanSel.value='1';
+    el('schCellModal').classList.add('open');
+    el('schCellModal')._si=si;
+    el('schCellModal')._di=di;
+  }
+
+  el('schCellCancel').addEventListener('click',function(){ el('schCellModal').classList.remove('open'); });
+  el('schCellClear').addEventListener('click',function(){
+    clearCell(el('schCellModal')._si,el('schCellModal')._di);
+    el('schCellModal').classList.remove('open');
+    renderSchedule();
+  });
+  el('schCellSave').addEventListener('click',function(){
+    var si=el('schCellModal')._si, di=el('schCellModal')._di;
+    var actId=el('schCellActivity').value;
+    var span=parseInt(el('schCellSpan').value);
+    clearCell(si,di);
+    if(actId){
+      schGrid[si][di]={actId:actId,span:span};
+      for(var k=1;k<span&&si+k<schSlots.length;k++){
+        schGrid[si+k][di]={actId:'__skip',master:si};
+      }
+    }
+    el('schCellModal').classList.remove('open');
+    renderSchedule();
+  });
+
+  function clearCell(si,di){
+    var cell=schGrid[si]?schGrid[si][di]:null;
+    if(!cell) return;
+    if(cell.actId==='__skip'){
+      clearCell(cell.master,di);
+      return;
+    }
+    var span=cell.span||1;
+    schGrid[si][di]=null;
+    for(var k=1;k<span&&si+k<schSlots.length;k++){
+      if(schGrid[si+k][di]&&schGrid[si+k][di].actId==='__skip'&&schGrid[si+k][di].master===si){
+        schGrid[si+k][di]=null;
+      }
+    }
+  }
+
+  // Activity modal
+  function openActModal(actId){
+    var a=schFindActivity(actId);
+    if(!a) return;
+    el('schActTitle').textContent='Editar: '+a.name;
+    el('schActName').value=a.name;
+    var durSel=el('schActDuration');
+    durSel.innerHTML='';
+    for(var s=1;s<=6;s++){
+      var mins=s*schGranularity;
+      durSel.innerHTML+='<option value="'+s+'"'+(a.duration===s?' selected':'')+'>'+mins+' min ('+s+' slot'+(s>1?'s':'')+')</option>';
+    }
+    el('schActColor').value=a.color;
+    el('schActModal').classList.add('open');
+    el('schActModal')._actId=actId;
+  }
+
+  el('schActCancel').addEventListener('click',function(){ el('schActModal').classList.remove('open'); });
+  el('schActDelete').addEventListener('click',function(){
+    var actId=el('schActModal')._actId;
+    // remove from grid
+    for(var i=0;i<schGrid.length;i++){
+      for(var j=0;j<5;j++){
+        if(schGrid[i][j]&&schGrid[i][j].actId===actId) clearCell(i,j);
+      }
+    }
+    schActivities=schActivities.filter(function(a){return a.id!==actId;});
+    el('schActModal').classList.remove('open');
+    renderSchedule();
+  });
+  el('schActSave').addEventListener('click',function(){
+    var actId=el('schActModal')._actId;
+    var a=schFindActivity(actId);
+    if(!a) return;
+    a.name=el('schActName').value.trim()||a.name;
+    a.duration=parseInt(el('schActDuration').value);
+    a.color=el('schActColor').value;
+    el('schActModal').classList.remove('open');
+    renderSchedule();
+  });
+
+  el('schAddActivity').addEventListener('click',function(){
+    var newId='act_'+(schNextId++);
+    schActivities.push({id:newId,name:'Novo agendamento',color:'#5fa8d3',duration:1});
+    openActModal(newId);
+  });
+
+  el('schAddSlot').addEventListener('click',function(){ el('schSlotModal').classList.add('open'); });
+  el('schSlotCancel').addEventListener('click',function(){ el('schSlotModal').classList.remove('open'); });
+  el('schSlotSave').addEventListener('click',function(){
+    var time=el('schSlotTime').value;
+    if(!time) return;
+    if(schSlots.indexOf(time)>=0){el('schSlotModal').classList.remove('open');return;}
+    schSlots.push(time);
+    schSlots.sort();
+    var newGrid=[];
+    for(var i=0;i<schSlots.length;i++){
+      var found=false;
+      for(var oi=0;oi<schGrid.length;oi++){
+        if(schGrid[oi]&&schGrid[oi]._slot===schSlots[i]){newGrid[i]=schGrid[oi];found=true;break;}
+      }
+      if(!found){newGrid[i]=[null,null,null,null,null];}
+      newGrid[i]._slot=schSlots[i];
+    }
+    schGrid=newGrid;
+    el('schSlotModal').classList.remove('open');
+    renderSchedule();
+  });
+
+  ['schCellModal','schActModal','schSlotModal'].forEach(function(mid){
+    el(mid).addEventListener('click',function(e){
+      if(e.target===this) this.classList.remove('open');
+    });
+  });
+
+
+  // ============ CONSULTATIONS ============
+  var conRef = fbDb.ref('consultations');
+  var conPatients = [];
+  var conNextId = 100;
+  var conSaving = false;
+
+  // seed data from spreadsheet
+  var conDefaults = [
+    {id:1,name:'Glória Maria Peixoto Pereira',indic:2,start:'2026-07-28',dur:6,total:6,next:'',
+     consults:[{int:30,sug:'2026-08-27',real:'2026-07-29'},{int:30,sug:'2026-08-28',real:'2026-09-16'},{int:30,sug:'2026-10-16',real:'2026-10-28'},{int:30,sug:'2026-11-27',real:'2026-12-04'},{int:30,sug:'2027-01-03',real:'2026-01-29'},{int:30,sug:'2026-02-28',real:'2026-04-27'}]},
+    {id:2,name:'Andrea Correa Dias Duque',indic:0,start:'2026-03-03',dur:3,total:3,next:'Aguardar sessão final injetável',
+     consults:[{int:30,sug:'2026-04-02',real:'2026-04-07'},{int:30,sug:'2026-05-07',real:'2026-05-06'},{int:30,sug:'2026-06-05',real:''}]},
+    {id:3,name:'Wagna Carmem Souza Gomes',indic:0,start:'2026-03-31',dur:7,total:6,next:'Desmarcou 03/06',
+     consults:[{int:30,sug:'2026-04-30',real:'2026-04-28'},{int:30,sug:'2026-05-28',real:''},{int:30,sug:'2026-06-27',real:''},{int:30,sug:'2026-07-27',real:''},{int:30,sug:'2026-08-26',real:''},{int:30,sug:'2026-09-25',real:''}]},
+    {id:4,name:'Lincoln Diniz Carvalho',indic:0,start:'2026-05-18',dur:6,total:3,next:'2026-06-16',
+     consults:[{int:30,sug:'2026-06-17',real:''},{int:60,sug:'2026-08-16',real:''},{int:90,sug:'2026-11-14',real:''}]}
+  ];
+
+  function conFmtDate(d){
+    if(!d) return '';
+    return d;
+  }
+  function conDisplayDate(d){
+    if(!d) return '-';
+    var p=d.split('-');
+    return p[2]+'/'+p[1]+'/'+p[0];
+  }
+  function conAddMonths(dateStr,m){
+    var d=new Date(dateStr+'T00:00:00');
+    d.setMonth(d.getMonth()+m);
+    return d.toISOString().slice(0,10);
+  }
+  function conEndDate(p){
+    if(!p.start||!p.dur) return '';
+    return conAddMonths(p.start,p.dur);
+  }
+  function conRealizadas(p){
+    var c=0;
+    for(var i=0;i<p.consults.length;i++) if(p.consults[i].real) c++;
+    return c;
+  }
+  function conAlerta(p){
+    var end=conEndDate(p);
+    var today=new Date().toISOString().slice(0,10);
+    var done=conRealizadas(p);
+    if(done>=p.total) return {text:'✔ Completo',cls:'complete'};
+    if(end&&today>end) return {text:'⛔ Plano vencido',cls:'danger'};
+    // check if any pending consultation is past due
+    for(var i=0;i<p.consults.length;i++){
+      if(!p.consults[i].real&&p.consults[i].sug&&today>p.consults[i].sug){
+        return {text:'⚠ Fora do prazo',cls:'warn'};
+      }
+    }
+    return {text:'✔ OK',cls:'ok'};
+  }
+
+  function conSyncStatus(msg,ok){
+    var s=document.getElementById('conSync');
+    if(s){s.textContent=msg;s.style.color=ok?'#9be3cd':'var(--danger)';}
+    if(ok) setTimeout(function(){if(s&&s.textContent===msg) s.textContent='Sincronizado';},2000);
+  }
+  function conSaveCloud(){
+    try{localStorage.setItem('con_data',JSON.stringify({patients:conPatients,nextId:conNextId}));}catch(e){}
+    conSaving=true;
+    conSyncStatus('Salvando...',true);
+    conRef.set({patients:conPatients,nextId:conNextId}).then(function(){
+      conSaving=false; conSyncStatus('Salvo na nuvem ✓',true);
+    }).catch(function(){
+      conSaving=false; conSyncStatus('Erro ao salvar',false);
+    });
+  }
+
+  // load from Firebase
+  conRef.once('value').then(function(snap){
+    var d=snap.val();
+    if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSyncStatus('Sincronizado',true);}
+    else{
+      try{var raw=localStorage.getItem('con_data');if(raw){var ld=JSON.parse(raw);if(ld.patients){conPatients=ld.patients;conNextId=ld.nextId||100;}}}catch(e){}
+      if(!conPatients.length) conPatients=conDefaults.slice();
+    }
+  }).catch(function(){
+    try{var raw=localStorage.getItem('con_data');if(raw){var ld=JSON.parse(raw);if(ld.patients){conPatients=ld.patients;conNextId=ld.nextId||100;}}}catch(e){}
+    if(!conPatients.length) conPatients=conDefaults.slice();
+  });
+
+  conRef.on('value',function(snap){
+    if(conSaving) return;
+    var d=snap.val();
+    if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;
+      if(document.getElementById('consult').classList.contains('active')) renderConsult();
+      conSyncStatus('Atualizado ✓',true);
+    }
+  });
+
+  function renderConsult(){
+    var items=[];
+    conPatients.forEach(function(p,idx){
+      if(!p.hidden) items.push({p:p,idx:idx,alert:conAlerta(p)});
+    });
+    var hiddenItems=[];
+    conPatients.forEach(function(p,idx){
+      if(p.hidden) hiddenItems.push({p:p,idx:idx});
+    });
+
+    // sort: warn(0) → danger(1) → ok(2), then alphabetically
+    var alertOrder={warn:0,danger:1,ok:2,complete:3};
+    items.sort(function(a,b){
+      var ao=alertOrder[a.alert.cls]!=null?alertOrder[a.alert.cls]:2;
+      var bo=alertOrder[b.alert.cls]!=null?alertOrder[b.alert.cls]:2;
+      if(ao!==bo) return ao-bo;
+      return a.p.name.localeCompare(b.p.name);
+    });
+
+    // summary cards
+    var totalP=items.length,okC=0,warnC=0,dangerC=0,compC=0;
+    items.forEach(function(it){
+      if(it.alert.cls==='ok') okC++; else if(it.alert.cls==='warn') warnC++; else if(it.alert.cls==='danger') dangerC++; else if(it.alert.cls==='complete') compC++;
+    });
+    el('conSummary').innerHTML=
+      '<div class="con-scard ok"><div class="csv">'+okC+'</div><div class="csl">Em dia</div></div>'
+      +'<div class="con-scard alert"><div class="csv">'+(warnC+dangerC)+'</div><div class="csl">Atenção</div></div>'
+      +'<div class="con-scard"><div class="csv">'+compC+'</div><div class="csl">Completos</div></div>'
+      +'<div class="con-scard"><div class="csv">'+totalP+'</div><div class="csl">Ativos</div></div>';
+
+    // patient cards
+    var html='';
+    items.forEach(function(it){
+      var p=it.p, idx=it.idx, a=it.alert;
+      var done=conRealizadas(p);
+      var rest=p.total-done;
+      var endD=conEndDate(p);
+      var dots='';
+      for(var i=0;i<p.total;i++){
+        var c=p.consults[i];
+        var cls='pending';
+        if(c&&c.real) cls='done';
+        else if(c&&c.sug&&new Date().toISOString().slice(0,10)>c.sug) cls='late';
+        dots+='<div class="con-dot '+cls+'">'+(i+1)+'</div>';
+      }
+      var indic=p.indic||0;
+      for(var k=0;k<indic;k++){
+        dots+='<div class="con-dot indic" title="Indicação '+(k+1)+'">✦</div>';
+      }
+      var nextTxt='';
+      if(p.next) nextTxt='<div class="con-pat-next"><b>Próxima:</b> '+p.next+'</div>';
+
+      html+='<div class="con-pat" data-idx="'+idx+'">'
+        +'<div class="con-pat-head">'
+          +'<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0;">'
+            +'<div class="con-pat-name">'+p.name+'</div>'
+            +'<button class="con-hide-btn" data-idx="'+idx+'" onclick="event.stopPropagation()">Ocultar</button>'
+          +'</div>'
+          +'<div class="con-badge '+a.cls+'">'+a.text+'</div>'
+        +'</div>'
+        +'<div class="con-pat-meta">'
+          +'<span>Início: <b>'+conDisplayDate(p.start)+'</b></span>'
+          +'<span>Final: <b>'+conDisplayDate(endD)+'</b></span>'
+          +'<span>Duração: <b>'+p.dur+' meses</b></span>'
+          +'<span>Consultas: <b>'+done+'/'+p.total+'</b></span>'
+          +(rest>0?'<span>Restantes: <b>'+rest+'</b></span>':'')
+        +'</div>'
+        +'<div class="con-timeline">'+dots+'</div>'
+        +nextTxt
+      +'</div>';
+    });
+    el('conPatients').innerHTML=html;
+
+    document.querySelectorAll('.con-pat').forEach(function(c){
+      c.addEventListener('click',function(){ openConModal(parseInt(this.getAttribute('data-idx'))); });
+    });
+    document.querySelectorAll('.con-hide-btn').forEach(function(b){
+      b.addEventListener('click',function(e){
+        e.stopPropagation();
+        var idx=parseInt(this.getAttribute('data-idx'));
+        conPatients[idx].hidden=true;
+        renderConsult();
+        conSaveCloud();
+      });
+    });
+
+    // hidden patients button + list
+    var hBtn=document.getElementById('conShowHidden');
+    hBtn.textContent='Ocultos ('+hiddenItems.length+')';
+    var hList=document.getElementById('conHiddenList');
+    var hItemsEl=document.getElementById('conHiddenItems');
+    if(hiddenItems.length>0){
+      var hHtml='';
+      hiddenItems.forEach(function(it){
+        hHtml+='<div class="con-hidden-item">'
+          +'<span class="chi-name">'+it.p.name+'</span>'
+          +'<button data-idx="'+it.idx+'">Reexibir</button>'
+        +'</div>';
+      });
+      hItemsEl.innerHTML=hHtml;
+      hItemsEl.querySelectorAll('button').forEach(function(b){
+        b.addEventListener('click',function(){
+          var idx=parseInt(this.getAttribute('data-idx'));
+          conPatients[idx].hidden=false;
+          renderConsult();
+          conSaveCloud();
+        });
+      });
+    } else {
+      hList.style.display='none';
+      hItemsEl.innerHTML='';
+    }
+  }
+
+  function buildConRows(total,consults){
+    var html='';
+    for(var i=0;i<total;i++){
+      var c=consults[i]||{int:30,sug:'',real:''};
+      html+='<div class="con-row">'
+        +'<div class="cr-n">'+( i+1)+'</div>'
+        +'<div><div class="cr-lbl">Intervalo (dias)</div><input type="number" class="cr-int" value="'+(c.int||30)+'" min="1" data-i="'+i+'"></div>'
+        +'<div><div class="cr-lbl">Data sugerida</div><input type="date" class="cr-sug" value="'+(c.sug||'')+'" data-i="'+i+'"></div>'
+        +'<div><div class="cr-lbl">Data realizada</div><input type="date" class="cr-rea" value="'+(c.real||'')+'" data-i="'+i+'"></div>'
+      +'</div>';
+    }
+    return html;
+  }
+
+  function openConModal(idx){
+    var isNew=(idx<0);
+    var p=isNew?{id:conNextId++,name:'',indic:0,start:new Date().toISOString().slice(0,10),dur:6,total:6,next:'',consults:[]}:conPatients[idx];
+    el('conModalTitle').textContent=isNew?'Novo paciente':'Editar: '+p.name;
+    el('conName').value=p.name;
+    el('conIndic').value=p.indic||0;
+    el('conStart').value=p.start||'';
+    el('conDur').value=p.dur||6;
+    el('conTotal').value=p.total||6;
+    el('conNext').value=p.next||'';
+    conUpdateEnd();
+    // ensure consults array
+    while(p.consults.length<p.total) p.consults.push({int:30,sug:'',real:''});
+    // auto-calc suggested dates if empty
+    for(var i=0;i<p.total;i++){
+      if(!p.consults[i].sug&&p.start){
+        var base=i===0?p.start:p.consults[i-1].sug;
+        if(base){
+          var d=new Date(base+'T00:00:00');
+          d.setDate(d.getDate()+(p.consults[i].int||30));
+          p.consults[i].sug=d.toISOString().slice(0,10);
+        }
+      }
+    }
+    el('conRows').innerHTML=buildConRows(p.total,p.consults);
+    el('conDelete').style.display=isNew?'none':'block';
+    el('conModal').classList.add('open');
+    el('conModal')._idx=idx;
+    el('conModal')._isNew=isNew;
+    el('conModal')._patId=p.id;
+  }
+
+  function conUpdateEnd(){
+    var s=el('conStart').value;
+    var d=parseInt(el('conDur').value)||0;
+    el('conEnd').value=(s&&d)?conAddMonths(s,d):'';
+  }
+  el('conStart').addEventListener('input',conUpdateEnd);
+  el('conDur').addEventListener('input',conUpdateEnd);
+
+  // recalc dates when total changes
+  el('conTotal').addEventListener('input',function(){
+    var t=parseInt(this.value)||1;
+    var start=el('conStart').value;
+    var consults=readConRows();
+    while(consults.length<t) consults.push({int:30,sug:'',real:''});
+    for(var i=0;i<t;i++){
+      if(!consults[i].sug&&start){
+        var base=i===0?start:(consults[i-1].sug||start);
+        var d=new Date(base+'T00:00:00');
+        d.setDate(d.getDate()+(consults[i].int||30));
+        consults[i].sug=d.toISOString().slice(0,10);
+      }
+    }
+    el('conRows').innerHTML=buildConRows(t,consults);
+  });
+
+  function readConRows(){
+    var ints=document.querySelectorAll('.cr-int');
+    var sugs=document.querySelectorAll('.cr-sug');
+    var reas=document.querySelectorAll('.cr-rea');
+    var arr=[];
+    for(var i=0;i<ints.length;i++){
+      arr.push({int:parseInt(ints[i].value)||30,sug:sugs[i].value||'',real:reas[i].value||''});
+    }
+    return arr;
+  }
+
+  el('conCancel').addEventListener('click',function(){ el('conModal').classList.remove('open'); });
+  el('conModal').addEventListener('click',function(e){ if(e.target===this) this.classList.remove('open'); });
+
+  el('conSave').addEventListener('click',function(){
+    var idx=el('conModal')._idx;
+    var isNew=el('conModal')._isNew;
+    var p={
+      id:el('conModal')._patId,
+      name:el('conName').value.trim(),
+      indic:parseInt(el('conIndic').value)||0,
+      start:el('conStart').value,
+      dur:parseInt(el('conDur').value)||6,
+      total:parseInt(el('conTotal').value)||6,
+      next:el('conNext').value.trim(),
+      consults:readConRows()
+    };
+    if(!p.name) return;
+    if(isNew) conPatients.push(p);
+    else conPatients[idx]=p;
+    el('conModal').classList.remove('open');
+    renderConsult();
+    conSaveCloud();
+  });
+
+  el('conDelete').addEventListener('click',function(){
+    var idx=el('conModal')._idx;
+    var name=conPatients[idx]?conPatients[idx].name:'';
+    // show confirmation
+    el('conModal').classList.remove('open');
+    el('conConfirmName').textContent=name;
+    el('conConfirmModal').classList.add('open');
+    el('conConfirmModal')._idx=idx;
+  });
+
+  el('conAddPat').addEventListener('click',function(){ openConModal(-1); });
+  el('conConfirmCancel').addEventListener('click',function(){ el('conConfirmModal').classList.remove('open'); });
+  el('conConfirmYes').addEventListener('click',function(){
+    var idx=el('conConfirmModal')._idx;
+    if(idx>=0) conPatients.splice(idx,1);
+    el('conConfirmModal').classList.remove('open');
+    renderConsult();
+    conSaveCloud();
+  });
+  el('conConfirmModal').addEventListener('click',function(e){ if(e.target===this) this.classList.remove('open'); });
+  document.getElementById('conShowHidden').addEventListener('click',function(){
+    var hList=document.getElementById('conHiddenList');
+    hList.style.display=hList.style.display==='none'?'block':'none';
+  });
+
+  // ============ INJECTABLES ============
+  var injRef=fbDb.ref('injectables');
+  var INJ_KITS=['Otimiz. Nutricional','Antioxidante','Otimiz. Nutricional','Antioxidante','Sup. Mitocondrial','Antioxidante','Sup. Mitocondrial','Sup. Mitocondrial','Antioxidante','Sup. Mitocondrial','Otimiz. Nutricional','Antioxidante'];
+  var INJ_PHASES=[{name:'Fase 1',from:0,to:3,defInt:10},{name:'Fase 2',from:4,to:7,defInt:10},{name:'Fase 3',from:8,to:11,defInt:14}];
+  var injPatients=[];var injNextId=200;var injSaving=false;
+
+  function injDefInterval(si){for(var i=0;i<INJ_PHASES.length;i++){if(si>=INJ_PHASES[i].from&&si<=INJ_PHASES[i].to) return INJ_PHASES[i].defInt;}return 10;}
+  function injMakeSessions(){var s=[];for(var i=0;i<12;i++) s.push({int:injDefInterval(i),sug:'',real:''});return s;}
+
+  var injDefaults=[
+    {id:201,name:'Andrea Correa Dias Duque',start:'2026-03-03',dur:3,obs:'',sessions:[
+      {int:10,sug:'',real:'2026-03-05'},{int:10,sug:'',real:'2026-03-16'},{int:10,sug:'',real:'2026-03-26'},{int:10,sug:'',real:'2026-04-07'},
+      {int:10,sug:'',real:'2026-04-16'},{int:10,sug:'',real:'2026-04-27'},{int:10,sug:'',real:'2026-05-06'},{int:10,sug:'',real:'2026-05-28'},
+      {int:14,sug:'',real:'2026-06-08'},{int:14,sug:'',real:''},{int:14,sug:'',real:''},{int:14,sug:'',real:''}],vitD:'',b12:''},
+    {id:202,name:'Wagna Carmem de Souza Gomes',start:'2026-03-31',dur:7,obs:'',sessions:[
+      {int:10,sug:'',real:'2026-04-16'},{int:10,sug:'',real:'2026-04-28'},{int:10,sug:'',real:'2026-05-07'},{int:10,sug:'',real:'2026-05-18'},
+      {int:10,sug:'',real:''},{int:10,sug:'',real:''},{int:10,sug:'',real:''},{int:10,sug:'',real:''},
+      {int:14,sug:'',real:''},{int:14,sug:'',real:''},{int:14,sug:'',real:''},{int:14,sug:'',real:''}],vitD:'',b12:''},
+    {id:203,name:'Lincoln Diniz Carvalho',start:'2026-05-18',dur:6,obs:'',sessions:[
+      {int:10,sug:'',real:'2026-05-22'},{int:10,sug:'',real:'2026-06-03'},{int:10,sug:'',real:''},{int:10,sug:'',real:''},
+      {int:10,sug:'',real:''},{int:10,sug:'',real:''},{int:10,sug:'',real:''},{int:10,sug:'',real:''},
+      {int:14,sug:'',real:''},{int:14,sug:'',real:''},{int:14,sug:'',real:''},{int:14,sug:'',real:''}],vitD:'',b12:''}
+  ];
+
+  function injDone(p){var c=0;for(var i=0;i<12;i++) if(p.sessions[i]&&p.sessions[i].real) c++;return c;}
+  function injNextSess(p){for(var i=0;i<12;i++) if(!p.sessions[i]||!p.sessions[i].real) return i;return 12;}
+  function injEndDate(p){if(!p.start||!p.dur) return '';return conAddMonths(p.start,p.dur);}
+  function injCalcSug(p){
+    for(var i=0;i<12;i++){
+      if(!p.sessions[i]) p.sessions[i]={int:injDefInterval(i),sug:'',real:''};
+      if(i===0){p.sessions[i].sug=p.start||'';continue;}
+      var prev=p.sessions[i-1].real||p.sessions[i-1].sug;
+      if(prev){var d=new Date(prev+'T00:00:00');d.setDate(d.getDate()+(p.sessions[i].int||10));p.sessions[i].sug=d.toISOString().slice(0,10);}
+    }
+  }
+  function injStatus(p){
+    var d=injDone(p);
+    if(d>=12) return {text:'✔ Completo',cls:'complete'};
+    var ns=injNextSess(p);
+    var s=p.sessions[ns];
+    if(s&&s.sug&&new Date().toISOString().slice(0,10)>s.sug) return {text:'⚠ Em atraso',cls:'warn'};
+    return {text:'✔ Em dia',cls:'ok'};
+  }
+
+  function injSyncStatus(m,ok){var s=document.getElementById('injSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}if(ok) setTimeout(function(){if(s&&s.textContent===m) s.textContent='Sincronizado';},2000);}
+  function injSaveCloud(){
+    try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
+    injSaving=true;injSyncStatus('Salvando...',true);
+    injRef.set({patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(){injSaving=false;injSyncStatus('Erro ao salvar',false);});
+  }
+  injRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);}
+    else{try{var r=localStorage.getItem('inj_data');if(r){var ld=JSON.parse(r);if(ld.patients){injPatients=ld.patients;injNextId=ld.nextId||200;}}}catch(e){}
+    if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));}
+  }).catch(function(){try{var r=localStorage.getItem('inj_data');if(r){var ld=JSON.parse(r);if(ld.patients){injPatients=ld.patients;injNextId=ld.nextId||200;}}}catch(e){}
+    if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));});
+  injRef.on('value',function(snap){if(injSaving) return;var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;if(document.getElementById('inject').classList.contains('active')) renderInject();injSyncStatus('Atualizado ✓',true);}});
+
+  function renderInject(){
+    var items=[],hiddenItems=[];
+    injPatients.forEach(function(p,idx){
+      injCalcSug(p);
+      if(p.hidden) hiddenItems.push({p:p,idx:idx});else items.push({p:p,idx:idx,st:injStatus(p)});
+    });
+    var alertOrder={warn:0,ok:1,complete:2};
+    items.sort(function(a,b){var ao=alertOrder[a.st.cls]!=null?alertOrder[a.st.cls]:1;var bo=alertOrder[b.st.cls]!=null?alertOrder[b.st.cls]:1;if(ao!==bo) return ao-bo;return a.p.name.localeCompare(b.p.name);});
+
+    var okC=0,warnC=0,compC=0;
+    items.forEach(function(it){if(it.st.cls==='ok') okC++;else if(it.st.cls==='warn') warnC++;else compC++;});
+    el('injSummary').innerHTML='<div class="con-scard ok"><div class="csv">'+okC+'</div><div class="csl">Em dia</div></div>'
+      +'<div class="con-scard alert"><div class="csv">'+warnC+'</div><div class="csl">Em atraso</div></div>'
+      +'<div class="con-scard"><div class="csv">'+compC+'</div><div class="csl">Completos</div></div>'
+      +'<div class="con-scard"><div class="csv">'+items.length+'</div><div class="csl">Ativos</div></div>';
+
+    var html='';
+    items.forEach(function(it){
+      var p=it.p,idx=it.idx,st=it.st;
+      var d=injDone(p),ns=injNextSess(p),rest=12-d;
+      var endD=injEndDate(p);
+      var dots='';
+      for(var pi=0;pi<3;pi++){
+        if(pi>0) dots+='<div class="inj-phase-sep"></div>';
+        for(var si=INJ_PHASES[pi].from;si<=INJ_PHASES[pi].to;si++){
+          var s=p.sessions[si];
+          var cls='pending';
+          if(s&&s.real) cls='done';
+          else if(si===ns&&s&&s.sug&&new Date().toISOString().slice(0,10)>s.sug) cls='late';
+          else if(si===ns) cls='next';
+          dots+='<div class="inj-dot '+cls+'" title="S'+(si+1)+': '+INJ_KITS[si]+'">'+(si+1)+'</div>';
+        }
+      }
+      var nextTxt='';
+      if(ns<12){var s=p.sessions[ns];nextTxt='<div class="inj-next-info"><b>Próxima:</b> Sessão '+(ns+1)+' · '+INJ_KITS[ns]+(s&&s.sug?' · Sugerida: '+conDisplayDate(s.sug):'')+'</div>';}
+      var avHtml='';
+      if(p.vitD||p.b12){avHtml='<div class="inj-avulsos">';if(p.vitD) avHtml+='<div class="inj-avulso">Vit D: <b>'+conDisplayDate(p.vitD)+'</b></div>';if(p.b12) avHtml+='<div class="inj-avulso">B+B12: <b>'+conDisplayDate(p.b12)+'</b></div>';avHtml+='</div>';}
+      var obsHtml='';
+      if(p.obs) obsHtml='<div class="inj-next-info"><b>Obs:</b> '+p.obs+'</div>';
+      var phIdx=0;for(var pi=0;pi<3;pi++){if(ns>INJ_PHASES[pi].to) phIdx=pi+1;}if(phIdx>2) phIdx=2;
+
+      html+='<div class="inj-pat" data-idx="'+idx+'">'
+        +'<div class="con-pat-head"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0;"><div class="con-pat-name">'+p.name+'</div><button class="con-hide-btn" data-idx="'+idx+'" onclick="event.stopPropagation()">Ocultar</button></div><div class="con-badge '+st.cls+'">'+st.text+'</div></div>'
+        +'<div class="con-pat-meta">'
+          +'<span>Início: <b>'+conDisplayDate(p.start)+'</b></span>'
+          +'<span>Final: <b>'+conDisplayDate(endD)+'</b></span>'
+          +'<span>Duração: <b>'+(p.dur||'-')+' meses</b></span>'
+          +'<span>Fase: <b>'+INJ_PHASES[phIdx].name+'</b></span>'
+          +'<span>Sessões: <b>'+d+'/12</b></span>'
+          +(rest>0?'<span>Restantes: <b>'+rest+'</b></span>':'')
+        +'</div>'
+        +'<div class="inj-phases">'+dots+'</div>'
+        +nextTxt+avHtml+obsHtml
+      +'</div>';
+    });
+    el('injPatients').innerHTML=html;
+
+    document.querySelectorAll('.inj-pat').forEach(function(c){c.addEventListener('click',function(){openInjModal(parseInt(this.getAttribute('data-idx')));});});
+    document.querySelectorAll('#inject .con-hide-btn').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();injPatients[parseInt(this.getAttribute('data-idx'))].hidden=true;renderInject();injSaveCloud();});});
+
+    var hBtn=document.getElementById('injShowHidden');hBtn.textContent='Ocultos ('+hiddenItems.length+')';
+    var hList=document.getElementById('injHiddenList');var hEl=document.getElementById('injHiddenItems');
+    if(hiddenItems.length>0){var hH='';hiddenItems.forEach(function(it){hH+='<div class="con-hidden-item"><span class="chi-name">'+it.p.name+'</span><button data-idx="'+it.idx+'">Reexibir</button></div>';});hEl.innerHTML=hH;
+      hEl.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){injPatients[parseInt(this.getAttribute('data-idx'))].hidden=false;renderInject();injSaveCloud();});});
+    } else {hList.style.display='none';hEl.innerHTML='';}
+  }
+
+  function buildInjSessRows(sessions){
+    var html='<div class="inj-sg-row" style="margin-bottom:10px;font-weight:600;color:var(--gold);font-size:10px;text-transform:uppercase;letter-spacing:.04em;">'
+      +'<div>Nº</div><div>Kit</div><div>Interv.</div><div>Sugerida</div><div>Realizada</div></div>';
+    for(var pi=0;pi<3;pi++){
+      html+='<div class="inj-sg-phase"><div class="inj-sg-phase-title">'+INJ_PHASES[pi].name+' (padrão: '+INJ_PHASES[pi].defInt+' dias)</div>';
+      for(var si=INJ_PHASES[pi].from;si<=INJ_PHASES[pi].to;si++){
+        var s=sessions[si]||{int:injDefInterval(si),sug:'',real:''};
+        html+='<div class="inj-sg-row">'
+          +'<div class="isr-n">'+(si+1)+'</div>'
+          +'<div class="isr-kit">'+INJ_KITS[si]+'</div>'
+          +'<div><input type="number" class="isr-int" data-si="'+si+'" value="'+(s.int||injDefInterval(si))+'" min="1" placeholder="dias" title="Intervalo (dias)"></div>'
+          +'<div><input type="date" class="isr-sug" data-si="'+si+'" value="'+(s.sug||'')+'" title="Data sugerida" style="opacity:.7;" disabled></div>'
+          +'<div><input type="date" class="isr-real" data-si="'+si+'" value="'+(s.real||'')+'" title="Data realizada"></div>'
+        +'</div>';
+      }
+      html+='</div>';
+    }
+    return html;
+  }
+
+  function injUpdateEnd(){
+    var s=el('injStart').value,d=parseInt(el('injDur').value)||0;
+    el('injEnd').value=(s&&d)?conAddMonths(s,d):'';
+  }
+  el('injStart').addEventListener('input',injUpdateEnd);
+  el('injDur').addEventListener('input',injUpdateEnd);
+
+  function openInjModal(idx){
+    var isNew=(idx<0);
+    var p=isNew?{id:injNextId++,name:'',start:new Date().toISOString().slice(0,10),dur:6,obs:'',sessions:injMakeSessions(),vitD:'',b12:''}:injPatients[idx];
+    while(p.sessions.length<12) p.sessions.push({int:injDefInterval(p.sessions.length),sug:'',real:''});
+    injCalcSug(p);
+    el('injModalTitle').textContent=isNew?'Novo paciente':'Editar: '+p.name;
+    el('injName').value=p.name;
+    el('injObs').value=p.obs||'';
+    el('injStart').value=p.start||'';
+    el('injDur').value=p.dur||6;
+    injUpdateEnd();
+    el('injSessRows').innerHTML=buildInjSessRows(p.sessions);
+    el('injAvVitD').value=p.vitD||'';
+    el('injAvB12').value=p.b12||'';
+    el('injDelete').style.display=isNew?'none':'block';
+    el('injModal').classList.add('open');
+    el('injModal')._idx=idx;el('injModal')._isNew=isNew;el('injModal')._patId=p.id;
+  }
+
+  el('injCancel').addEventListener('click',function(){el('injModal').classList.remove('open');});
+  el('injModal').addEventListener('click',function(e){if(e.target===this) this.classList.remove('open');});
+  el('injSave').addEventListener('click',function(){
+    var idx=el('injModal')._idx,isNew=el('injModal')._isNew;
+    var sess=[];
+    document.querySelectorAll('.isr-int').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].int=parseInt(inp.value)||injDefInterval(si);});
+    document.querySelectorAll('.isr-sug').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].sug=inp.value||'';});
+    document.querySelectorAll('.isr-real').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].real=inp.value||'';});
+    var p={id:el('injModal')._patId,name:el('injName').value.trim(),start:el('injStart').value,dur:parseInt(el('injDur').value)||6,obs:el('injObs').value.trim(),sessions:sess,vitD:el('injAvVitD').value||'',b12:el('injAvB12').value||''};
+    if(!p.name) return;
+    if(isNew) injPatients.push(p);else{p.hidden=injPatients[idx].hidden;injPatients[idx]=p;}
+    el('injModal').classList.remove('open');renderInject();injSaveCloud();
+  });
+  el('injDelete').addEventListener('click',function(){
+    var idx=el('injModal')._idx;var name=injPatients[idx]?injPatients[idx].name:'';
+    el('injModal').classList.remove('open');el('injConfirmName').textContent=name;el('injConfirmModal').classList.add('open');el('injConfirmModal')._idx=idx;
+  });
+  el('injConfirmCancel').addEventListener('click',function(){el('injConfirmModal').classList.remove('open');});
+  el('injConfirmYes').addEventListener('click',function(){var idx=el('injConfirmModal')._idx;if(idx>=0) injPatients.splice(idx,1);el('injConfirmModal').classList.remove('open');renderInject();injSaveCloud();});
+  el('injConfirmModal').addEventListener('click',function(e){if(e.target===this) this.classList.remove('open');});
+  el('injAddPat').addEventListener('click',function(){openInjModal(-1);});
+  document.getElementById('injShowHidden').addEventListener('click',function(){var h=document.getElementById('injHiddenList');h.style.display=h.style.display==='none'?'block':'none';});
+
+  // ============ END INJECTABLES ============
+
+  // ============ END CONSULTATIONS ============
+
+  // ============ END SCHEDULE ============
+
+  document.getElementById('costMonths').addEventListener('input',renderCost);
+  document.getElementById('costSession').addEventListener('input',renderCost);
+  el('backHome3').addEventListener('click',function(){ showView('tirz'); });
+
+  // init
+  treat=buildStandard(clamp(parseInt(E.nweeks.value,10),1,48));
+  buildPriceEditors();
+  syncMonths();
+})();
+</script>
+</body>
+</html>
