@@ -362,6 +362,10 @@
 
     /* sim */
     .layout{grid-template-columns:1fr!important;}
+    .layout main{order:-1;}
+    svg.chart{min-width:100%;min-height:340px;}
+    .panel{border-radius:14px;}
+    .charthead{flex-direction:column;gap:8px;}
     .stats{grid-template-columns:repeat(2,1fr);}
 
     /* effects */
@@ -425,16 +429,45 @@
     #tirz .intro{font-size:13px;}
 
     /* sim mobile */
+    #sim{padding:18px 0 40px;}
     #sim h1{font-size:22px;}
-    #sim .intro{font-size:13px;}
+    #sim .intro{font-size:13px;margin-bottom:16px;}
+    #sim .wrap{max-width:100%;}
+    .layout{gap:16px!important;}
+    .layout main{order:-1;}
+    svg.chart{min-width:100%;min-height:280px;}
+    .chartcard{padding:12px;border-radius:12px;}
+    .chartcard h2{font-size:15px;}
+    .chartcard .sub{font-size:11px;}
+    .charthead{flex-direction:column;gap:6px;margin-bottom:8px;}
+    .expand{padding:6px 9px;font-size:10px;}
+    .legend{gap:8px;margin-top:8px;font-size:11px;}
+    .legend span{gap:5px;}
+    .swatch{width:12px;}
+    .swatch.dot{width:7px;height:7px;}
+    .statsintro{font-size:12px;margin:12px 0 8px;}
     .stat .v{font-size:19px;}
     .stat .k{font-size:11px;}
     .stat .l{font-size:10px;}
-    .stat{padding:11px 10px;}
+    .stat{padding:11px 10px;border-radius:10px;}
     .stats{gap:8px;}
-    .chartcard{padding:14px;}
-    .chartcard .head h3{font-size:14px;}
-    svg.chart{min-width:440px;min-height:440px;}
+    .note{font-size:11px;padding:12px 14px;margin-top:14px;border-radius:10px;}
+    .panel{padding:16px;border-radius:12px;}
+    .panel h2{font-size:16px;}
+    .panel .hint{font-size:11px;margin-bottom:12px;}
+    .field{margin-bottom:12px;}
+    .field > label{font-size:10px;margin-bottom:5px;}
+    .field input[type="number"],.field select{font-size:14px!important;padding:9px 10px!important;}
+    .check{padding:9px 10px;border-radius:8px;gap:8px;}
+    .check .ctext{font-size:12px;}
+    .check .ctext small{font-size:10.5px;}
+    .check input{width:18px;height:18px;}
+    .btnrow{gap:6px;}
+    .act{font-size:11px!important;padding:8px 10px!important;border-radius:7px!important;}
+    .dlabel{font-size:10px;margin:12px 0 6px;}
+    .doses-scroll{max-height:200px;padding-right:2px;}
+    .sub-field label{font-size:10px;}
+    .sub-field input,.sub-field select{font-size:14px!important;padding:9px 10px!important;}
 
     /* effects mobile */
     #effects h1{font-size:22px;}
@@ -443,14 +476,27 @@
 
     /* cost mobile */
     #cost h1{font-size:22px;}
+    .ccard{padding:16px;border-radius:12px;}
     .ccard .cname{font-size:15px;}
     .ccard .big{font-size:24px;}
     .cost-save .sv-v{font-size:24px;}
+    .cost-save{padding:14px 16px;border-radius:12px;}
     .cbar-row .cbl{font-size:11px;}
+    .cost-edit summary{padding:12px 14px;font-size:12px;}
+    .cost-break{padding:12px 14px;border-radius:12px;}
+    .cost-break .cb-tx{font-size:13px;}
+    .cost-chartcard{padding:14px;border-radius:12px;}
+    .cost-chartcard .cc-title{font-size:14px;}
+    .cost-detail{padding:12px 14px;border-radius:10px;}
+
+    /* fullscreen modal */
+    .modal{padding:10px;}
+    .modal .mhead h3{font-size:14px;}
+    .modal .mclose{padding:6px 10px;font-size:11px;}
+    .modal svg.chart{min-width:0!important;min-height:0!important;}
 
     /* general */
     .backbar{padding:12px 0 6px;}
-    .note{font-size:11px;padding:12px 14px;}
   }
 
   /* ============ SMALL MOBILE (≤ 360px) ============ */
@@ -463,6 +509,9 @@
     .sch-grid col.sch-col-time{width:54px;}
     .sch-cell{font-size:9px;}
     .sch-grid td:first-child{font-size:10px;}
+    svg.chart{min-height:240px;}
+    .panel{padding:14px;}
+    .stat .v{font-size:17px;}
   }
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
