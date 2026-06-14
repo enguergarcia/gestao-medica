@@ -329,6 +329,141 @@
   .tip.big .mono{font-size:15.5px;}
 
   @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important;}}
+
+  /* ============ TABLET (≤ 768px) ============ */
+  @media(max-width:768px){
+    .wrap{padding:0 18px;}
+    .cover{padding:32px 0 28px;margin-bottom:24px;}
+    .cover h1{font-size:28px;}
+    .tools{grid-template-columns:1fr;gap:14px;}
+    .tool{padding:22px 20px 24px;}
+    .tool .ticon{width:44px;height:44px;border-radius:11px;margin-bottom:16px;}
+    .tool .ticon svg{width:22px;height:22px;}
+    .tool h3{font-size:19px;margin-bottom:6px;}
+    .tool p{font-size:14px;}
+    .tool .go{margin-top:14px;}
+    .backbar{padding:14px 0 8px;gap:10px;}
+    .back{font-size:12px;padding:7px 11px;}
+
+    /* schedule */
+    #schedule h1{font-size:24px;}
+    .sch-toolbar{gap:8px;}
+    .sch-toolbar button{padding:7px 10px;font-size:11px;}
+    .sch-toolbar select{font-size:12px;padding:7px 8px;}
+    .sch-legend-bar{gap:8px;}
+    .sch-legend-item{padding:6px 10px;font-size:12px;}
+    .sch-legend-swatch{width:14px;height:14px;}
+    .sch-grid{min-width:600px;}
+    .sch-grid td{height:44px;}
+    .sch-cell{font-size:11px;padding:4px 3px;}
+
+    /* tirz hub */
+    #tirz h1{font-size:24px;}
+
+    /* sim */
+    .layout{grid-template-columns:1fr!important;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+
+    /* effects */
+    .fx-cards{grid-template-columns:1fr!important;}
+
+    /* cost */
+    .cost-cards{grid-template-columns:1fr;}
+    .cost-controls{flex-direction:column;}
+  }
+
+  /* ============ MOBILE (≤ 480px) ============ */
+  @media(max-width:480px){
+    .wrap{padding:0 14px;}
+    .cover{padding:24px 0 20px;margin-bottom:18px;}
+    .cover h1{font-size:24px;margin:.2em 0 .25em;}
+    .cover .lede{font-size:14px;}
+    .brand .name{font-size:14px;}
+    .brand .name span{font-size:8px;}
+    .brand .mark{width:26px;height:26px;}
+    .brand{gap:9px;}
+    .eyebrow{font-size:10px;letter-spacing:.2em;}
+    .tools{gap:12px;}
+    .tool{padding:18px 16px 20px;border-radius:14px;}
+    .tool .ticon{width:40px;height:40px;border-radius:10px;margin-bottom:14px;}
+    .tool h3{font-size:17px;}
+    .tool p{font-size:13px;line-height:1.45;}
+    .tool .go{margin-top:12px;font-size:11px;}
+
+    /* schedule mobile */
+    #schedule{padding:18px 0 40px;}
+    #schedule h1{font-size:22px;}
+    #schedule .intro{font-size:13px;margin-bottom:16px;}
+    .sch-toolbar{gap:6px;margin-bottom:14px;}
+    .sch-toolbar button{padding:6px 9px;font-size:10px;border-radius:7px;}
+    .sch-toolbar select{font-size:11px;padding:6px 7px;border-radius:7px;}
+    #schSyncStatus{font-size:10px!important;}
+    .sch-info{font-size:10px!important;}
+    .sch-legend-bar{gap:6px;margin-bottom:14px;}
+    .sch-legend-item{padding:5px 8px;font-size:11px;border-radius:8px;gap:5px;}
+    .sch-legend-swatch{width:12px;height:12px;border-radius:4px;}
+    .sch-legend-dur{font-size:10px;}
+    .sch-grid-wrap{border-radius:10px;margin-bottom:16px;}
+    .sch-grid{min-width:520px;}
+    .sch-grid col.sch-col-time{width:64px;}
+    .sch-grid th{padding:9px 6px;font-size:10px;}
+    .sch-grid td{height:40px;}
+    .sch-grid td:first-child{font-size:11px;padding:0 6px;}
+    .sch-cell{font-size:10px;margin:1px 2px;padding:3px 2px;border-radius:5px;line-height:1.15;}
+
+    /* modals mobile */
+    .sch-modal-overlay{padding:12px;}
+    .sch-modal{padding:20px 18px;border-radius:14px;}
+    .sch-modal h3{font-size:17px;margin-bottom:14px;}
+    .sch-modal .sf label{font-size:10px;}
+    .sch-modal .sf input,.sch-modal .sf select{font-size:13px;padding:8px 10px;}
+    .sch-modal-btns{gap:8px;margin-top:16px;}
+    .sch-modal-btns button{padding:9px 10px;font-size:12px;border-radius:8px;}
+
+    /* tirz */
+    #tirz h1{font-size:22px;}
+    #tirz .intro{font-size:13px;}
+
+    /* sim mobile */
+    #sim h1{font-size:22px;}
+    #sim .intro{font-size:13px;}
+    .stat .v{font-size:19px;}
+    .stat .k{font-size:11px;}
+    .stat .l{font-size:10px;}
+    .stat{padding:11px 10px;}
+    .stats{gap:8px;}
+    .chartcard{padding:14px;}
+    .chartcard .head h3{font-size:14px;}
+    svg.chart{min-width:440px;min-height:440px;}
+
+    /* effects mobile */
+    #effects h1{font-size:22px;}
+    .fx-search input{font-size:14px;padding:10px 12px;}
+    .fx-name{font-size:15px!important;}
+
+    /* cost mobile */
+    #cost h1{font-size:22px;}
+    .ccard .cname{font-size:15px;}
+    .ccard .big{font-size:24px;}
+    .cost-save .sv-v{font-size:24px;}
+    .cbar-row .cbl{font-size:11px;}
+
+    /* general */
+    .backbar{padding:12px 0 6px;}
+    .note{font-size:11px;padding:12px 14px;}
+  }
+
+  /* ============ SMALL MOBILE (≤ 360px) ============ */
+  @media(max-width:360px){
+    .wrap{padding:0 10px;}
+    .cover h1{font-size:21px;}
+    .tool h3{font-size:15px;}
+    .tool p{font-size:12px;}
+    .sch-grid{min-width:460px;}
+    .sch-grid col.sch-col-time{width:54px;}
+    .sch-cell{font-size:9px;}
+    .sch-grid td:first-child{font-size:10px;}
+  }
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
@@ -436,6 +571,7 @@
     </div>
 
     <div class="sch-legend-bar" id="schLegend"></div>
+    <div class="sch-scroll-hint" id="schScrollHint" style="display:none;font-size:12px;color:var(--mist);margin-bottom:8px;font-family:'IBM Plex Mono',monospace;">← Deslize para ver todos os dias →</div>
     <div class="sch-grid-wrap">
       <table class="sch-grid" id="schTable">
         <colgroup id="schColgroup"></colgroup>
@@ -1832,6 +1968,9 @@
     });
 
     el('schInfo').textContent=schSlots.length+' horários · '+SCH_DAYS.length+' dias · '+schGranularity+'min por slot';
+    // show scroll hint on narrow screens
+    var hint=document.getElementById('schScrollHint');
+    if(hint) hint.style.display=window.innerWidth<=768?'block':'none';
     schSaveCloud();
   }
 
