@@ -842,7 +842,7 @@
     <div style="font-size:40px;margin-bottom:16px;">🔒</div>
     <div style="font-family:'Fraunces',serif;font-size:22px;color:#fff;margin-bottom:6px;">Acesso restrito</div>
     <div style="font-size:13px;color:#9DB2C8;margin-bottom:24px;">Dr. Enguer Beraldo · Sistema de gestão médica</div>
-    <div style="font-size:9px;color:#4a5568;margin-bottom:8px;font-family:'IBM Plex Mono',monospace;">v2026-06-16-v3</div>
+    <div style="font-size:9px;color:#4a5568;margin-bottom:8px;font-family:'IBM Plex Mono',monospace;">v2026-06-16-v4</div>
     <input type="password" id="pinInput" placeholder="••••" maxlength="10" 
       style="width:100%;box-sizing:border-box;background:#161b22;border:2px solid #30363d;border-radius:12px;color:#fff;font-size:24px;padding:14px;text-align:center;font-family:'IBM Plex Mono',monospace;letter-spacing:8px;outline:none;">
     <div id="pinError" style="color:#e08a6b;font-size:12px;margin-top:10px;min-height:18px;"></div>
@@ -1871,7 +1871,7 @@
 <script>
 (function(){
   "use strict";
-  console.log('[GestaoMedica] v2026-06-16-v3 loaded');
+  console.log('[GestaoMedica] v2026-06-16-v4 loaded');
 
   // ============ FIREBASE INIT ============
   firebase.initializeApp({
@@ -1885,6 +1885,42 @@
   });
   var fbDb = firebase.database();
   var fbRef = fbDb.ref('schedule');
+  var FB_URL='https://gestao-medica-9ead6-default-rtdb.firebaseio.com';
+
+  // REST API fallback for when WebSocket SDK hangs (common on mobile)
+  var fbRest={
+    get:function(path){return fetch(FB_URL+'/'+path+'.json').then(function(r){return r.json();});},
+    set:function(path,data){return fetch(FB_URL+'/'+path+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).then(function(r){return r.json();});}
+  };
+  // Race: SDK once('value') vs REST with timeout
+  function fbLoad(ref,path,timeout){
+    timeout=timeout||5000;
+    return new Promise(function(resolve,reject){
+      var done=false;
+      // Try SDK first
+      ref.once('value').then(function(snap){if(!done){done=true;resolve(snap.val());}}).catch(function(){});
+      // REST fallback after timeout
+      setTimeout(function(){
+        if(!done){
+          console.log('[FB] SDK timeout for '+path+', using REST fallback');
+          fbRest.get(path).then(function(d){if(!done){done=true;resolve(d);}}).catch(function(e){if(!done){done=true;reject(e);}});
+        }
+      },timeout);
+    });
+  }
+  function fbSave(ref,path,data){
+    return new Promise(function(resolve,reject){
+      var done=false;
+      ref.set(data).then(function(){if(!done){done=true;resolve(true);}}).catch(function(){});
+      // REST fallback after 4s
+      setTimeout(function(){
+        if(!done){
+          console.log('[FB] SDK save timeout for '+path+', using REST');
+          fbRest.set(path,data).then(function(){if(!done){done=true;resolve(true);}}).catch(function(e){if(!done){done=true;reject(e);}});
+        }
+      },4000);
+    });
+  }
 
   var OPTS=[0,2.5,5,7.5,10,12.5,15], REF=5, SPD=4, WASH=4;
   var STD=[2.5,2.5,2.5,2.5,5,5,5,5,7.5,7.5,7.5,7.5,10,10,10,10,12.5,12.5,12.5,12.5,15,15,15,15];
@@ -2897,7 +2933,7 @@
     // save to Firebase
     schSaving=true;
     schSyncStatus('Salvando...',true);
-    fbRef.set(schGetState()).then(function(){
+    fbSave(fbRef,'schedule',schGetState()).then(function(){
       schSaving=false;
       schSyncStatus('Salvo na nuvem ✓',true);
     }).catch(function(err){
@@ -2908,8 +2944,7 @@
 
   // Load from Firebase on init, fallback to localStorage, then default
   var schInitLoaded=false;
-  fbRef.once('value').then(function(snap){
-    var data=snap.val();
+  fbLoad(fbRef,'schedule',5000).then(function(data){
     if(data&&data.activities&&data.slots&&data.grid){
       schApplyState(data);
       schInitLoaded=true;
@@ -3287,11 +3322,7 @@
     try{localStorage.setItem('con_data',JSON.stringify({patients:conPatients,nextId:conNextId}));}catch(e){}
     conSaving=true;
     conSyncStatus('Salvando...',true);
-    conRef.set({patients:conPatients,nextId:conNextId}).then(function(){
-      conSaving=false; conSyncStatus('Salvo na nuvem ✓',true);
-    }).catch(function(err){
-      conSaving=false; conSyncStatus('⚠ Erro ao salvar',false);console.error('conSaveCloud error:',err);
-    });
+    fbSave(conRef,'consultations',{patients:conPatients,nextId:conNextId}).then(function(){conSaving=false;conSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){conSaving=false;conSyncStatus('⚠ Erro ao salvar',false);console.error('[CON] save error:',err);});
   }
   function conSaveLocal(){
     try{localStorage.setItem('con_data',JSON.stringify({patients:conPatients,nextId:conNextId}));}catch(e){}
@@ -3302,8 +3333,7 @@
   }
   var conHadLocal=conLoadLocal();
   if(conHadLocal) conSyncStatus('Sincronizado',true);
-  conRef.once('value').then(function(snap){
-    var d=snap.val();
+  fbLoad(conRef,'consultations',5000).then(function(d){
     if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSyncStatus('Sincronizado',true);conSaveLocal();if(document.getElementById('consult').classList.contains('active')) renderConsult();}
     else{if(!conPatients.length) conPatients=conDefaults.slice();conSaveCloud();if(document.getElementById('consult').classList.contains('active')) renderConsult();}
   }).catch(function(err){
@@ -3641,7 +3671,7 @@
   function injSaveCloud(){
     try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
     injSaving=true;injSyncStatus('Salvando...',true);
-    injRef.set({patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){injSaving=false;injSyncStatus('⚠ Erro ao salvar',false);console.error('injSaveCloud error:',err);});
+    fbSave(injRef,'injectables',{patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){injSaving=false;injSyncStatus('⚠ Erro ao salvar',false);console.error('[INJ] save error:',err);});
   }
   function injSaveLocal(){
     try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
@@ -3652,7 +3682,7 @@
   }
   var injHadLocal=injLoadLocal();
   if(injHadLocal) injSyncStatus('Sincronizado',true);
-  injRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();}
+  fbLoad(injRef,'injectables',5000).then(function(d){if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();}
     else{if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));injSaveCloud();if(document.getElementById('inject').classList.contains('active')) renderInject();}
   }).catch(function(err){if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));injSyncStatus('Offline',false);console.error('injLoad error:',err);});
   injRef.on('value',function(snap){
@@ -3835,14 +3865,14 @@
   }
 
   function tzSyncStatus(m,ok){var s=document.getElementById('tzSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}if(ok) setTimeout(function(){if(s&&s.textContent===m) s.textContent='Sincronizado';},2000);}
-  function tzSaveCloud(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}tzSaving=true;tzSyncStatus('Salvando...',true);tzRef.set({patients:tzPatients,nextId:tzNextId}).then(function(){tzSaving=false;tzSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){tzSaving=false;tzSyncStatus('⚠ Erro ao salvar na nuvem',false);console.error('tzSaveCloud error:',err);});}
+  function tzSaveCloud(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}tzSaving=true;tzSyncStatus('Salvando...',true);var data={patients:tzPatients,nextId:tzNextId};fbSave(tzRef,'tirzsessions',data).then(function(){tzSaving=false;tzSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){tzSaving=false;tzSyncStatus('⚠ Erro ao salvar',false);console.error('[TZ] save error:',err);});}
   function tzSaveLocal(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}}
   function tzLoadLocal(){try{var r=localStorage.getItem('tz_data');if(r){var ld=JSON.parse(r);if(ld.patients&&ld.patients.length){tzPatients=ld.patients;tzNextId=ld.nextId||300;return true;}}}catch(e){}return false;}
   var tzHadLocal=tzLoadLocal();
   if(tzHadLocal){tzSyncStatus('Sincronizado',true);}
-  console.log('[TZ] localStorage loaded:',tzHadLocal,'patients:',tzPatients.length);
-  tzRef.once('value').then(function(snap){var d=snap.val();console.log('[TZ] Firebase once:',d?'has data ('+((d.patients||[]).length)+' patients)':'EMPTY');if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}else{if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));console.log('[TZ] Pushing local data to cloud...');tzSyncStatus('Enviando dados...',true);tzSaveCloud();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}}).catch(function(err){if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSyncStatus('Offline',false);console.error('[TZ] Load error:',err);});
-  tzRef.on('value',function(snap){if(tzSaving){console.log('[TZ] on:value skipped (saving)');return;}var d=snap.val();console.log('[TZ] on:value received:',d?'has data':'null');if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();tzSyncStatus('Atualizado ✓',true);}});
+  console.log('[TZ] localStorage:',tzHadLocal,'patients:',tzPatients.length);
+  fbLoad(tzRef,'tirzsessions',5000).then(function(d){console.log('[TZ] loaded:',d?'has data':'EMPTY');if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}else{if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSaveCloud();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}}).catch(function(err){if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSyncStatus('Offline',false);console.error('[TZ] load error:',err);});
+  tzRef.on('value',function(snap){if(tzSaving) return;var d=snap.val();if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();tzSyncStatus('Atualizado ✓',true);}});
 
   function renderTirzSess(){
     var items=[],hiddenItems=[];
@@ -4255,11 +4285,11 @@
   ];
 
   function ciSyncSt(m,ok){var s=document.getElementById('ciSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}}
-  function ciSaveCloud(){try{localStorage.setItem('ci_data',JSON.stringify({patients:ciPatients,nextId:ciNextId}));}catch(e){}ciSaving=true;ciSyncSt('Salvando...',true);ciRef.set({patients:ciPatients,nextId:ciNextId}).then(function(){ciSaving=false;ciSyncSt('Salvo ✓',true);}).catch(function(err){ciSaving=false;ciSyncSt('⚠ Erro',false);console.error('ciSave error:',err);});}
+  function ciSaveCloud(){try{localStorage.setItem('ci_data',JSON.stringify({patients:ciPatients,nextId:ciNextId}));}catch(e){}ciSaving=true;ciSyncSt('Salvando...',true);fbSave(ciRef,'checkins',{patients:ciPatients,nextId:ciNextId}).then(function(){ciSaving=false;ciSyncSt('Salvo ✓',true);}).catch(function(err){ciSaving=false;ciSyncSt('⚠ Erro',false);console.error('[CI] save error:',err);});}
   function ciLoadLocal(){try{var r=localStorage.getItem('ci_data');if(r){var d=JSON.parse(r);if(d.patients&&d.patients.length){ciPatients=d.patients;ciNextId=d.nextId||500;return true;}}}catch(e){}return false;}
   var ciHadLocal=ciLoadLocal();
   if(ciHadLocal) ciSyncSt('Sincronizado',true);
-  ciRef.once('value').then(function(s){var d=s.val();if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Sincronizado',true);}else{if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSaveCloud();}if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}).catch(function(err){if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSyncSt('Offline',false);console.error('ciLoad error:',err);});
+  fbLoad(ciRef,'checkins',5000).then(function(d){if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Sincronizado',true);}else{if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSaveCloud();}if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}).catch(function(err){if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSyncSt('Offline',false);console.error('ciLoad error:',err);});
   ciRef.on('value',function(s){if(ciSaving)return;var d=s.val();if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Atualizado ✓',true);if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}});
 
   function renderCheckins(){
@@ -4349,11 +4379,11 @@
   ];
 
   function ebSyncSt(m,ok){var s=document.getElementById('ebSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}}
-  function ebSaveCloud(){try{localStorage.setItem('eb_data',JSON.stringify({patients:ebPatients,nextId:ebNextId}));}catch(e){}ebSaving=true;ebSyncSt('Salvando...',true);ebRef.set({patients:ebPatients,nextId:ebNextId}).then(function(){ebSaving=false;ebSyncSt('Salvo ✓',true);}).catch(function(err){ebSaving=false;ebSyncSt('⚠ Erro',false);console.error('ebSave error:',err);});}
+  function ebSaveCloud(){try{localStorage.setItem('eb_data',JSON.stringify({patients:ebPatients,nextId:ebNextId}));}catch(e){}ebSaving=true;ebSyncSt('Salvando...',true);fbSave(ebRef,'ebooks',{patients:ebPatients,nextId:ebNextId}).then(function(){ebSaving=false;ebSyncSt('Salvo ✓',true);}).catch(function(err){ebSaving=false;ebSyncSt('⚠ Erro',false);console.error('[EB] save error:',err);});}
   function ebLoadLocal(){try{var r=localStorage.getItem('eb_data');if(r){var d=JSON.parse(r);if(d.patients&&d.patients.length){ebPatients=d.patients;ebNextId=d.nextId||400;return true;}}}catch(e){}return false;}
   var ebHadLocal=ebLoadLocal();
   if(ebHadLocal) ebSyncSt('Sincronizado',true);
-  ebRef.once('value').then(function(s){var d=s.val();if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Sincronizado',true);}else{if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSaveCloud();}if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}).catch(function(err){if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSyncSt('Offline',false);console.error('ebLoad error:',err);});
+  fbLoad(ebRef,'ebooks',5000).then(function(d){if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Sincronizado',true);}else{if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSaveCloud();}if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}).catch(function(err){if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSyncSt('Offline',false);console.error('ebLoad error:',err);});
   ebRef.on('value',function(s){if(ebSaving)return;var d=s.val();if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Atualizado ✓',true);if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}});
 
   function ebFirstName(n){return(n||'').split(' ')[0];}
