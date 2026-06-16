@@ -23,7 +23,7 @@
     -webkit-font-smoothing:antialiased;
     background-image:radial-gradient(120% 80% at 90% -10%, rgba(201,162,78,.10), transparent 55%);
   }
-  .wrap{max-width:1240px;margin:0 auto;padding:0 26px;}
+  .wrap{max-width:1800px;margin:0 auto;padding:0 26px;}
   h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em;line-height:1.14;}
   .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);}
   .brand{display:flex;align-items:center;gap:12px;}
@@ -64,8 +64,8 @@
 
   /* ============ SIM ============ */
   #sim{padding:26px 0 60px;}
-  #sim .wrap{max-width:1680px;}
-  #cost .wrap{max-width:1360px;}
+  #sim .wrap{max-width:1800px;}
+  #cost .wrap{max-width:1800px;}
   #effects{padding:26px 0 60px;}
   #effects h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
   #effects h1 .accent{color:var(--gold-soft);font-style:italic;}
@@ -176,9 +176,23 @@
   .cost-detail .crow{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-top:1px solid var(--line-soft);}
   .cost-detail .crow .rk{font-size:12.5px;color:var(--mist);}
   .cost-detail .crow .rv{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--paper);}
+  /* ============ SEARCH ============ */
+  .search-bar{position:relative;margin-bottom:18px;}
+  .search-bar input{width:100%;box-sizing:border-box;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;color:var(--paper);font-family:'Inter',sans-serif;font-size:14px;padding:10px 14px 10px 38px;}
+  .search-bar input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .search-bar input::placeholder{color:var(--mist);}
+  .search-bar svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;}
+  .search-results{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px;}
+  .search-results .sr-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line-soft);}
+  .search-results .sr-item:last-child{border:none;}
+  .search-results .sr-name{font-size:14px;color:var(--paper);}
+  .search-results .sr-tags{display:flex;gap:6px;}
+  .search-results .sr-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 9px;border-radius:6px;cursor:pointer;border:1px solid var(--line);color:var(--gold-soft);background:var(--ink);transition:background .12s;}
+  .search-results .sr-tag:hover{background:rgba(201,162,78,.15);}
+
   /* ============ CONSULTATIONS ============ */
   #consult{padding:26px 0 60px;}
-  #consult .wrap{max-width:1440px;}
+  #consult .wrap{max-width:1800px;}
   #consult h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
   #consult h1 .accent{color:var(--gold-soft);font-style:italic;}
   #consult .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
@@ -209,8 +223,11 @@
   .con-dot.done{background:rgba(127,211,187,.2);color:#9be3cd;border:1px solid rgba(127,211,187,.3);}
   .con-dot.pending{background:var(--ink);color:var(--mist);border:1px solid var(--line-soft);}
   .con-dot.late{background:rgba(228,201,130,.18);color:var(--gold-soft);border:1px solid rgba(228,201,130,.35);}
+  .con-dot.scheduled{background:rgba(100,160,230,.2);color:#7ab8f0;border:1px solid rgba(100,160,230,.4);}
+  .con-dot.expired{background:rgba(224,138,107,.15);color:var(--danger);border:1px solid rgba(224,138,107,.3);}
   .con-pat-next{font-size:12px;color:var(--mist);margin-top:10px;font-family:'IBM Plex Mono',monospace;}
   .con-dot.indic{background:rgba(160,130,220,.2);color:#b8a0e8;border:1px solid rgba(160,130,220,.4);font-size:14px;}
+  .con-dot.agendar{background:rgba(255,160,120,.15);color:#ffa078;border:1px solid rgba(255,160,120,.35);font-size:9px;font-weight:600;width:auto;padding:0 8px;}
   .con-pat-next b{color:var(--gold-soft);}
   .con-hide-btn{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid var(--line-soft);background:transparent;color:var(--mist);cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap;}
   .con-hide-btn:hover{border-color:var(--gold);color:var(--gold-soft);}
@@ -245,11 +262,13 @@
   .con-row .cr-n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gold-soft);font-weight:600;}
   .con-row input{background:var(--ink);border:1px solid var(--line-soft);border-radius:7px;color:var(--paper);font-size:13px;padding:7px 8px;font-family:'IBM Plex Mono',monospace;}
   .con-row input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .con-row.next-row{background:rgba(201,162,78,.1);border-radius:8px;padding:4px 6px;margin:0 -6px 8px;border:1px solid rgba(201,162,78,.25);}
+  .inj-sg-row.next-row{background:rgba(201,162,78,.1);border-radius:8px;padding:4px 6px;margin:0 -6px 6px;border:1px solid rgba(201,162,78,.25);}
   .con-row .cr-lbl{font-size:10px;color:var(--mist);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;}
 
   /* ============ INJECTABLES ============ */
   #inject{padding:26px 0 60px;}
-  #inject .wrap{max-width:1440px;}
+  #inject .wrap{max-width:1800px;}
   #inject h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
   #inject h1 .accent{color:var(--gold-soft);font-style:italic;}
   #inject .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
@@ -260,8 +279,9 @@
   .inj-dot{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;position:relative;}
   .inj-dot.done{background:rgba(127,211,187,.2);color:#9be3cd;border:1px solid rgba(127,211,187,.3);}
   .inj-dot.pending{background:var(--ink);color:var(--mist);border:1px solid var(--line-soft);}
-  .inj-dot.late{background:rgba(224,138,107,.15);color:var(--danger);border:1px solid rgba(224,138,107,.3);}
+  .inj-dot.late{background:rgba(228,201,130,.18);color:var(--gold-soft);border:1px solid rgba(228,201,130,.35);}
   .inj-dot.next{background:rgba(201,162,78,.18);color:var(--gold-soft);border:1px solid rgba(201,162,78,.4);}
+  .inj-dot.scheduled{background:rgba(100,160,230,.2);color:#7ab8f0;border:1px solid rgba(100,160,230,.4);}
   .inj-phase-sep{width:2px;background:var(--line-soft);border-radius:1px;align-self:stretch;margin:0 4px;}
   .inj-avulsos{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
   .inj-avulso{font-size:11px;font-family:'IBM Plex Mono',monospace;padding:4px 10px;border-radius:7px;background:var(--ink);border:1px solid var(--line-soft);color:var(--mist);}
@@ -270,6 +290,7 @@
   .inj-meta b{color:var(--paper);}
   .inj-next-info{font-size:12px;color:var(--mist);font-family:'IBM Plex Mono',monospace;margin-top:6px;}
   .inj-next-info b{color:var(--gold-soft);}
+  .inj-agendada-tag{display:inline-block;font-size:11px;font-family:'IBM Plex Mono',monospace;padding:3px 9px;border-radius:6px;background:rgba(228,201,130,.15);border:1px solid rgba(228,201,130,.3);color:var(--gold-soft);margin-left:8px;}
   .inj-kit-tag{font-size:9px;font-family:'IBM Plex Mono',monospace;position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);white-space:nowrap;color:var(--mist);opacity:.7;}
   .inj-modal .sf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   .inj-sessions-grid{margin-top:14px;border-top:1px solid var(--line-soft);padding-top:14px;}
@@ -284,9 +305,115 @@
   .inj-sg-avulso label{font-size:10px;color:var(--mist);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;display:block;margin-bottom:4px;}
   .inj-sg-avulso input{background:var(--ink);border:1px solid var(--line-soft);border-radius:7px;color:var(--paper);font-size:12px;padding:6px 7px;font-family:'IBM Plex Mono',monospace;width:100%;box-sizing:border-box;}
 
+  /* ============ TIRZ SESSIONS ============ */
+  #tirzsess{padding:26px 0 60px;}
+  #tirzsess .wrap{max-width:1800px;}
+  #tirzsess h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
+  #tirzsess h1 .accent{color:var(--gold-soft);font-style:italic;}
+  #tirzsess .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
+  .tz-bars{display:flex;gap:4px;align-items:flex-end;height:80px;margin:10px 0 6px;}
+  .tz-bar{flex:1;border-radius:4px 4px 0 0;min-width:8px;position:relative;transition:height .2s;}
+  .tz-bar-fat{background:rgba(224,138,107,.6);}
+  .tz-bar-mm{background:rgba(127,211,187,.6);}
+  .tz-goal{display:flex;align-items:center;gap:8px;margin-top:6px;}
+  .tz-goal-track{flex:1;height:10px;background:var(--ink);border-radius:5px;overflow:hidden;}
+  .tz-goal-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,rgba(255,140,0,.4),rgba(255,140,0,.85));transition:width .3s;}
+  .tz-goal-pct{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#ff8c00;min-width:40px;text-align:right;}
+  .tz-phase-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 8px;border-radius:5px;display:inline-block;}
+  .tz-phase-tag.treat{background:rgba(100,160,230,.15);color:#7ab8f0;border:1px solid rgba(100,160,230,.3);}
+  .tz-phase-tag.taper{background:rgba(160,130,220,.15);color:#b8a0e8;border:1px solid rgba(160,130,220,.3);}
+  .tz-legend{display:flex;gap:14px;font-size:11px;color:var(--mist);margin-bottom:4px;}
+  .tz-legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:middle;}
+  .tz-legend .tl-fat::before{background:rgba(224,138,107,.6);}
+  .tz-legend .tl-mm::before{background:rgba(127,211,187,.6);}
+  .tz-sg-row{display:grid;grid-template-columns:36px 120px 90px 90px 160px 90px;gap:8px;align-items:center;margin-bottom:6px;font-size:12px;}
+  .tz-sg-row input,.tz-sg-row select{background:var(--ink);border:1px solid var(--line-soft);border-radius:7px;color:var(--paper);font-size:11px;padding:5px 6px;font-family:'IBM Plex Mono',monospace;width:100%;box-sizing:border-box;}
+
+  /* ============ BUDGET ============ */
+  #budget{padding:26px 0 60px;}
+  #budget .wrap{max-width:1800px;}
+  #budget h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
+  #budget h1 .accent{color:var(--gold-soft);font-style:italic;}
+  #budget .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
+  .bud-card{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px;}
+  .bud-card h3{font-family:'Fraunces',serif;font-size:17px;color:var(--paper);margin:0 0 14px;}
+  .bud-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--ink);border:1px solid var(--line-soft);border-radius:10px;margin-bottom:8px;transition:border-color .15s;}
+  .bud-item:hover{border-color:var(--gold);}
+  .bud-item-name{flex:1;font-size:14px;color:var(--paper);line-height:1.3;}
+  .bud-item-field{display:flex;flex-direction:column;align-items:center;gap:2px;}
+  .bud-item-field label{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--mist);}
+  .bud-item-field input{background:var(--ink-2);border:1px solid var(--line-soft);border-radius:7px;color:var(--paper);font-size:14px;padding:7px 8px;text-align:center;font-family:'IBM Plex Mono',monospace;}
+  .bud-item-field input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .bud-item-price{width:110px;}
+  .bud-item-qty{width:55px;}
+  .bud-item-sub{min-width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;color:var(--paper);}
+  .bud-totals{padding:16px;background:var(--ink);border:1px solid var(--line-soft);border-radius:10px;margin-top:4px;}
+  .bud-totals-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:13px;color:var(--mist);}
+  .bud-totals-row.bonus{padding-left:16px;font-style:italic;color:var(--gold-soft);}
+  .bud-totals-row.final{padding-top:10px;margin-top:6px;border-top:2px solid var(--line);font-size:16px;font-weight:700;}
+  .bud-totals-row .btr-val{font-family:'IBM Plex Mono',monospace;font-weight:600;}
+  .bud-grid{display:none;}
+  .bud-grid th,.bud-grid td{display:none;}
+  .bud-payments{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px;}
+  .bud-pay-card{background:var(--ink);border:1px solid var(--line-soft);border-radius:12px;padding:16px 18px;}
+  .bud-pay-card h4{font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin:0 0 10px;}
+  .bud-pay-big{font-family:'Fraunces',serif;font-size:28px;color:#39ff14;margin:4px 0 8px;}
+  .bud-pay-detail{font-size:12px;color:var(--mist);line-height:1.6;}
+  .bud-pay-detail b{color:var(--paper);}
+  .bud-installments{margin-top:10px;}
+  .bud-inst-row{display:flex;justify-content:space-between;font-size:12px;color:var(--mist);padding:3px 0;border-bottom:1px solid var(--line-soft);}
+  .bud-inst-row b{color:var(--paper);}
+  .bud-contract{margin-top:16px;}
+  .bud-contract-grid{width:100%;border-collapse:collapse;}
+  .bud-contract-grid th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);}
+  .bud-contract-grid th:not(:first-child){text-align:right;width:160px;}
+  .bud-contract-grid td{padding:6px 10px;border-bottom:1px solid var(--line-soft);font-size:13px;color:var(--paper);}
+  .bud-contract-grid td:not(:first-child){text-align:right;font-family:'IBM Plex Mono',monospace;}
+  .bud-discount-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:14px;}
+  .bud-discount-row label{font-size:11px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);}
+  .bud-discount-row input{width:90px;background:var(--ink);border:1px solid var(--line-soft);border-radius:6px;color:var(--paper);font-size:14px;padding:6px 8px;text-align:center;font-family:'IBM Plex Mono',monospace;}
+
+  /* ============ EBOOKS ============ */
+  #ebooks{padding:26px 0 60px;}
+  #ebooks .wrap{max-width:1800px;}
+  #ebooks h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
+  #ebooks h1 .accent{color:var(--gold-soft);font-style:italic;}
+  .eb-pat{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px;}
+  .eb-pat-name{font-family:'Fraunces',serif;font-size:16px;color:#fff;margin-bottom:10px;}
+  .eb-grid{display:flex;gap:8px;flex-wrap:wrap;}
+  .eb-item{background:var(--ink);border:1px solid var(--line-soft);border-radius:9px;padding:8px 12px;min-width:140px;flex:1;cursor:pointer;transition:border-color .15s;}
+  .eb-item:hover{border-color:var(--gold);}
+  .eb-item.sent{border-color:rgba(127,211,187,.3);background:rgba(127,211,187,.06);}
+  .eb-item-title{font-size:11px;font-weight:600;color:var(--paper);margin-bottom:4px;line-height:1.3;}
+  .eb-item-status{font-family:'IBM Plex Mono',monospace;font-size:10px;}
+  .eb-item.sent .eb-item-status{color:#9be3cd;}
+  .eb-item:not(.sent) .eb-item-status{color:var(--mist);}
+  .eb-msg-modal{max-width:600px;}
+  .eb-msg-box{background:var(--ink);border:1px solid var(--line-soft);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--paper);line-height:1.6;white-space:pre-wrap;max-height:300px;overflow-y:auto;margin-bottom:14px;}
+
+  /* ============ CHECKINS ============ */
+  #checkin{padding:26px 0 60px;}
+  #checkin .wrap{max-width:1800px;}
+  #checkin h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
+  #checkin h1 .accent{color:var(--gold-soft);font-style:italic;}
+  .ci-pat{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px;}
+  .ci-pat-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .ci-pat-name{font-family:'Fraunces',serif;font-size:16px;color:#fff;}
+  .ci-grid{display:flex;gap:6px;flex-wrap:wrap;}
+  .ci-item{background:var(--ink);border:1px solid var(--line-soft);border-radius:9px;padding:8px 12px;min-width:100px;flex:1;cursor:pointer;transition:border-color .15s;text-align:center;}
+  .ci-item:hover{border-color:var(--gold);}
+  .ci-item.sent{border-color:rgba(100,160,230,.3);background:rgba(100,160,230,.06);}
+  .ci-item.fb-sent{border-color:rgba(127,211,187,.3);background:rgba(127,211,187,.06);}
+  .ci-item-n{font-size:12px;font-weight:600;color:var(--paper);margin-bottom:2px;}
+  .ci-item-st{font-family:'IBM Plex Mono',monospace;font-size:9px;}
+  .ci-item.sent .ci-item-st{color:#7ab8f0;}
+  .ci-item.fb-sent .ci-item-st{color:#9be3cd;}
+  .ci-item:not(.sent):not(.fb-sent) .ci-item-st{color:var(--mist);}
+  .ci-link-input{width:100%;background:var(--ink);border:1px solid var(--line-soft);border-radius:7px;color:var(--paper);font-size:12px;padding:6px 8px;font-family:'IBM Plex Mono',monospace;margin-top:8px;box-sizing:border-box;}
+
   /* ============ SCHEDULE ============ */
   #schedule{padding:26px 0 60px;}
-  #schedule .wrap{max-width:1440px;}
+  #schedule .wrap{max-width:1800px;}
   #schedule h1{font-size:clamp(24px,4.5vw,36px);color:#fff;margin:.16em 0 .2em;}
   #schedule h1 .accent{color:var(--gold-soft);font-style:italic;}
   #schedule .intro{color:var(--mist);max-width:64ch;font-size:15px;margin:0 0 22px;}
@@ -549,6 +676,13 @@
     /* injectables mobile */
     #inject h1{font-size:22px;}
     #inject .intro{font-size:13px;}
+
+    /* tirz sessions mobile */
+    #tirzsess h1{font-size:22px;}
+    #tirzsess .intro{font-size:13px;}
+    .tz-sg-row{grid-template-columns:24px 1fr 60px 60px 80px 60px;gap:3px;}
+    .tz-sg-row input,.tz-sg-row select{font-size:11px;padding:5px 4px;}
+    .tz-bars{height:60px;}
     .inj-pat{padding:14px;border-radius:12px;}
     .inj-dot{width:28px;height:28px;font-size:10px;border-radius:6px;}
     .inj-phase-sep{margin:0 2px;}
@@ -667,6 +801,53 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 </head>
 <body>
+<!-- PIN Lock Screen -->
+<div id="lockScreen" style="position:fixed;inset:0;z-index:99999;background:#0d1117;display:flex;align-items:center;justify-content:center;">
+  <div style="text-align:center;max-width:320px;padding:30px;">
+    <div style="font-size:40px;margin-bottom:16px;">🔒</div>
+    <div style="font-family:'Fraunces',serif;font-size:22px;color:#fff;margin-bottom:6px;">Acesso restrito</div>
+    <div style="font-size:13px;color:#9DB2C8;margin-bottom:24px;">Dr. Enguer Beraldo · Sistema de gestão médica</div>
+    <input type="password" id="pinInput" placeholder="Digite o PIN" maxlength="10" 
+      style="width:100%;box-sizing:border-box;background:#161b22;border:2px solid #30363d;border-radius:12px;color:#fff;font-size:24px;padding:14px;text-align:center;font-family:'IBM Plex Mono',monospace;letter-spacing:8px;outline:none;">
+    <div id="pinError" style="color:#e08a6b;font-size:12px;margin-top:10px;min-height:18px;"></div>
+    <button id="pinSubmit" style="width:100%;margin-top:8px;padding:12px;background:linear-gradient(135deg,#c9a24e,#a67c2e);border:none;border-radius:10px;color:#0d1117;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">Entrar</button>
+  </div>
+</div>
+<script>
+(function(){
+  // PIN hash (SHA-256 of "1956")
+  var PIN_HASH='04aa39fcb509e7842f0bd5b135b6181b0b57c8a74422838362f430351fc364f2';
+  
+  if(sessionStorage.getItem('pin_ok')==='1'){
+    document.getElementById('lockScreen').style.display='none';
+    return;
+  }
+  
+  async function sha256(msg){
+    var buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+  }
+  
+  async function tryPin(){
+    var pin=document.getElementById('pinInput').value;
+    var hash=await sha256(pin);
+    if(hash===PIN_HASH){
+      sessionStorage.setItem('pin_ok','1');
+      document.getElementById('lockScreen').style.display='none';
+    } else {
+      document.getElementById('pinError').textContent='PIN incorreto';
+      document.getElementById('pinInput').value='';
+      document.getElementById('pinInput').style.borderColor='#e08a6b';
+      setTimeout(function(){document.getElementById('pinInput').style.borderColor='#30363d';document.getElementById('pinError').textContent='';},2000);
+    }
+  }
+  
+  document.getElementById('pinSubmit').addEventListener('click',tryPin);
+  document.getElementById('pinInput').addEventListener('keydown',function(e){if(e.key==='Enter') tryPin();});
+  document.getElementById('pinInput').addEventListener('focus',function(){this.style.borderColor='#c9a24e';});
+  document.getElementById('pinInput').addEventListener('blur',function(){this.style.borderColor='#30363d';});
+})();
+</script>
 
 <!-- ================= HOME ================= -->
 <section class="view active" id="home">
@@ -682,6 +863,11 @@
   </div>
 
   <div class="wrap">
+    <div class="search-bar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="var(--mist)" stroke-width="1.8"/><path d="M20 20l-4-4" stroke="var(--mist)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" id="homeSearch" placeholder="Buscar paciente por nome...">
+    </div>
+    <div id="homeSearchResults" style="display:none"></div>
     <div class="tools" id="tools">
       <button class="tool" data-tool="schedule">
         <div class="ticon">
@@ -703,21 +889,78 @@
 
       <button class="tool" data-tool="inject">
         <div class="ticon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M18.5 2.5l3 3M14 7l-8.5 8.5a2 2 0 000 2.83l.17.17a2 2 0 002.83 0L17 10" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round"/><path d="M14 7l3-3 3 3-3 3" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 14l5 5" stroke="#E4C982" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M19 3l2 2M17 5l-2-2M10.5 9.5l4-4 4 4-4 4" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.5 9.5l-8 8-2.5 1 1-2.5 8-8" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 12l4 4" stroke="#E4C982" stroke-width="1.2" stroke-linecap="round"/></svg>
         </div>
         <h3>Sessões de injetáveis IM</h3>
         <p>Protocolo de 12 sessões em 3 fases, rotação de kits, avulsos e acompanhamento por paciente.</p>
         <div class="go">Abrir ferramenta →</div>
       </button>
 
+      <button class="tool" data-tool="tirzsess">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 2h6v4H9z" stroke="#E4C982" stroke-width="1.6"/><rect x="7" y="6" width="10" height="14" rx="2" stroke="#E4C982" stroke-width="1.6"/><path d="M10 10h4M10 13h4M10 16h2" stroke="#E4C982" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Sessões de tirzepatida</h3>
+        <p>Controle de sessões, composição corporal (gordura e massa muscular), doses, metas e evolução do paciente.</p>
+        <div class="go">Abrir ferramenta →</div>
+      </button>
+
+      <button class="tool" data-tool="budget">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Orçamento</h3>
+        <p>Calculadora de orçamento do plano de acompanhamento com descontos, parcelas e valores unitários para contrato.</p>
+        <div class="go">Abrir ferramenta →</div>
+      </button>
+
+      <button class="tool" data-tool="ebooks">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="#E4C982" stroke-width="1.6"/><path d="M8 7h8M8 11h5" stroke="#E4C982" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Ebooks</h3>
+        <p>Controle de envio de ebooks educativos aos pacientes via WhatsApp, com mensagens personalizadas.</p>
+        <div class="go">Abrir ferramenta →</div>
+      </button>
+
+      <button class="tool" data-tool="checkin">
+        <div class="ticon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#E4C982" stroke-width="1.6"/></svg>
+        </div>
+        <h3>Check-ins</h3>
+        <p>Envio semanal de questionários de acompanhamento e feedback aos pacientes via WhatsApp.</p>
+        <div class="go">Abrir ferramenta →</div>
+      </button>
+
       <button class="tool" data-tool="tirz">
         <div class="ticon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v13M9 6l3-3 3 3" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="16" width="10" height="5" rx="2" stroke="#E4C982" stroke-width="1.6"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 21l1.5-1.5M20 4l-9.5 9.5" stroke="#E4C982" stroke-width="1.6" stroke-linecap="round"/><path d="M15 4l5 5-10 10H5v-5L15 4z" stroke="#E4C982" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 15l-4 4" stroke="#E4C982" stroke-width="1.2" stroke-linecap="round"/><circle cx="18" cy="6" r="1" fill="#E4C982"/></svg>
         </div>
         <h3>Tirzepatida</h3>
         <p>Simulador de acúmulo, manejo de efeitos colaterais e comparativo de custos manipulada × Mounjaro.</p>
         <div class="go">Abrir ferramentas →</div>
       </button>
+    </div>
+    <!-- Wednesday reminder -->
+    <div id="wedReminder" style="display:none;margin-top:16px;padding:14px 18px;background:rgba(201,162,78,.1);border:1px solid rgba(201,162,78,.3);border-radius:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="font-size:14px;color:var(--gold-soft);"><b>📚 Lembrete:</b> Enviar ebooks para os pacientes</div>
+        <button id="wedDismiss" style="background:rgba(201,162,78,.2);border:1px solid rgba(201,162,78,.4);border-radius:8px;color:var(--gold-soft);font-size:12px;padding:6px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;white-space:nowrap;">✓ Verificado</button>
+      </div>
+    </div>
+    <!-- Friday reminder -->
+    <div id="friReminder" style="display:none;margin-top:10px;padding:14px 18px;background:rgba(100,160,230,.1);border:1px solid rgba(100,160,230,.3);border-radius:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="font-size:14px;color:#7ab8f0;"><b>📋 Lembrete:</b> Enviar check-ins semanais para os pacientes</div>
+        <button id="friDismiss" style="background:rgba(100,160,230,.2);border:1px solid rgba(100,160,230,.4);border-radius:8px;color:#7ab8f0;font-size:12px;padding:6px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;white-space:nowrap;">✓ Enviados</button>
+      </div>
+    </div>
+    <!-- Monday reminder -->
+    <div id="monReminder" style="display:none;margin-top:10px;padding:14px 18px;background:rgba(127,211,187,.1);border:1px solid rgba(127,211,187,.3);border-radius:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="font-size:14px;color:#9be3cd;"><b>💬 Lembrete:</b> Enviar feedbacks dos check-ins preenchidos</div>
+        <button id="monDismiss" style="background:rgba(127,211,187,.2);border:1px solid rgba(127,211,187,.4);border-radius:8px;color:#9be3cd;font-size:12px;padding:6px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;white-space:nowrap;">✓ Enviados</button>
+      </div>
     </div>
   </div>
 </section>
@@ -773,6 +1016,11 @@
     <h1>Controle de <span class="accent">consultas</span></h1>
     <p class="intro">Gerencie os planos de acompanhamento dos pacientes. Clique em um paciente para editar detalhes e registrar consultas realizadas.</p>
 
+    <div class="search-bar" style="margin-bottom:14px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="var(--mist)" stroke-width="1.8"/><path d="M20 20l-4-4" stroke="var(--mist)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" id="conSearch" placeholder="Filtrar paciente por nome...">
+    </div>
+
     <div class="con-toolbar">
       <button id="conAddPat">+ Paciente</button>
       <button id="conShowHidden">Ocultos (0)</button>
@@ -780,6 +1028,14 @@
     </div>
 
     <div class="con-summary" id="conSummary"></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;font-size:12px;color:var(--mist);">
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(127,211,187,.2);border:1px solid rgba(127,211,187,.3);"></span>Realizada</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(100,160,230,.2);border:1px solid rgba(100,160,230,.4);"></span>Agendada</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(228,201,130,.18);border:1px solid rgba(228,201,130,.35);"></span>Em atraso</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(224,138,107,.15);border:1px solid rgba(224,138,107,.3);"></span>Plano vencido</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(160,130,220,.2);border:1px solid rgba(160,130,220,.4);"></span>Indicação</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:var(--ink);border:1px solid var(--line-soft);"></span>Pendente</span>
+    </div>
     <div class="con-patients" id="conPatients"></div>
     <div class="con-hidden-list" id="conHiddenList" style="display:none">
       <h3>Pacientes ocultos</h3>
@@ -794,20 +1050,18 @@
     <h3 id="conModalTitle">Novo paciente</h3>
     <div class="sf-row">
       <div class="sf"><label>Nome do paciente</label><input type="text" id="conName"></div>
-      <div class="sf"><label>Indicações recebidas</label><input type="number" id="conIndic" min="0" value="0"></div>
+      <div class="sf"><label>Duração (meses)</label><input type="number" id="conDur" min="1" max="24" value="6"></div>
     </div>
     <div class="sf-row">
       <div class="sf"><label>Início do plano</label><input type="date" id="conStart"></div>
-      <div class="sf"><label>Duração (meses)</label><input type="number" id="conDur" min="1" max="24" value="6"></div>
-    </div>
-    <div class="sf">
-      <label>Final do plano (calculado)</label>
-      <input type="date" id="conEnd" disabled style="opacity:.7;">
+      <div class="sf"><label>Final do plano (calculado)</label><input type="date" id="conEnd" disabled style="opacity:.7;"></div>
     </div>
     <div class="sf-row">
       <div class="sf"><label>Consultas no plano</label><input type="number" id="conTotal" min="1" max="12" value="6"></div>
-      <div class="sf"><label>Próx. consulta (obs)</label><input type="text" id="conNext" placeholder="Data ou observação"></div>
+      <div class="sf"><label>Indicações recebidas</label><input type="number" id="conIndic" min="0" value="0"></div>
     </div>
+    <div class="sf"><label>Data agendada próx. consulta</label><input type="date" id="conNext"></div>
+    <div class="sf"><label>Observações</label><input type="text" id="conObs" placeholder="Opcional"></div>
 
     <div class="con-consults-edit">
       <h4>Consultas</h4>
@@ -909,6 +1163,11 @@
       </div>
     </details>
 
+    <div class="search-bar" style="margin-bottom:14px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="var(--mist)" stroke-width="1.8"/><path d="M20 20l-4-4" stroke="var(--mist)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" id="injSearch" placeholder="Filtrar paciente por nome...">
+    </div>
+
     <div class="con-toolbar">
       <button id="injAddPat">+ Paciente</button>
       <button id="injShowHidden">Ocultos (0)</button>
@@ -916,6 +1175,13 @@
     </div>
 
     <div class="con-summary" id="injSummary"></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;font-size:12px;color:var(--mist);">
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(127,211,187,.2);border:1px solid rgba(127,211,187,.3);"></span>Realizada</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(100,160,230,.2);border:1px solid rgba(100,160,230,.4);"></span>Agendada</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(228,201,130,.18);border:1px solid rgba(228,201,130,.35);"></span>Em atraso</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(224,138,107,.15);border:1px solid rgba(224,138,107,.3);"></span>Plano vencido</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:var(--ink);border:1px solid var(--line-soft);"></span>Pendente</span>
+    </div>
     <div id="injPatients"></div>
     <div class="con-hidden-list" id="injHiddenList" style="display:none">
       <h3>Pacientes ocultos</h3>
@@ -930,16 +1196,14 @@
     <h3 id="injModalTitle">Novo paciente</h3>
     <div class="sf-row">
       <div class="sf"><label>Nome do paciente</label><input type="text" id="injName"></div>
-      <div class="sf"><label>Próx. sessão (obs)</label><input type="text" id="injObs" placeholder="Observação livre"></div>
+      <div class="sf"><label>Duração (meses)</label><input type="number" id="injDur" min="1" max="24" value="6"></div>
     </div>
     <div class="sf-row">
       <div class="sf"><label>Início do plano</label><input type="date" id="injStart"></div>
-      <div class="sf"><label>Duração (meses)</label><input type="number" id="injDur" min="1" max="24" value="6"></div>
+      <div class="sf"><label>Final do plano (calculado)</label><input type="date" id="injEnd" disabled style="opacity:.7;"></div>
     </div>
-    <div class="sf">
-      <label>Final do plano (calculado)</label>
-      <input type="date" id="injEnd" disabled style="opacity:.7;">
-    </div>
+    <div class="sf"><label>Data agendada próx. sessão</label><input type="date" id="injScheduled"></div>
+    <div class="sf"><label>Observações</label><input type="text" id="injObs" placeholder="Opcional"></div>
     <div class="inj-sessions-grid">
       <h4>Sessões (12) — intervalo, data sugerida e data realizada</h4>
       <div id="injSessRows"></div>
@@ -966,6 +1230,274 @@
     <div class="con-modal-btns">
       <button class="con-cancel" id="injConfirmCancel">Cancelar</button>
       <button class="con-save" id="injConfirmYes" style="background:var(--danger);color:#fff;">Sim, excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TIRZ SESSIONS ================= -->
+<section class="view" id="tirzsess">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHome7">← Início</button>
+      <div class="eyebrow">Tirzepatida subcutânea</div>
+    </div>
+    <h1>Sessões de <span class="accent">tirzepatida</span></h1>
+    <p class="intro">Controle de sessões com composição corporal, doses e evolução por paciente. Clique em um paciente para editar.</p>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center;">
+      <div style="background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:6px;font-size:12px;">
+        <input type="text" id="tzProdName" value="Tirzepatida Biomeds" style="width:140px;background:var(--ink);border:1px solid var(--line-soft);border-radius:6px;color:var(--gold-soft);font-size:12px;padding:5px 7px;font-weight:600;">
+        <input type="number" id="tzProdMg" value="90" step="1" min="1" style="width:60px;background:var(--ink);border:1px solid var(--line-soft);border-radius:6px;color:var(--paper);font-size:12px;padding:5px 6px;text-align:center;font-family:'IBM Plex Mono',monospace;">
+        <span style="color:var(--mist);">mg em</span>
+        <input type="number" id="tzProdMl" value="3.6" step="0.1" min="0.1" style="width:60px;background:var(--ink);border:1px solid var(--line-soft);border-radius:6px;color:var(--paper);font-size:12px;padding:5px 6px;text-align:center;font-family:'IBM Plex Mono',monospace;">
+        <span style="color:var(--mist);">ml</span>
+      </div>
+      <div style="background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:6px;font-size:12px;">
+        <span style="color:var(--mist);">Conversão:</span>
+        <input type="number" id="tzConvMg" step="0.01" min="0" value="1.25" style="width:80px;background:var(--ink);border:1px solid var(--line-soft);border-radius:6px;color:var(--paper);font-size:12px;padding:5px 6px;text-align:center;font-family:'IBM Plex Mono',monospace;">
+        <span style="color:var(--mist);">mg =</span>
+        <span id="tzConvUI" style="font-family:'IBM Plex Mono',monospace;color:var(--gold-soft);font-weight:600;font-size:13px;">5 UI</span>
+      </div>
+    </div>
+
+    <div class="search-bar" style="margin-bottom:14px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="var(--mist)" stroke-width="1.8"/><path d="M20 20l-4-4" stroke="var(--mist)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" id="tzSearch" placeholder="Filtrar paciente por nome...">
+    </div>
+
+    <div class="con-toolbar">
+      <button id="tzAddPat">+ Paciente</button>
+      <button id="tzShowHidden">Ocultos (0)</button>
+      <span class="con-sync" id="tzSync">Sincronizando...</span>
+    </div>
+
+    <div class="con-summary" id="tzSummary"></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;font-size:12px;color:var(--mist);">
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(127,211,187,.2);border:1px solid rgba(127,211,187,.3);"></span>Realizada</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(100,160,230,.2);border:1px solid rgba(100,160,230,.4);"></span>Agendada</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(228,201,130,.18);border:1px solid rgba(228,201,130,.35);"></span>Em atraso</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(224,138,107,.15);border:1px solid rgba(224,138,107,.3);"></span>Plano vencido</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:var(--ink);border:1px solid var(--line-soft);"></span>Pendente</span>
+    </div>
+    <div id="tzPatients"></div>
+    <div class="con-hidden-list" id="tzHiddenList" style="display:none">
+      <h3>Pacientes ocultos</h3>
+      <div id="tzHiddenItems"></div>
+    </div>
+  </div>
+</section>
+
+<!-- tirzsess modal -->
+<div class="con-modal-overlay" id="tzModal">
+  <div class="con-modal" style="max-width:900px;">
+    <h3 id="tzModalTitle">Novo paciente</h3>
+    <div class="sf-row">
+      <div class="sf"><label>Nome do paciente</label><input type="text" id="tzName"></div>
+      <div class="sf"><label>Duração (meses)</label><input type="number" id="tzDur" min="1" max="36" value="6"></div>
+    </div>
+    <div class="sf-row">
+      <div class="sf"><label>Início do plano</label><input type="date" id="tzStart"></div>
+      <div class="sf"><label>Final do plano (calculado)</label><input type="date" id="tzEnd" disabled style="opacity:.7;"></div>
+    </div>
+    <div class="sf-row">
+      <div class="sf"><label>Gordura inicial (kg)</label><input type="number" id="tzFatInit" step="0.1" min="0"></div>
+      <div class="sf"><label>Gordura a perder (kg)</label><input type="number" id="tzFatLose" step="0.1" min="0"></div>
+    </div>
+    <div class="sf-row">
+      <div class="sf"><label>MM esquelética inicial (kg)</label><input type="number" id="tzMmInit" step="0.1" min="0"></div>
+      <div class="sf"><label>MM esquelética a ganhar (kg)</label><input type="number" id="tzMmGain" step="0.1" min="0"></div>
+    </div>
+    <div class="sf-row">
+      <div class="sf"><label>Fase</label>
+        <select id="tzPhase"><option value="treat">Em tratamento</option><option value="taper">Em desmame</option></select>
+      </div>
+      <div class="sf"><label>Desmame a partir da sessão</label><input type="number" id="tzTaperFrom" min="0" max="24" value="0"><small>0 = não definido</small></div>
+    </div>
+    <div class="sf-row">
+      <div class="sf"><label>Data agendada próx. sessão</label><input type="date" id="tzScheduled"></div>
+      <div class="sf"><label>Nº de sessões no plano</label><input type="number" id="tzMaxSess" min="1" max="24" value="24"></div>
+    </div>
+    <div class="sf"><label>Observações</label><input type="text" id="tzObs" placeholder="Opcional"></div>
+
+    <div class="inj-sessions-grid">
+      <h4>Sessões — Data, Gordura, MM, Região, Dose</h4>
+      <div class="tz-sg-row" style="margin-bottom:8px;font-weight:600;color:var(--gold);font-size:10px;text-transform:uppercase;letter-spacing:.04em;">
+        <div>Nº</div><div>Data</div><div>Gord.(kg)</div><div>MM(kg)</div><div>Região</div><div>Dose(mg)</div>
+      </div>
+      <div id="tzSessRows"></div>
+    </div>
+
+    <div class="con-modal-btns" style="margin-top:20px;">
+      <button class="con-cancel" id="tzCancel">Cancelar</button>
+      <button class="con-delete" id="tzDelete" style="display:none">Excluir</button>
+      <button class="con-save" id="tzSave">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="con-modal-overlay" id="tzConfirmModal">
+  <div class="sch-modal" style="max-width:380px;text-align:center;">
+    <h3 style="color:var(--danger);">Excluir paciente?</h3>
+    <p style="color:var(--mist);font-size:14px;margin:0 0 8px;">Tem certeza que deseja excluir:</p>
+    <p style="color:#fff;font-size:16px;font-weight:600;margin:0 0 20px;" id="tzConfirmName"></p>
+    <p style="color:var(--mist);font-size:12px;margin:0 0 20px;">Esta ação não pode ser desfeita.</p>
+    <div class="con-modal-btns">
+      <button class="con-cancel" id="tzConfirmCancel">Cancelar</button>
+      <button class="con-save" id="tzConfirmYes" style="background:var(--danger);color:#fff;">Sim, excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= BUDGET ================= -->
+<section class="view" id="budget">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHome8">← Início</button>
+      <div class="eyebrow">Financeiro</div>
+    </div>
+    <h1>Calculadora de <span class="accent">orçamento</span></h1>
+    <p class="intro">Monte o orçamento do Plano de Acompanhamento. Edite quantidades, preços e descontos. Os valores para contrato são calculados automaticamente.</p>
+
+    <div class="bud-card">
+      <h3>Itens do plano</h3>
+      <div id="budItems"></div>
+      <div class="bud-totals" id="budTotals"></div>
+      <div class="bud-discount-row" style="margin-top:16px;">
+        <div><label>Bônus: sessões IM grátis</label><br><input type="number" id="budBonusIM" value="0" min="0" max="99" style="width:70px;margin-top:4px;"></div>
+        <div><label>Bônus: sessões SC grátis</label><br><input type="number" id="budBonusSC" value="0" min="0" max="99" style="width:70px;margin-top:4px;"></div>
+        <div><label>Parcelas (desconto crédito)</label><br><input type="number" id="budCredParcelas" value="5" min="1" max="11" style="width:70px;margin-top:4px;"></div>
+        <div><label>Desc. PIX à vista (%)</label><br><input type="number" id="budPixPct" value="10" min="0" max="100" step="0.5" style="width:70px;margin-top:4px;"></div>
+      </div>
+    </div>
+
+    <div class="bud-payments" id="budPayments"></div>
+
+    <div class="bud-card bud-contract">
+      <h3>Valores unitários para contrato (após desconto)</h3>
+      <p style="font-size:12px;color:var(--mist);margin:-8px 0 14px;">Custo proporcional de cada item para abatimento em caso de rescisão antecipada</p>
+      <div style="overflow-x:auto;">
+        <table class="bud-contract-grid">
+          <thead><tr><th>Item</th><th>Crédito 10x (unit.)</th><th>Crédito c/ desc. (unit.)</th><th>PIX (unit.)</th></tr></thead>
+          <tbody id="budContract"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="bud-card">
+      <h3>Taxas da operadora por parcela (editável)</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:6px;" id="budFees"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHECKINS ================= -->
+<section class="view" id="checkin">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHome10">← Início</button>
+      <div class="eyebrow">Acompanhamento semanal</div>
+    </div>
+    <h1>Controle de <span class="accent">check-ins</span></h1>
+    <p class="intro" style="margin-bottom:22px;">Envio semanal de questionários (sexta-feira) e feedbacks (segunda-feira). Clique em um check-in para ver a mensagem, copiar e marcar como enviado.</p>
+
+    <div class="search-bar" style="margin-bottom:14px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="var(--mist)" stroke-width="1.8"/><path d="M20 20l-4-4" stroke="var(--mist)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" id="ciSearch" placeholder="Filtrar paciente por nome...">
+    </div>
+
+    <div class="con-toolbar">
+      <button id="ciAddPat">+ Paciente</button>
+      <span class="con-sync" id="ciSync">Sincronizando...</span>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;font-size:12px;color:var(--mist);">
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(100,160,230,.15);border:1px solid rgba(100,160,230,.3);"></span>Check-in enviado</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:rgba(127,211,187,.15);border:1px solid rgba(127,211,187,.3);"></span>Feedback enviado</span>
+      <span><span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:4px;background:var(--ink);border:1px solid var(--line-soft);"></span>Pendente</span>
+    </div>
+
+    <div id="ciPatients"></div>
+  </div>
+</section>
+
+<!-- checkin message modal -->
+<div class="con-modal-overlay" id="ciMsgModal">
+  <div class="con-modal eb-msg-modal">
+    <h3 id="ciMsgTitle">Mensagem</h3>
+    <div class="eb-msg-box" id="ciMsgBox"></div>
+    <div class="sf-row">
+      <div class="sf"><label>Data de envio</label><input type="date" id="ciMsgDate"></div>
+      <div class="sf" style="display:flex;align-items:flex-end;"><button id="ciMsgCopy" style="width:100%;background:var(--gold);color:var(--ink);border:none;border-radius:9px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;">📋 Copiar mensagem</button></div>
+    </div>
+    <div class="con-modal-btns" style="margin-top:14px;">
+      <button class="con-cancel" id="ciMsgCancel">Fechar</button>
+      <button id="ciMsgFb" style="background:rgba(127,211,187,.2);color:#9be3cd;border:1px solid rgba(127,211,187,.4);border-radius:9px;padding:10px 18px;font-size:13px;cursor:pointer;display:none;">Marcar feedback enviado</button>
+      <button class="con-save" id="ciMsgSave">Marcar check-in enviado</button>
+    </div>
+  </div>
+</div>
+
+<!-- checkin add patient modal -->
+<div class="con-modal-overlay" id="ciAddModal">
+  <div class="con-modal" style="max-width:460px;">
+    <h3>Novo paciente</h3>
+    <div class="sf"><label>Nome do paciente</label><input type="text" id="ciNewName"></div>
+    <div class="sf"><label>Link do formulário</label><input type="text" id="ciNewLink" class="ci-link-input" placeholder="https://app.supportclinic.com.br/..."></div>
+    <div class="con-modal-btns" style="margin-top:16px;">
+      <button class="con-cancel" id="ciAddCancel">Cancelar</button>
+      <button class="con-save" id="ciAddSave">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= EBOOKS ================= -->
+<section class="view" id="ebooks">
+  <div class="wrap">
+    <div class="backbar">
+      <button class="back" id="backHome9">← Início</button>
+      <div class="eyebrow">Material educativo</div>
+    </div>
+    <h1>Controle de <span class="accent">ebooks</span></h1>
+    <p class="intro" style="margin-bottom:22px;">Envio semanal de ebooks educativos via WhatsApp. Clique em um ebook para ver a mensagem, copiar e marcar como enviado.</p>
+
+    <div class="search-bar" style="margin-bottom:14px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="var(--mist)" stroke-width="1.8"/><path d="M20 20l-4-4" stroke="var(--mist)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" id="ebSearch" placeholder="Filtrar paciente por nome...">
+    </div>
+
+    <div class="con-toolbar">
+      <button id="ebAddPat">+ Paciente</button>
+      <span class="con-sync" id="ebSync">Sincronizando...</span>
+    </div>
+
+    <div id="ebPatients"></div>
+  </div>
+</section>
+
+<!-- ebooks message modal -->
+<div class="con-modal-overlay" id="ebMsgModal">
+  <div class="con-modal eb-msg-modal">
+    <h3 id="ebMsgTitle">Mensagem</h3>
+    <div class="eb-msg-box" id="ebMsgBox"></div>
+    <div class="sf-row">
+      <div class="sf"><label>Data de envio</label><input type="date" id="ebMsgDate"></div>
+      <div class="sf" style="display:flex;align-items:flex-end;"><button id="ebMsgCopy" style="width:100%;background:var(--gold);color:var(--ink);border:none;border-radius:9px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;">📋 Copiar mensagem</button></div>
+    </div>
+    <div class="con-modal-btns" style="margin-top:14px;">
+      <button class="con-cancel" id="ebMsgCancel">Fechar</button>
+      <button class="con-save" id="ebMsgSave">Marcar como enviado</button>
+    </div>
+  </div>
+</div>
+
+<!-- ebooks add patient modal -->
+<div class="con-modal-overlay" id="ebAddModal">
+  <div class="con-modal" style="max-width:400px;">
+    <h3>Novo paciente</h3>
+    <div class="sf"><label>Nome do paciente</label><input type="text" id="ebNewName"></div>
+    <div class="con-modal-btns" style="margin-top:16px;">
+      <button class="con-cancel" id="ebAddCancel">Cancelar</button>
+      <button class="con-save" id="ebAddSave">Adicionar</button>
     </div>
   </div>
 </div>
@@ -1092,50 +1624,49 @@
       <div class="eyebrow">Comparativo de custos</div>
     </div>
     <h1>Custos: <span class="accent">manipulada × Mounjaro</span></h1>
-    <p class="intro">Compare o investimento na tirzepatida manipulada da clínica com a caneta Mounjaro da farmácia ao longo do tratamento. Aplicações semanais (4 por mês). Escolha a dose de cada mês — o cálculo acompanha o escalonamento. Todos os preços são editáveis.</p>
+    <p class="intro">Compare o custo da tirzepatida manipulada na clínica com o Mounjaro comercial. Utilize para análise interna de viabilidade e para apresentar ao paciente.</p>
 
-    <div class="cost-controls">
-      <div class="cost-field">
-        <label for="costMonths">Período do tratamento (meses)</label>
-        <input type="number" id="costMonths" min="1" max="12" value="3" step="1">
-      </div>
-      <div class="cost-field">
-        <label for="costSession">Preço da sessão na clínica (R$)</label>
-        <div class="ce-inp"><span class="pre">R$</span><input type="number" id="costSession" min="0" step="1" value="300"></div>
-      </div>
-    </div>
+    <div class="layout">
+      <aside class="panel" style="min-width:280px;max-width:340px;">
+        <div class="dlabel"><span>Tratamento</span><span class="ln"></span></div>
+        <div class="field"><label for="costMonths">Meses de tratamento</label><input type="number" id="costMonths" min="1" max="12" value="3" step="1"></div>
+        <div class="field"><label for="costSession">Preço da sessão na clínica (R$)</label><input type="number" id="costSession" min="0" step="1" value="300"></div>
 
-    <div class="cost-monthwrap">
-      <div class="cmw-title">Dose de cada mês</div>
-      <div class="cost-months" id="costMonthsGrid"></div>
-    </div>
+        <div class="dlabel" style="margin-top:14px;"><span>Dose por mês (Mounjaro)</span><span class="ln"></span></div>
+        <div id="costMonthsGrid" style="display:flex;flex-direction:column;gap:4px;"></div>
 
-    <div class="cost-cards" id="costCards"></div>
-    <div class="cost-bars" id="costBars"></div>
+        <div class="dlabel" style="margin-top:14px;"><span>Dose por mês (manipulada)</span><span class="ln"></span></div>
+        <div id="costMonthsGridComp" style="display:flex;flex-direction:column;gap:4px;"></div>
 
-    <div class="cost-chartcard">
-      <div class="cc-head">
-        <div class="cc-title">Gasto acumulado ao longo do tratamento</div>
-        <div class="cc-legend">
-          <span><i class="swatch" style="background:#7fd3bb"></i> Manipulada (clínica)</span>
-          <span><i class="swatch" style="background:#E4C982"></i> Mounjaro (farmácia)</span>
+        <div class="dlabel" style="margin-top:14px;"><span>Mounjaro comercial</span><span class="ln"></span></div>
+        <div class="field"><label for="costPharmName">Farmácia de referência</label><input type="text" id="costPharmName" value="Droga Raia/Drogasil" style="background:var(--ink);border:1px solid var(--line-soft);border-radius:8px;color:var(--paper);font-size:13px;padding:7px 10px;width:100%;box-sizing:border-box;"></div>
+        <div id="cePharm" class="ce-grid"></div>
+
+        <div class="dlabel" style="margin-top:14px;"><span>Frasco manipulado</span><span class="ln"></span></div>
+        <div class="field"><label>Conteúdo do frasco (mg)</label><input type="number" id="costCompMg" min="1" value="90" step="1"></div>
+        <div class="field"><label>Preço do frasco (R$)</label><input type="number" id="costCompPrice" min="0" step="1" value="1523"></div>
+      </aside>
+
+      <div class="main" style="flex:1;min-width:0;">
+        <div class="cost-cards" id="costCards"></div>
+        <div class="cost-bars" id="costBars"></div>
+
+        <div id="costCompResult" style="margin-top:16px;"></div>
+
+        <div class="cost-chartcard" style="margin-top:16px;">
+          <div class="cc-head">
+            <div class="cc-title">Gasto acumulado ao longo do tratamento</div>
+            <div class="cc-legend">
+              <span><i class="swatch" style="background:#7fd3bb"></i> Manipulada (clínica)</span>
+              <span><i class="swatch" style="background:#E4C982"></i> Mounjaro (farmácia)</span>
+            </div>
+          </div>
+          <div id="costChart"></div>
         </div>
+
+        <div class="cost-foot" id="costFoot"></div>
       </div>
-      <div id="costChart"></div>
     </div>
-
-    <details class="cost-edit">
-      <summary>Atualizar preço das canetas Mounjaro (por caixa)</summary>
-      <div class="cost-edit-body">
-        <div class="cost-edit-block">
-          <div class="ceb-title">Preço da caixa de Mounjaro por dose — cada caixa traz 4 canetas/aplicações</div>
-          <div class="ce-grid" id="cePharm"></div>
-        </div>
-        <p class="ce-note">Informe o preço da CAIXA conforme a dose da caneta; o app divide por 4 para obter o valor por aplicação. Os valores iniciais vêm da sua planilha (Droga Raia/Drogasil, programa Lilly) e devem ser conferidos na cotação atual. O preço da sessão da manipulada é único, independente da dose.</p>
-      </div>
-    </details>
-
-    <div class="cost-foot" id="costFoot"></div>
   </div>
 </section>
 
@@ -1159,6 +1690,11 @@
         <div class="field">
           <label for="nweeks">Semanas de tratamento</label>
           <input type="number" id="nweeks" min="1" max="48" value="24" step="1">
+        </div>
+
+        <div class="field" style="margin-top:6px;">
+          <label for="doseInterval">Intervalo entre doses (dias)</label>
+          <input type="number" id="doseInterval" min="1" max="30" value="7" step="1">
         </div>
 
         <div class="btnrow">
@@ -1238,11 +1774,6 @@
             </span>
           </label>
         </div>
-
-        <div class="field" style="margin-top:6px;">
-          <label for="hl">Meia-vida (dias)</label>
-          <input type="number" id="hl" min="1" max="10" value="5" step="0.5">
-        </div>
       </aside>
 
       <!-- chart -->
@@ -1321,7 +1852,7 @@
   var el=function(id){return document.getElementById(id);};
   var E={
     home:el('home'), sim:el('sim'),
-    nweeks:el('nweeks'), hl:el('hl'),
+    nweeks:el('nweeks'),
     taperon:el("taperon"), taperweeks:el("taperweeks"),
     taperBlock:el('taperBlock'), taperList:el('taperList'), treatList:el('treatList'),
     washon:el('washon'),
@@ -1481,7 +2012,7 @@
   }
 
   // ---- PK ----
-  function sampleSeries(events, totalDays, k, scale){
+  function sampleSeries(events, totalDays, k, scale, intv){
     var step=1/SPD, daySet={};
     for(var d=0; d<=totalDays+1e-9; d+=step){ daySet[(Math.round(d*1000)/1000)]=true; }
     events.forEach(function(e){ daySet[e.day]=true; });
@@ -1489,36 +2020,37 @@
     var pts=[];
     days.forEach(function(d){
       var c=0; for(var i=0;i<events.length;i++){ if(events[i].day<=d) c+=events[i].mg*scale*Math.exp(-k*(d-events[i].day)); }
-      pts.push({day:d,week:d/7,c:c});
+      pts.push({day:d,week:d/(intv||7),c:c});
     });
     var lastDoseDay = events.length?events[events.length-1].day:0;
     return {pts:pts, events:events, lastDoseDay:lastDoseDay};
   }
-  function seriesFrom(weeks, k, scale){
+  function seriesFrom(weeks, k, scale, intv){
     var n=weeks.length, events=[];
-    for(var w=0;w<n;w++) if(weeks[w]>0) events.push({day:w*7,mg:weeks[w]});
-    return sampleSeries(events, n*7, k, scale);
+    for(var w=0;w<n;w++) if(weeks[w]>0) events.push({day:w*(intv||7),mg:weeks[w]});
+    return sampleSeries(events, n*(intv||7), k, scale, intv);
   }
   // scheme C: each dosing week split into two sub-injections at FRAC_OFF days
-  function seriesC(k, scale, totalDays){
+  function seriesC(k, scale, totalDays, intv){
     var dw=dosingWeeks(), events=[];
     for(var w=0;w<dw.length;w++){
       var pair = (E.fracmode.value==='custom' && fracC[w]) ? fracC[w] : [dw[w]/2, dw[w]/2];
-      if(pair[0]>0) events.push({day:w*7+FRAC_OFF[0], mg:pair[0]});
-      if(pair[1]>0) events.push({day:w*7+FRAC_OFF[1], mg:pair[1]});
+      if(pair[0]>0) events.push({day:w*(intv||7)+FRAC_OFF[0], mg:pair[0]});
+      if(pair[1]>0) events.push({day:w*(intv||7)+FRAC_OFF[1], mg:pair[1]});
     }
-    return sampleSeries(events, totalDays, k, scale);
+    return sampleSeries(events, totalDays, k, scale, intv);
   }
 
   function simulate(){
-    var hl=parseFloat(E.hl.value)||5, k=Math.log(2)/hl, scale=1;
+    var hl=5, k=Math.log(2)/hl, scale=1;
+    var intv=parseInt(document.getElementById('doseInterval').value)||7;
     var weeksA=allWeeks(), n=weeksA.length;
-    var A=seriesFrom(weeksA,k,scale);
+    var A=seriesFrom(weeksA,k,scale,intv);
     var B=null, C=null;
-    if(E.compareon.checked){ B=seriesFrom(allWeeksB(),k,scale); }
-    if(E.fracon.checked){ C=seriesC(k,scale,n*7); }
+    if(E.compareon.checked){ B=seriesFrom(allWeeksB(),k,scale,intv); }
+    if(E.fracon.checked){ C=seriesC(k,scale,n*intv,intv); }
     var dosingLen = dosingWeeks().length;
-    return {A:A,B:B,C:C,k:k,scale:scale,n:n,dosingLen:dosingLen,lastDoseDay:A.lastDoseDay,treatLen:treat.length,washOn:E.washon.checked,compare:!!B,frac:!!C};
+    return {A:A,B:B,C:C,k:k,scale:scale,n:n,intv:intv,dosingLen:dosingLen,lastDoseDay:A.lastDoseDay,treatLen:treat.length,washOn:E.washon.checked,compare:!!B,frac:!!C};
   }
 
   function valAt(pts,day){
@@ -1595,7 +2127,7 @@
       var mk=[];
       series.events.forEach(function(e){
         var total=0; series.events.forEach(function(e2){ if(e2.day<=e.day) total+=e2.mg*sim.scale*Math.exp(-sim.k*(e.day-e2.day)); });
-        mk.push({week:e.day/7, dose:e.mg, total:total, x:X(e.day/7), y:Y(total)});
+        mk.push({week:e.day/(sim.intv||7), dose:e.mg, total:total, x:X(e.day/(sim.intv||7)), y:Y(total)});
       });
       return mk;
     }
@@ -1671,7 +2203,7 @@
         // order A,B,C
         var order={A:0,B:1,C:2};
         group.sort(function(a,b){return order[a.ser]-order[b.ser];});
-        var wk=Math.floor(anchor.mk.week+1e-6), off=Math.round((anchor.mk.week-wk)*7)+1;
+        var wk=Math.floor(anchor.mk.week+1e-6), off=Math.round((anchor.mk.week-wk)*(sim.intv||7))+1;
         var head = off===1 ? ('Semana '+(wk+1)+' · aplicação') : ('Semana '+(wk+1)+' · '+off+'º dia');
         var multi = (sim.compare||sim.frac);
         var html='<b>'+head+'</b>';
@@ -1688,12 +2220,12 @@
         E.tip.innerHTML=html;
       } else {
         var week=(gx-m.padL)/m.plotW*m.totalWeeks; week=Math.max(0,Math.min(m.totalWeeks,week));
-        var cA=valAt(sim.A.pts,week*7);
+        var cA=valAt(sim.A.pts,week*(sim.intv||7));
         var html2='<b>Semana '+fmt(week)+'</b> <span class="mono">('+phaseOf(week)+')</span>';
         if(sim.compare||sim.frac){
           html2+='<br><span class="mono" style="color:'+COLOR.a+'">A: '+fmt(cA)+' mg</span>';
-          if(sim.compare){ var cB=valAt(sim.B.pts,week*7); html2+='<br><span class="mono" style="color:'+COLOR.b+'">B: '+fmt(cB)+' mg</span>'; }
-          if(sim.frac){ var cC=valAt(sim.C.pts,week*7); html2+='<br><span class="mono" style="color:'+COLOR.c+'">C: '+fmt(cC)+' mg</span>'; }
+          if(sim.compare){ var cB=valAt(sim.B.pts,week*(sim.intv||7)); html2+='<br><span class="mono" style="color:'+COLOR.b+'">B: '+fmt(cB)+' mg</span>'; }
+          if(sim.frac){ var cC=valAt(sim.C.pts,week*(sim.intv||7)); html2+='<br><span class="mono" style="color:'+COLOR.c+'">C: '+fmt(cC)+' mg</span>'; }
         } else {
           html2+='<br><span class="mono">'+fmt(cA)+' mg presentes</span>';
         }
@@ -1764,7 +2296,7 @@
 
   // ---- view switching ----
   function showView(v){
-    ['home','tirz','sim','effects','cost','schedule','consult','inject'].forEach(function(id){
+    ['home','tirz','sim','effects','cost','schedule','consult','inject','tirzsess','budget','ebooks','checkin'].forEach(function(id){
       document.getElementById(id).classList.toggle('active', id===v);
     });
     window.scrollTo(0,0);
@@ -1779,6 +2311,10 @@
       else if(t==='tirz'){ showView('tirz'); }
       else if(t==='consult'){ showView('consult'); renderConsult(); }
       else if(t==='inject'){ showView('inject'); renderInject(); }
+      else if(t==='tirzsess'){ showView('tirzsess'); renderTirzSess(); }
+      else if(t==='budget'){ showView('budget'); renderBudget(); }
+      else if(t==='ebooks'){ showView('ebooks'); renderEbooks(); }
+      else if(t==='checkin'){ showView('checkin'); renderCheckins(); }
     });
   });
   el('backHome').addEventListener('click',function(){ showView('tirz'); });
@@ -1786,11 +2322,15 @@
   el('backHome4').addEventListener('click',function(){ showView('home'); });
   el('backHome5').addEventListener('click',function(){ showView('home'); });
   el('backHome6').addEventListener('click',function(){ showView('home'); });
+  el('backHome7').addEventListener('click',function(){ showView('home'); });
+  el('backHome8').addEventListener('click',function(){ showView('home'); });
+  el('backHome9').addEventListener('click',function(){ showView('home'); });
+  el('backHome10').addEventListener('click',function(){ showView('home'); });
   el('backHomeTirz').addEventListener('click',function(){ showView('home'); });
 
   // ---- events ----
   E.nweeks.addEventListener('input',update);
-  E.hl.addEventListener('input',update);
+  document.getElementById('doseInterval').addEventListener('input',update);
   E.washon.addEventListener('change',update);
   E.taperon.addEventListener('change',function(){
     document.getElementById('tapercfg').style.display=this.checked?'block':'none';
@@ -1941,7 +2481,8 @@
   var DOSE_KEYS=['2.5','5','7.5','10','12.5','15'];
   // Preço da CAIXA de Mounjaro (4 canetas) por dose — Droga Raia/Drogasil (planilha): preço/aplicação x4
   var penBoxPrices={'2.5':1406.76,'5':1759.64,'7.5':2299.00,'10':2699.00,'12.5':3373.76,'15':4048.52};
-  var monthDoses=[];        // dose escolhida por mês (string key)
+  var monthDoses=[];        // dose escolhida por mês para Mounjaro
+  var compDoses=[];         // dose escolhida por mês para manipulada
   var PENS_PER_BOX=4, APPS_PER_MONTH=4;
 
   function brl(v){ return 'R$ ' + (Math.round(v*100)/100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
@@ -1966,10 +2507,11 @@
   function syncMonths(){
     var months=Math.max(1,Math.min(12,parseInt(document.getElementById('costMonths').value,10)||1));
     document.getElementById('costMonths').value=months;
-    // default escalation by month: 2.5, 5, 7.5, 10, 12.5, 15, then 15...
     var def=['2.5','5','7.5','10','12.5','15'];
     while(monthDoses.length<months) monthDoses.push(def[monthDoses.length]||'15');
     if(monthDoses.length>months) monthDoses.length=months;
+    while(compDoses.length<months) compDoses.push(def[compDoses.length]||'15');
+    if(compDoses.length>months) compDoses.length=months;
     return months;
   }
 
@@ -1982,12 +2524,22 @@
     grid.querySelectorAll('select').forEach(function(s){
       s.addEventListener('change',function(){ monthDoses[parseInt(this.getAttribute('data-m'),10)]=this.value; renderCost(); });
     });
+    // comp grid
+    var grid2=document.getElementById('costMonthsGridComp');
+    grid2.innerHTML=compDoses.map(function(d,i){
+      var opts=DOSE_KEYS.map(function(k){return '<option value="'+k+'"'+(k===d?' selected':'')+'>'+k.replace('.',',')+' mg</option>';}).join('');
+      return '<div class="cmonth"><div class="ml">Mês '+(i+1)+'</div><select data-m="'+i+'">'+opts+'</select></div>';
+    }).join('');
+    grid2.querySelectorAll('select').forEach(function(s){
+      s.addEventListener('change',function(){ compDoses[parseInt(this.getAttribute('data-m'),10)]=this.value; renderCost(); });
+    });
   }
 
   function renderCost(){
     var months=syncMonths();
     renderMonthGrid();
     var session=parseFloat(document.getElementById('costSession').value); if(isNaN(session)||session<0) session=0;
+    var pharmName=document.getElementById('costPharmName').value||'Farmácia';
 
     // accumulate per-month and total
     var clinicTotal=0, pharmTotal=0, rows='';
@@ -2009,11 +2561,11 @@
       +'<div class="crow" style="border-top:none;margin-top:8px;"><span class="rk">sessão (cada aplicação)</span><span class="rv">'+brl(session)+'</span></div>'
       +'<div class="crow"><span class="rk">por mês (4 aplicações)</span><span class="rv">'+brl(session*APPS_PER_MONTH)+'</span></div>'
       +'<div class="crow"><span class="rk">total em '+months+' '+(months>1?'meses':'mês')+'</span><span class="rv">'+brl(clinicTotal)+'</span></div></div>';
-    var cardsP='<div class="ccard pharm"><div class="ctag">Farmácia · Droga Raia/Drogasil</div>'
+    var cardsP='<div class="ccard pharm"><div class="ctag">Farmácia · '+pharmName+'</div>'
       +'<div class="cname">Mounjaro (caneta)</div>'
       +'<div class="big">'+brl(pharmTotal)+'</div>'
       +'<div class="crow" style="border-top:none;margin-top:8px;"><span class="rk">por aplicação (varia c/ dose)</span><span class="rv">'+brl(pharmTotal/(months*APPS_PER_MONTH))+' méd.</span></div>'
-      +'<div class="crow"><span class="rk">1 caixa = 4 aplicações</span><span class="rv">1 mês</span></div>'
+      +'<div class="crow"><span class="rk">por mês (média)</span><span class="rv">'+brl(pharmTotal/months)+' méd.</span></div>'
       +'<div class="crow"><span class="rk">total em '+months+' '+(months>1?'meses':'mês')+'</span><span class="rv">'+brl(pharmTotal)+'</span></div></div>';
     document.getElementById('costCards').innerHTML=cards+cardsP;
 
@@ -2033,7 +2585,7 @@
     var maxV=Math.max(clinicTotal,pharmTotal,1);
     var bars='<div class="cbar-row"><div class="cbl"><span class="nm">Manipulada (clínica)</span><span class="vl">'+brl(clinicTotal)+'</span></div>'
       +'<div class="cbar-track"><div class="cbar-fill clinic" style="width:'+(clinicTotal/maxV*100).toFixed(1)+'%"></div></div></div>'
-      +'<div class="cbar-row"><div class="cbl"><span class="nm">Mounjaro (Droga Raia/Drogasil)</span><span class="vl">'+brl(pharmTotal)+'</span></div>'
+      +'<div class="cbar-row"><div class="cbl"><span class="nm">Mounjaro ('+pharmName+')</span><span class="vl">'+brl(pharmTotal)+'</span></div>'
       +'<div class="cbar-track"><div class="cbar-fill pharm" style="width:'+(pharmTotal/maxV*100).toFixed(1)+'%"></div></div></div>';
     var detail='<div class="cost-detail"><div class="cd-title">Mês a mês (manipulada · Mounjaro)</div>'+rows+'</div>';
 
@@ -2047,7 +2599,83 @@
     document.getElementById('costBars').innerHTML=saveHtml+bars+beHtml+detail;
     drawCostChart(cumClinic,cumPharm);
 
-    document.getElementById('costFoot').innerHTML='<b>Como ler.</b> Aplicações semanais (4 por mês). O custo da manipulada usa o preço único da sessão, independente da dose. O custo do Mounjaro acompanha a dose de cada mês: o preço da caixa (4 canetas) equivale a 1 mês de aplicações. A referência de farmácia é a Droga Raia/Drogasil (mais barata, programa Lilly). Valores editáveis e ilustrativos; confirme a cotação vigente.';
+    document.getElementById('costFoot').innerHTML='<b>Como ler.</b> Aplicações semanais (4 por mês). O custo da manipulada usa o preço único por sessão, independente da dose. O custo do Mounjaro acompanha a dose de cada mês (1 caixa = 4 canetas = 1 mês). Referência: '+pharmName+'. Todos os valores são editáveis.';
+
+    // Compounding analysis (frasco manipulado)
+    var compMg=parseFloat(document.getElementById('costCompMg').value)||90;
+    var compPrice=parseFloat(document.getElementById('costCompPrice').value)||0;
+    var compPerMg=compMg>0?compPrice/compMg:0;
+
+    // total mg used by manipulada (using compDoses)
+    var totalMgComp=0;
+    for(var mi=0;mi<months;mi++) totalMgComp+=parseFloat(compDoses[mi]||2.5)*APPS_PER_MONTH;
+
+    // how many sessions does one bottle cover?
+    var mgLeft=compMg;var sessPerBottle=0;
+    for(var mi=0;mi<months;mi++){
+      var dose=parseFloat(compDoses[mi]||2.5);
+      for(var si=0;si<APPS_PER_MONTH;si++){
+        if(mgLeft>=dose){sessPerBottle++;mgLeft-=dose;}else{mi=months;break;}
+      }
+    }
+
+    // bottles needed
+    var bottleCount=compMg>0?Math.ceil(totalMgComp/compMg):1;
+    var compTotalCost=bottleCount*compPrice;
+
+    // max price per bottle to equal Mounjaro
+    var maxFrascoPrice=bottleCount>0?pharmTotal/bottleCount:0;
+
+    var ch='<div style="background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;">'
+      +'<div style="font-family:Fraunces,serif;font-size:17px;color:#fff;margin-bottom:16px;">Análise de viabilidade do frasco manipulado</div>';
+
+    ch+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">'
+    // Frasco
+      +'<div style="background:var(--ink);border:1px solid var(--line-soft);border-radius:10px;padding:14px 16px;">'
+        +'<div style="font-size:11px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Frasco</div>'
+        +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line-soft);"><span style="color:var(--mist);">Conteúdo</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+compMg+' mg</span></div>'
+        +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line-soft);"><span style="color:var(--mist);">Preço de compra</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+brl(compPrice)+'</span></div>'
+        +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;"><span style="color:var(--mist);">Custo por mg</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+brl(compPerMg)+'</span></div>'
+      +'</div>'
+    // Rendimento
+      +'<div style="background:var(--ink);border:1px solid var(--line-soft);border-radius:10px;padding:14px 16px;">'
+        +'<div style="font-size:11px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Rendimento</div>'
+        +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line-soft);"><span style="color:var(--mist);">Sessões por frasco</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+sessPerBottle+' sessões</span></div>'
+        +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line-soft);"><span style="color:var(--mist);">Equivale a</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+(sessPerBottle/APPS_PER_MONTH).toFixed(1)+' meses</span></div>'
+        +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line-soft);"><span style="color:var(--mist);">mg necessários ('+months+' meses)</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+totalMgComp.toFixed(1)+' mg</span></div>'
+        +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;"><span style="color:var(--mist);">Frascos necessários</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+bottleCount+'</span></div>'
+      +'</div></div>';
+
+    // Comparison cards
+    var compCheaper=compTotalCost<=pharmTotal;
+    ch+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;">'
+      +'<div style="background:var(--ink);border:1px solid var(--line-soft);border-radius:10px;padding:14px;text-align:center;">'
+        +'<div style="font-size:11px;color:var(--mist);margin-bottom:6px;">Custo manipulada</div>'
+        +'<div style="font-size:22px;font-weight:700;color:var(--paper);font-family:IBM Plex Mono,monospace;">'+brl(compTotalCost)+'</div>'
+        +'<div style="font-size:10px;color:var(--mist);margin-top:4px;">'+bottleCount+' frasco'+(bottleCount>1?'s':'')+' × '+brl(compPrice)+'</div>'
+      +'</div>'
+      +'<div style="background:var(--ink);border:1px solid var(--line-soft);border-radius:10px;padding:14px;text-align:center;">'
+        +'<div style="font-size:11px;color:var(--mist);margin-bottom:6px;">Custo Mounjaro</div>'
+        +'<div style="font-size:22px;font-weight:700;color:var(--paper);font-family:IBM Plex Mono,monospace;">'+brl(pharmTotal)+'</div>'
+        +'<div style="font-size:10px;color:var(--mist);margin-top:4px;">'+months+' '+(months>1?'meses':'mês')+' de caixas</div>'
+      +'</div>'
+      +'<div style="background:var(--ink);border:1px solid '+(compCheaper?'rgba(57,255,20,.3)':'rgba(224,138,107,.3)')+';border-radius:10px;padding:14px;text-align:center;">'
+        +'<div style="font-size:11px;color:var(--mist);margin-bottom:6px;">Diferença</div>'
+        +'<div style="font-size:22px;font-weight:700;color:'+(compCheaper?'#39ff14':'var(--danger)')+';font-family:IBM Plex Mono,monospace;">'+(compCheaper?'':'+')+brl(compCheaper?pharmTotal-compTotalCost:compTotalCost-pharmTotal)+'</div>'
+        +'<div style="font-size:10px;color:'+(compCheaper?'#39ff14':'var(--danger)')+';margin-top:4px;">'+(compCheaper?'Manipulada mais barata':'Manipulada mais cara')+'</div>'
+      +'</div></div>';
+
+    // Max price card
+    ch+='<div style="background:linear-gradient(180deg,rgba(57,255,20,.06),transparent);border:1px solid rgba(57,255,20,.25);border-radius:10px;padding:14px 18px;">'
+      +'<div style="font-size:13px;color:var(--paper);line-height:1.6;">'
+      +'Para que a manipulada fique igual ou mais barata que o Mounjaro neste tratamento de <b>'+months+' meses</b>, cada frasco de <b>'+compMg+' mg</b> deve custar no máximo:'
+      +'</div>'
+      +'<div style="font-size:28px;font-weight:700;color:#39ff14;font-family:IBM Plex Mono,monospace;margin:8px 0;">'+brl(maxFrascoPrice)+'</div>'
+      +'<div style="font-size:12px;color:var(--mist);">Preço atual do frasco: '+brl(compPrice)+' '+(compPrice<=maxFrascoPrice?'<b style="color:#39ff14;">✓ Dentro do limite</b>':'<b style="color:var(--danger);">⚠ Acima do limite</b>')+'</div>'
+      +'</div>';
+
+    ch+='</div>';
+    document.getElementById('costCompResult').innerHTML=ch;
   }
 
   function drawCostChart(cumClinic,cumPharm){
@@ -2602,7 +3230,7 @@
     // check if any pending consultation is past due
     for(var i=0;i<p.consults.length;i++){
       if(!p.consults[i].real&&p.consults[i].sug&&today>p.consults[i].sug){
-        return {text:'⚠ Fora do prazo',cls:'warn'};
+        return {text:'⚠ Em atraso',cls:'warn'};
       }
     }
     return {text:'✔ OK',cls:'ok'};
@@ -2620,27 +3248,34 @@
     conRef.set({patients:conPatients,nextId:conNextId}).then(function(){
       conSaving=false; conSyncStatus('Salvo na nuvem ✓',true);
     }).catch(function(){
-      conSaving=false; conSyncStatus('Erro ao salvar',false);
+      conSaving=false; conSyncStatus('Salvo localmente',true);
+    });
+  }
+  function conSaveLocal(){
+    try{localStorage.setItem('con_data',JSON.stringify({patients:conPatients,nextId:conNextId}));}catch(e){}
+  }
+  function conLoadLocal(){
+    try{var r=localStorage.getItem('con_data');if(r){var ld=JSON.parse(r);if(ld.patients&&ld.patients.length){conPatients=ld.patients;conNextId=ld.nextId||100;return true;}}}catch(e){}
+    return false;
+  }
+  // Load: localStorage first, then Firebase, then defaults
+  var conLocalLoaded=conLoadLocal();
+  if(!conLocalLoaded){
+    conRef.once('value').then(function(snap){
+      var d=snap.val();
+      if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSyncStatus('Sincronizado',true);conSaveLocal();}
+      else if(!conPatients.length) conPatients=conDefaults.slice();
+      if(document.getElementById('consult').classList.contains('active')) renderConsult();
+    }).catch(function(){
+      if(!conPatients.length) conPatients=conDefaults.slice();
     });
   }
 
-  // load from Firebase
-  conRef.once('value').then(function(snap){
-    var d=snap.val();
-    if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSyncStatus('Sincronizado',true);}
-    else{
-      try{var raw=localStorage.getItem('con_data');if(raw){var ld=JSON.parse(raw);if(ld.patients){conPatients=ld.patients;conNextId=ld.nextId||100;}}}catch(e){}
-      if(!conPatients.length) conPatients=conDefaults.slice();
-    }
-  }).catch(function(){
-    try{var raw=localStorage.getItem('con_data');if(raw){var ld=JSON.parse(raw);if(ld.patients){conPatients=ld.patients;conNextId=ld.nextId||100;}}}catch(e){}
-    if(!conPatients.length) conPatients=conDefaults.slice();
-  });
-
   conRef.on('value',function(snap){
     if(conSaving) return;
+    if(conLocalLoaded){conLocalLoaded=false;return;}
     var d=snap.val();
-    if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;
+    if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSaveLocal();
       if(document.getElementById('consult').classList.contains('active')) renderConsult();
       conSyncStatus('Atualizado ✓',true);
     }
@@ -2683,20 +3318,32 @@
       var done=conRealizadas(p);
       var rest=p.total-done;
       var endD=conEndDate(p);
+      var today=new Date().toISOString().slice(0,10);
+      var nextIdx=-1;
+      for(var ni=0;ni<p.total;ni++){if(!p.consults[ni]||!p.consults[ni].real){nextIdx=ni;break;}}
       var dots='';
       for(var i=0;i<p.total;i++){
         var c=p.consults[i];
         var cls='pending';
         if(c&&c.real) cls='done';
-        else if(c&&c.sug&&new Date().toISOString().slice(0,10)>c.sug) cls='late';
+        else if(i===nextIdx&&p.next) cls='scheduled';
+        else if(i===nextIdx&&a.cls==='danger') cls='expired';
+        else if(i===nextIdx&&c&&c.sug&&today>c.sug) cls='late';
         dots+='<div class="con-dot '+cls+'">'+(i+1)+'</div>';
       }
       var indic=p.indic||0;
       for(var k=0;k<indic;k++){
         dots+='<div class="con-dot indic" title="Indicação '+(k+1)+'">✦</div>';
       }
+      if(nextIdx>=0&&!p.next&&(a.cls==='ok')) dots+='<div class="con-dot agendar">Agendar</div>';
       var nextTxt='';
-      if(p.next) nextTxt='<div class="con-pat-next"><b>Próxima:</b> '+p.next+'</div>';
+      if(p.next||p.obs){
+        nextTxt='<div class="con-pat-next">';
+        if(p.next) nextTxt+='<b>Agendada:</b> '+conDisplayDate(p.next);
+        if(p.next&&p.obs) nextTxt+=' · ';
+        if(p.obs) nextTxt+='<b>Obs:</b> '+p.obs;
+        nextTxt+='</div>';
+      }
 
       html+='<div class="con-pat" data-idx="'+idx+'">'
         +'<div class="con-pat-head">'
@@ -2762,9 +3409,12 @@
 
   function buildConRows(total,consults){
     var html='';
+    var nextIdx=-1;
+    for(var ni=0;ni<total;ni++){if(!consults[ni]||!consults[ni].real){nextIdx=ni;break;}}
     for(var i=0;i<total;i++){
       var c=consults[i]||{int:30,sug:'',real:''};
-      html+='<div class="con-row">'
+      var rowCls=i===nextIdx?' next-row':'';
+      html+='<div class="con-row'+rowCls+'">'
         +'<div class="cr-n">'+( i+1)+'</div>'
         +'<div><div class="cr-lbl">Intervalo (dias)</div><input type="number" class="cr-int" value="'+(c.int||30)+'" min="1" data-i="'+i+'"></div>'
         +'<div><div class="cr-lbl">Data sugerida</div><input type="date" class="cr-sug" value="'+(c.sug||'')+'" data-i="'+i+'"></div>'
@@ -2777,13 +3427,14 @@
   function openConModal(idx){
     var isNew=(idx<0);
     var p=isNew?{id:conNextId++,name:'',indic:0,start:new Date().toISOString().slice(0,10),dur:6,total:6,next:'',consults:[]}:conPatients[idx];
-    el('conModalTitle').textContent=isNew?'Novo paciente':'Editar: '+p.name;
+    el('conModalTitle').textContent=isNew?'Novo paciente':p.name;
     el('conName').value=p.name;
     el('conIndic').value=p.indic||0;
     el('conStart').value=p.start||'';
     el('conDur').value=p.dur||6;
     el('conTotal').value=p.total||6;
     el('conNext').value=p.next||'';
+    el('conObs').value=p.obs||'';
     conUpdateEnd();
     // ensure consults array
     while(p.consults.length<p.total) p.consults.push({int:30,sug:'',real:''});
@@ -2855,7 +3506,8 @@
       start:el('conStart').value,
       dur:parseInt(el('conDur').value)||6,
       total:parseInt(el('conTotal').value)||6,
-      next:el('conNext').value.trim(),
+      next:el('conNext').value||'',
+      obs:el('conObs').value.trim(),
       consults:readConRows()
     };
     if(!p.name) return;
@@ -2893,7 +3545,7 @@
 
   // ============ INJECTABLES ============
   var injRef=fbDb.ref('injectables');
-  var INJ_KITS=['Otimiz. Nutricional','Antioxidante','Otimiz. Nutricional','Antioxidante','Sup. Mitocondrial','Antioxidante','Sup. Mitocondrial','Sup. Mitocondrial','Antioxidante','Sup. Mitocondrial','Otimiz. Nutricional','Antioxidante'];
+  var INJ_KITS=['Otimização Nutricional e Energética','Antioxidante e Anti-inflamatório','Otimização Nutricional e Energética','Antioxidante e Anti-inflamatório','Suporte Mitocondrial','Antioxidante e Anti-inflamatório','Suporte Mitocondrial','Suporte Mitocondrial','Antioxidante e Anti-inflamatório','Suporte Mitocondrial','Otimização Nutricional e Energética','Antioxidante e Anti-inflamatório'];
   var INJ_PHASES=[{name:'Fase 1',from:0,to:3,defInt:10},{name:'Fase 2',from:4,to:7,defInt:10},{name:'Fase 3',from:8,to:11,defInt:14}];
   var injPatients=[];var injNextId=200;var injSaving=false;
 
@@ -2901,15 +3553,15 @@
   function injMakeSessions(){var s=[];for(var i=0;i<12;i++) s.push({int:injDefInterval(i),sug:'',real:''});return s;}
 
   var injDefaults=[
-    {id:201,name:'Andrea Correa Dias Duque',start:'2026-03-03',dur:3,obs:'',sessions:[
+    {id:201,name:'Andrea Correa Dias Duque',start:'2026-03-03',dur:3,scheduled:'',sessions:[
       {int:10,sug:'',real:'2026-03-05'},{int:10,sug:'',real:'2026-03-16'},{int:10,sug:'',real:'2026-03-26'},{int:10,sug:'',real:'2026-04-07'},
       {int:10,sug:'',real:'2026-04-16'},{int:10,sug:'',real:'2026-04-27'},{int:10,sug:'',real:'2026-05-06'},{int:10,sug:'',real:'2026-05-28'},
       {int:14,sug:'',real:'2026-06-08'},{int:14,sug:'',real:''},{int:14,sug:'',real:''},{int:14,sug:'',real:''}],vitD:'',b12:''},
-    {id:202,name:'Wagna Carmem de Souza Gomes',start:'2026-03-31',dur:7,obs:'',sessions:[
+    {id:202,name:'Wagna Carmem de Souza Gomes',start:'2026-03-31',dur:7,scheduled:'',sessions:[
       {int:10,sug:'',real:'2026-04-16'},{int:10,sug:'',real:'2026-04-28'},{int:10,sug:'',real:'2026-05-07'},{int:10,sug:'',real:'2026-05-18'},
       {int:10,sug:'',real:''},{int:10,sug:'',real:''},{int:10,sug:'',real:''},{int:10,sug:'',real:''},
       {int:14,sug:'',real:''},{int:14,sug:'',real:''},{int:14,sug:'',real:''},{int:14,sug:'',real:''}],vitD:'',b12:''},
-    {id:203,name:'Lincoln Diniz Carvalho',start:'2026-05-18',dur:6,obs:'',sessions:[
+    {id:203,name:'Lincoln Diniz Carvalho',start:'2026-05-18',dur:6,scheduled:'',sessions:[
       {int:10,sug:'',real:'2026-05-22'},{int:10,sug:'',real:'2026-06-03'},{int:10,sug:'',real:''},{int:10,sug:'',real:''},
       {int:10,sug:'',real:''},{int:10,sug:'',real:''},{int:10,sug:'',real:''},{int:10,sug:'',real:''},
       {int:14,sug:'',real:''},{int:14,sug:'',real:''},{int:14,sug:'',real:''},{int:14,sug:'',real:''}],vitD:'',b12:''}
@@ -2939,14 +3591,28 @@
   function injSaveCloud(){
     try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
     injSaving=true;injSyncStatus('Salvando...',true);
-    injRef.set({patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(){injSaving=false;injSyncStatus('Erro ao salvar',false);});
+    injRef.set({patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(){injSaving=false;injSyncStatus('Salvo localmente',true);});
   }
-  injRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);}
-    else{try{var r=localStorage.getItem('inj_data');if(r){var ld=JSON.parse(r);if(ld.patients){injPatients=ld.patients;injNextId=ld.nextId||200;}}}catch(e){}
-    if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));}
-  }).catch(function(){try{var r=localStorage.getItem('inj_data');if(r){var ld=JSON.parse(r);if(ld.patients){injPatients=ld.patients;injNextId=ld.nextId||200;}}}catch(e){}
-    if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));});
-  injRef.on('value',function(snap){if(injSaving) return;var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;if(document.getElementById('inject').classList.contains('active')) renderInject();injSyncStatus('Atualizado ✓',true);}});
+  function injSaveLocal(){
+    try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
+  }
+  function injLoadLocal(){
+    try{var r=localStorage.getItem('inj_data');if(r){var ld=JSON.parse(r);if(ld.patients&&ld.patients.length){injPatients=ld.patients;injNextId=ld.nextId||200;return true;}}}catch(e){}
+    return false;
+  }
+  // Load: localStorage first (preserves local edits), then Firebase, then defaults
+  var injLocalLoaded=injLoadLocal();
+  if(!injLocalLoaded){
+    injRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);injSaveLocal();}
+      else if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));
+      if(document.getElementById('inject').classList.contains('active')) renderInject();
+    }).catch(function(){if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));});
+  }
+  injRef.on('value',function(snap){
+    if(injSaving) return;
+    if(injLocalLoaded){injLocalLoaded=false;return;} // skip first Firebase event when local data was loaded
+    var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();injSyncStatus('Atualizado ✓',true);}
+  });
 
   function renderInject(){
     var items=[],hiddenItems=[];
@@ -2976,17 +3642,21 @@
           var s=p.sessions[si];
           var cls='pending';
           if(s&&s.real) cls='done';
+          else if(si===ns&&p.scheduled) cls='scheduled';
           else if(si===ns&&s&&s.sug&&new Date().toISOString().slice(0,10)>s.sug) cls='late';
-          else if(si===ns) cls='next';
-          dots+='<div class="inj-dot '+cls+'" title="S'+(si+1)+': '+INJ_KITS[si]+'">'+(si+1)+'</div>';
+          dots+='<div class="inj-dot '+cls+'" title="Sessão '+(si+1)+': '+INJ_KITS[si]+'">'+(si+1)+'</div>';
         }
       }
+      if(ns<12&&!p.scheduled&&st.cls==='ok') dots+='<div class="con-dot agendar">Agendar</div>';
       var nextTxt='';
-      if(ns<12){var s=p.sessions[ns];nextTxt='<div class="inj-next-info"><b>Próxima:</b> Sessão '+(ns+1)+' · '+INJ_KITS[ns]+(s&&s.sug?' · Sugerida: '+conDisplayDate(s.sug):'')+'</div>';}
+      if(ns<12){
+        nextTxt='<div class="inj-next-info"><b>Próxima:</b> Sessão '+(ns+1)+' · '+INJ_KITS[ns];
+        if(p.scheduled) nextTxt+=' · <b>Agendada:</b> '+conDisplayDate(p.scheduled);
+        if(p.obs) nextTxt+=' · <b>Observações:</b> '+p.obs;
+        nextTxt+='</div>';
+      }
       var avHtml='';
       if(p.vitD||p.b12){avHtml='<div class="inj-avulsos">';if(p.vitD) avHtml+='<div class="inj-avulso">Vit D: <b>'+conDisplayDate(p.vitD)+'</b></div>';if(p.b12) avHtml+='<div class="inj-avulso">B+B12: <b>'+conDisplayDate(p.b12)+'</b></div>';avHtml+='</div>';}
-      var obsHtml='';
-      if(p.obs) obsHtml='<div class="inj-next-info"><b>Obs:</b> '+p.obs+'</div>';
       var phIdx=0;for(var pi=0;pi<3;pi++){if(ns>INJ_PHASES[pi].to) phIdx=pi+1;}if(phIdx>2) phIdx=2;
 
       html+='<div class="inj-pat" data-idx="'+idx+'">'
@@ -3000,7 +3670,7 @@
           +(rest>0?'<span>Restantes: <b>'+rest+'</b></span>':'')
         +'</div>'
         +'<div class="inj-phases">'+dots+'</div>'
-        +nextTxt+avHtml+obsHtml
+        +nextTxt+avHtml
       +'</div>';
     });
     el('injPatients').innerHTML=html;
@@ -3016,13 +3686,16 @@
   }
 
   function buildInjSessRows(sessions){
+    var nextIdx=-1;
+    for(var ni=0;ni<12;ni++){if(!sessions[ni]||!sessions[ni].real){nextIdx=ni;break;}}
     var html='<div class="inj-sg-row" style="margin-bottom:10px;font-weight:600;color:var(--gold);font-size:10px;text-transform:uppercase;letter-spacing:.04em;">'
       +'<div>Nº</div><div>Kit</div><div>Interv.</div><div>Sugerida</div><div>Realizada</div></div>';
     for(var pi=0;pi<3;pi++){
       html+='<div class="inj-sg-phase"><div class="inj-sg-phase-title">'+INJ_PHASES[pi].name+' (padrão: '+INJ_PHASES[pi].defInt+' dias)</div>';
       for(var si=INJ_PHASES[pi].from;si<=INJ_PHASES[pi].to;si++){
         var s=sessions[si]||{int:injDefInterval(si),sug:'',real:''};
-        html+='<div class="inj-sg-row">'
+        var rowCls=si===nextIdx?' next-row':'';
+        html+='<div class="inj-sg-row'+rowCls+'">'
           +'<div class="isr-n">'+(si+1)+'</div>'
           +'<div class="isr-kit">'+INJ_KITS[si]+'</div>'
           +'<div><input type="number" class="isr-int" data-si="'+si+'" value="'+(s.int||injDefInterval(si))+'" min="1" placeholder="dias" title="Intervalo (dias)"></div>'
@@ -3044,11 +3717,12 @@
 
   function openInjModal(idx){
     var isNew=(idx<0);
-    var p=isNew?{id:injNextId++,name:'',start:new Date().toISOString().slice(0,10),dur:6,obs:'',sessions:injMakeSessions(),vitD:'',b12:''}:injPatients[idx];
+    var p=isNew?{id:injNextId++,name:'',start:new Date().toISOString().slice(0,10),dur:6,scheduled:'',obs:'',sessions:injMakeSessions(),vitD:'',b12:''}:injPatients[idx];
     while(p.sessions.length<12) p.sessions.push({int:injDefInterval(p.sessions.length),sug:'',real:''});
     injCalcSug(p);
-    el('injModalTitle').textContent=isNew?'Novo paciente':'Editar: '+p.name;
+    el('injModalTitle').textContent=isNew?'Novo paciente':p.name;
     el('injName').value=p.name;
+    el('injScheduled').value=p.scheduled||'';
     el('injObs').value=p.obs||'';
     el('injStart').value=p.start||'';
     el('injDur').value=p.dur||6;
@@ -3069,7 +3743,7 @@
     document.querySelectorAll('.isr-int').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].int=parseInt(inp.value)||injDefInterval(si);});
     document.querySelectorAll('.isr-sug').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].sug=inp.value||'';});
     document.querySelectorAll('.isr-real').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].real=inp.value||'';});
-    var p={id:el('injModal')._patId,name:el('injName').value.trim(),start:el('injStart').value,dur:parseInt(el('injDur').value)||6,obs:el('injObs').value.trim(),sessions:sess,vitD:el('injAvVitD').value||'',b12:el('injAvB12').value||''};
+    var p={id:el('injModal')._patId,name:el('injName').value.trim(),start:el('injStart').value,dur:parseInt(el('injDur').value)||6,scheduled:el('injScheduled').value||'',obs:el('injObs').value.trim(),sessions:sess,vitD:el('injAvVitD').value||'',b12:el('injAvB12').value||''};
     if(!p.name) return;
     if(isNew) injPatients.push(p);else{p.hidden=injPatients[idx].hidden;injPatients[idx]=p;}
     el('injModal').classList.remove('open');renderInject();injSaveCloud();
@@ -3084,6 +3758,622 @@
   el('injAddPat').addEventListener('click',function(){openInjModal(-1);});
   document.getElementById('injShowHidden').addEventListener('click',function(){var h=document.getElementById('injHiddenList');h.style.display=h.style.display==='none'?'block':'none';});
 
+  // ============ TIRZ SESSIONS ============
+  var tzRef=fbDb.ref('tirzsessions');
+  var tzPatients=[];var tzNextId=300;var tzSaving=false;
+  var REGIOES=['Abdome (QSD)','Abdome (QSE)','Abdome (QID)','Abdome (QIE)','Coxa D','Coxa E','Braço D','Braço E'];
+
+  var tzDefaults=[{id:301,name:'Tatiana Cristina Barreto',dur:6,start:'2026-06-11',fatInit:18.4,fatLose:2.8,fatGoal:15.6,mmInit:28.9,phase:'treat',taperFrom:0,scheduled:'2026-06-18',maxSess:24,obs:'',
+    sessions:[{date:'2026-06-11',fat:18.4,mm:28.9,regiao:'Abdome (QSD)',dose:1.25}]}];
+
+  function tzMakeSess(){return {date:'',fat:'',mm:'',regiao:'',dose:''};}
+  function tzDone(p){var c=0;(p.sessions||[]).forEach(function(s){if(s&&s.date) c++;});return c;}
+  function tzNextSess(p){var ss=p.sessions||[];for(var i=0;i<(p.maxSess||24);i++){if(!ss[i]||!ss[i].date) return i;}return p.maxSess||24;}
+  function tzEndDate(p){return(p.start&&p.dur)?conAddMonths(p.start,p.dur):'';}
+  function tzLastFat(p){var ss=p.sessions||[];for(var i=ss.length-1;i>=0;i--) if(ss[i]&&ss[i].fat) return parseFloat(ss[i].fat);return p.fatInit||0;}
+  function tzLastMM(p){var ss=p.sessions||[];for(var i=ss.length-1;i>=0;i--) if(ss[i]&&ss[i].mm) return parseFloat(ss[i].mm);return p.mmInit||0;}
+  function tzPctGoal(p){var lost=(p.fatInit||0)-tzLastFat(p);return p.fatLose>0?Math.min(100,Math.max(0,Math.round(lost/p.fatLose*100))):0;}
+  function tzVarFat(p){return(tzLastFat(p)-(p.fatInit||0)).toFixed(1);}
+  function tzVarMM(p){return(tzLastMM(p)-(p.mmInit||0)).toFixed(1);}
+  function tzStatus(p){
+    var d=tzDone(p),ns=tzNextSess(p),mx=p.maxSess||24;
+    if(d>=mx) return {text:'✔ Completo',cls:'complete'};
+    var end=tzEndDate(p);var today=new Date().toISOString().slice(0,10);
+    if(end&&today>end) return {text:'⛔ Plano vencido',cls:'danger'};
+    if(d>0){var last=p.sessions[d-1];if(last&&last.date){var ld=new Date(last.date+'T00:00:00');ld.setDate(ld.getDate()+10);if(today>ld.toISOString().slice(0,10)) return {text:'⚠ Em atraso',cls:'warn'};}}
+    return {text:'✔ Em dia',cls:'ok'};
+  }
+
+  function tzSyncStatus(m,ok){var s=document.getElementById('tzSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}if(ok) setTimeout(function(){if(s&&s.textContent===m) s.textContent='Sincronizado';},2000);}
+  function tzSaveCloud(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}tzSaving=true;tzSyncStatus('Salvando...',true);tzRef.set({patients:tzPatients,nextId:tzNextId}).then(function(){tzSaving=false;tzSyncStatus('Salvo na nuvem ✓',true);}).catch(function(){tzSaving=false;tzSyncStatus('Salvo localmente',true);});}
+  function tzSaveLocal(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}}
+  function tzLoadLocal(){try{var r=localStorage.getItem('tz_data');if(r){var ld=JSON.parse(r);if(ld.patients&&ld.patients.length){tzPatients=ld.patients;tzNextId=ld.nextId||300;return true;}}}catch(e){}return false;}
+  var tzLocalLoaded=tzLoadLocal();
+  if(!tzLocalLoaded){tzRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();}else if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}).catch(function(){if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));});}
+  tzRef.on('value',function(snap){if(tzSaving) return;if(tzLocalLoaded){tzLocalLoaded=false;return;}var d=snap.val();if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();tzSyncStatus('Atualizado ✓',true);}});
+
+  function renderTirzSess(){
+    var items=[],hiddenItems=[];
+    tzPatients.forEach(function(p,idx){if(p.hidden) hiddenItems.push({p:p,idx:idx});else items.push({p:p,idx:idx,st:tzStatus(p)});});
+    var alertOrder={warn:0,danger:1,ok:2,complete:3};
+    items.sort(function(a,b){var ao=alertOrder[a.st.cls]!=null?alertOrder[a.st.cls]:2;var bo=alertOrder[b.st.cls]!=null?alertOrder[b.st.cls]:2;if(ao!==bo) return ao-bo;return a.p.name.localeCompare(b.p.name);});
+
+    var okC=0,wC=0,dC=0,cC=0;
+    items.forEach(function(it){if(it.st.cls==='ok') okC++;else if(it.st.cls==='warn') wC++;else if(it.st.cls==='danger') dC++;else cC++;});
+    el('tzSummary').innerHTML='<div class="con-scard ok"><div class="csv">'+okC+'</div><div class="csl">Em dia</div></div>'
+      +'<div class="con-scard alert"><div class="csv">'+(wC+dC)+'</div><div class="csl">Atenção</div></div>'
+      +'<div class="con-scard"><div class="csv">'+cC+'</div><div class="csl">Completos</div></div>'
+      +'<div class="con-scard"><div class="csv">'+items.length+'</div><div class="csl">Ativos</div></div>';
+
+    var html='';
+    items.forEach(function(it){
+      var p=it.p,idx=it.idx,st=it.st;
+      var d=tzDone(p),ns=tzNextSess(p),mx=p.maxSess||24,rest=mx-d,endD=tzEndDate(p);
+      var pct=tzPctGoal(p),varF=tzVarFat(p),varM=tzVarMM(p);
+
+      // dots
+      var dots='';
+      for(var i=0;i<mx;i++){
+        var s=p.sessions?p.sessions[i]:null;
+        var cls='pending';
+        if(s&&s.date) cls='done';
+        else if(i===ns&&p.scheduled) cls='scheduled';
+        else if(i===ns&&st.cls==='danger') cls='expired';
+        else if(i===ns&&st.cls==='warn') cls='late';
+        dots+='<div class="con-dot '+cls+'">'+(i+1)+'</div>';
+      }
+
+      // SVG line graph for fat and MM
+      var graphW=400,graphH=100,graphPad=10;
+      var fatVals=[],mmVals=[];
+      // include initial values as session 0
+      if(p.fatInit) fatVals.push({i:0,v:parseFloat(p.fatInit),label:'Inicial'});
+      if(p.mmInit) mmVals.push({i:0,v:parseFloat(p.mmInit),label:'Inicial'});
+      (p.sessions||[]).forEach(function(s,i){if(s&&s.date){if(s.fat) fatVals.push({i:i+1,v:parseFloat(s.fat),label:'S'+(i+1)});if(s.mm) mmVals.push({i:i+1,v:parseFloat(s.mm),label:'S'+(i+1)});}});
+      var graphHtml='';
+      if(fatVals.length>1||mmVals.length>1){
+        graphHtml='<div style="display:flex;gap:16px;flex-wrap:wrap;margin:10px 0;padding:10px 12px;background:var(--ink);border:1px solid var(--line-soft);border-radius:10px;">';
+        function makeGraph(vals,title,lineColor,dotColor){
+          if(vals.length<2) return '';
+          var minV=Infinity,maxV=-Infinity;vals.forEach(function(v){if(v.v<minV)minV=v.v;if(v.v>maxV)maxV=v.v;});
+          var rangeV=maxV-minV;if(rangeV<0.1) rangeV=0.1;
+          var padY=14;
+          var pts=vals.map(function(v,i){return(graphPad+i/(vals.length-1)*(graphW-graphPad*2)).toFixed(1)+','+(graphH-padY-(v.v-minV)/rangeV*(graphH-padY*2-4)).toFixed(1);}).join(' ');
+          var g='<div style="flex:1;min-width:140px;"><div style="font-size:11px;color:var(--paper);font-weight:600;margin-bottom:4px;">'+title+'</div>'
+            +'<svg viewBox="0 0 '+graphW+' '+graphH+'" style="width:100%;height:'+graphH+'px;">'
+            +'<rect x="0" y="0" width="'+graphW+'" height="'+graphH+'" fill="transparent"/>'
+            +'<polyline points="'+pts+'" fill="none" stroke="'+lineColor+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+          vals.forEach(function(v,i){
+            var x=graphPad+i/(vals.length-1)*(graphW-graphPad*2);
+            var y=graphH-padY-(v.v-minV)/rangeV*(graphH-padY*2-4);
+            g+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="4" fill="'+dotColor+'" stroke="var(--ink)" stroke-width="1.5"/>';
+            g+='<text x="'+x.toFixed(1)+'" y="'+(y-8).toFixed(1)+'" font-size="9.5" fill="var(--paper)" text-anchor="middle" font-family="IBM Plex Mono,monospace">'+v.v.toFixed(1)+'</text>';
+          });
+          g+='</svg></div>';
+          return g;
+        }
+        graphHtml+=makeGraph(fatVals,'Gordura (kg)','#ff8c00','#ff8c00');
+        graphHtml+=makeGraph(mmVals,'Massa muscular (kg)','#00e5ff','#00e5ff');
+        graphHtml+='</div>';
+      }
+
+      // combined card: graphs + progress + composition
+      var lost=((p.fatInit||0)-tzLastFat(p));
+      var remaining=p.fatLose>0?(p.fatLose-lost):0;
+      var mmChange=tzLastMM(p)-(p.mmInit||0);
+      var totalWeightChange=Math.abs(lost)+Math.abs(mmChange);
+      var mmPctOfLoss=totalWeightChange>0.01?Math.round(Math.abs(mmChange)/totalWeightChange*100):0;
+      var fatPctOfLoss=totalWeightChange>0.01?100-mmPctOfLoss:0;
+      var mmAlertColor=mmPctOfLoss<=25?'#39ff14':'#ff003c';
+
+      var goalBar='<div style="margin:8px 0 4px;padding:14px 16px;background:var(--ink);border:1px solid var(--line-soft);border-radius:10px;">';
+
+      // graphs inside the card
+      if(graphHtml) goalBar+=graphHtml;
+
+      // fat loss progress bar
+      goalBar+='<div style="'+(graphHtml?'margin-top:12px;':'')+'">'
+        +'<div style="font-size:11px;color:var(--paper);font-weight:600;margin-bottom:5px;">Meta: perder '+(p.fatLose||0).toFixed(1)+' kg de gordura</div>'
+        +'<div class="tz-goal"><div class="tz-goal-track"><div class="tz-goal-fill" style="width:'+pct+'%"></div></div></div>'
+        +'<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--mist);margin-top:4px;">'
+        +'<span>Perdidos: <b style="color:#ff8c00;">'+lost.toFixed(1)+' kg</b> · Faltam: <b style="color:var(--paper);">'+Math.max(0,remaining).toFixed(1)+' kg</b></span>'
+        +'<span style="font-family:\'IBM Plex Mono\',monospace;color:#ff8c00;">'+pct+'%</span></div>'
+        +'</div>';
+
+      // composition bar
+      if(d>0&&totalWeightChange>0.01){
+        goalBar+='<div style="margin-top:12px;">'
+          +'<div style="font-size:11px;color:var(--paper);font-weight:600;margin-bottom:5px;">Composição da perda de peso</div>'
+          +'<div style="display:flex;height:10px;border-radius:5px;overflow:hidden;margin-bottom:4px;">'
+            +'<div style="width:'+fatPctOfLoss+'%;background:linear-gradient(90deg,rgba(255,140,0,.4),rgba(255,140,0,.75));"></div>'
+            +'<div style="width:'+mmPctOfLoss+'%;background:linear-gradient(90deg,rgba(0,229,255,.4),rgba(0,229,255,.75));"></div>'
+          +'</div>'
+          +'<div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--mist);gap:6px;flex-wrap:wrap;">'
+            +'<span><span style="display:inline-block;width:8px;height:8px;border-radius:3px;background:#ff8c00;vertical-align:middle;margin-right:3px;"></span>Gordura: <b style="color:#ff8c00;">'+fatPctOfLoss+'%</b> ('+Math.abs(lost).toFixed(1)+' kg)</span>'
+            +'<span><span style="display:inline-block;width:8px;height:8px;border-radius:3px;background:#00e5ff;vertical-align:middle;margin-right:3px;"></span>MM: <b style="color:#00e5ff;">'+mmPctOfLoss+'%</b> ('+Math.abs(mmChange).toFixed(1)+' kg)</span>'
+            +'<span style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:'+mmAlertColor+';">MM '+(mmPctOfLoss<=25?'≤':'>')+'25% '+(mmPctOfLoss<=25?'✓':'⚠')+'</span>'
+          +'</div>'
+        +'</div>';
+      }
+      goalBar+='</div>';
+      graphHtml='';
+
+      // region rotation - only 4 abdome quadrants
+      var ABD_REGIOES=['Abdome (QSD)','Abdome (QSE)','Abdome (QID)','Abdome (QIE)'];
+      var nextRegiao='';
+      if(ns<mx){
+        var lastRegIdx=-1;
+        for(var ri=ns-1;ri>=0;ri--){if(p.sessions&&p.sessions[ri]&&p.sessions[ri].regiao){for(var rj=0;rj<ABD_REGIOES.length;rj++){if(ABD_REGIOES[rj]===p.sessions[ri].regiao){lastRegIdx=rj;break;}}break;}}
+        nextRegiao=ABD_REGIOES[(lastRegIdx+1)%ABD_REGIOES.length];
+      }
+      if(ns<mx&&!p.scheduled&&st.cls==='ok') dots+='<div class="con-dot agendar">Agendar</div>';
+
+      var nextTxt='';
+      if(ns<mx){
+        nextTxt='<div class="inj-next-info"><b>Próxima:</b> Sessão '+(ns+1)+' · '+nextRegiao;
+        if(p.scheduled) nextTxt+=' · <b>Agendada:</b> '+conDisplayDate(p.scheduled);
+        if(p.obs) nextTxt+=' · <b>Observações:</b> '+p.obs;
+        nextTxt+='</div>';
+      }
+
+      var phaseTag=p.phase==='taper'?'<span class="tz-phase-tag taper">Em desmame'+(p.taperFrom>0?' (S'+p.taperFrom+')':'')+'</span>':'<span class="tz-phase-tag treat">Em tratamento</span>';
+
+      html+='<div class="inj-pat" data-idx="'+idx+'">'
+        +'<div class="con-pat-head"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0;"><div class="con-pat-name">'+p.name+'</div>'+phaseTag+'<button class="con-hide-btn" data-idx="'+idx+'" onclick="event.stopPropagation()">Ocultar</button></div><div class="con-badge '+st.cls+'">'+st.text+'</div></div>'
+        +'<div class="con-pat-meta">'
+          +'<span>Início: <b>'+conDisplayDate(p.start)+'</b></span>'
+          +'<span>Final: <b>'+conDisplayDate(endD)+'</b></span>'
+          +'<span>Duração: <b>'+(p.dur||'-')+' meses</b></span>'
+          +'<span>Sessões: <b>'+d+'/'+mx+'</b></span>'
+          +(rest>0?'<span>Restantes: <b>'+rest+'</b></span>':'')
+        +'</div>'
+        +'<div class="con-timeline" style="margin-bottom:6px;">'+dots+'</div>'
+        +goalBar+nextTxt
+      +'</div>';
+    });
+    el('tzPatients').innerHTML=html;
+
+    document.querySelectorAll('#tirzsess .inj-pat').forEach(function(c){c.addEventListener('click',function(){openTzModal(parseInt(this.getAttribute('data-idx')));});});
+    document.querySelectorAll('#tirzsess .con-hide-btn').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();tzPatients[parseInt(this.getAttribute('data-idx'))].hidden=true;renderTirzSess();tzSaveCloud();});});
+
+    var hBtn=document.getElementById('tzShowHidden');hBtn.textContent='Ocultos ('+hiddenItems.length+')';
+    var hList=document.getElementById('tzHiddenList');var hEl=document.getElementById('tzHiddenItems');
+    if(hiddenItems.length>0){var hH='';hiddenItems.forEach(function(it){hH+='<div class="con-hidden-item"><span class="chi-name">'+it.p.name+'</span><button data-idx="'+it.idx+'">Reexibir</button></div>';});hEl.innerHTML=hH;
+      hEl.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){tzPatients[parseInt(this.getAttribute('data-idx'))].hidden=false;renderTirzSess();tzSaveCloud();});});
+    } else {hList.style.display='none';hEl.innerHTML='';}
+  }
+
+  function buildTzSessRows(sessions,maxSess,taperFrom){
+    var html='';var nextIdx=-1;
+    for(var ni=0;ni<maxSess;ni++){if(!sessions[ni]||!sessions[ni].date){nextIdx=ni;break;}}
+    var taperStart=taperFrom>0?taperFrom-1:maxSess; // 0-indexed
+    var shownTaperHeader=false;
+    for(var i=0;i<maxSess;i++){
+      if(i===taperStart&&!shownTaperHeader){
+        html+='<div style="margin:12px 0 8px;padding:6px 10px;background:rgba(160,130,220,.1);border:1px solid rgba(160,130,220,.25);border-radius:7px;font-size:11px;color:#b8a0e8;font-weight:600;">Início do desmame</div>';
+        shownTaperHeader=true;
+      }
+      var s=sessions[i]||{};
+      var rowCls=i===nextIdx?' next-row':'';
+      html+='<div class="tz-sg-row'+rowCls+'">'
+        +'<div class="isr-n">'+(i+1)+'</div>'
+        +'<div><input type="date" class="tz-date" data-si="'+i+'" value="'+(s.date||'')+'"></div>'
+        +'<div><input type="number" class="tz-fat" data-si="'+i+'" value="'+(s.fat||'')+'" step="0.1" placeholder="kg"></div>'
+        +'<div><input type="number" class="tz-mm" data-si="'+i+'" value="'+(s.mm||'')+'" step="0.1" placeholder="kg"></div>'
+        +'<div><select class="tz-reg" data-si="'+i+'"><option value="">—</option>';
+      REGIOES.forEach(function(r){html+='<option value="'+r+'"'+(s.regiao===r?' selected':'')+'>'+r+'</option>';});
+      html+='</select></div>'
+        +'<div><input type="number" class="tz-dose" data-si="'+i+'" value="'+(s.dose||'')+'" step="0.01" placeholder="mg"></div>'
+      +'</div>';
+    }
+    return html;
+  }
+
+  function tzUpdateEnd(){var s=el('tzStart').value,d=parseInt(el('tzDur').value)||0;el('tzEnd').value=(s&&d)?conAddMonths(s,d):'';}
+  el('tzStart').addEventListener('input',tzUpdateEnd);
+  el('tzDur').addEventListener('input',tzUpdateEnd);
+
+  function openTzModal(idx){
+    var isNew=(idx<0);
+    var p=isNew?{id:tzNextId++,name:'',dur:6,start:new Date().toISOString().slice(0,10),fatInit:'',fatLose:'',fatGoal:'',mmInit:'',phase:'treat',taperFrom:0,scheduled:'',maxSess:24,obs:'',sessions:[]}:tzPatients[idx];
+    el('tzModalTitle').textContent=isNew?'Novo paciente':p.name;
+    el('tzName').value=p.name;el('tzDur').value=p.dur||6;el('tzStart').value=p.start||'';tzUpdateEnd();
+    el('tzFatInit').value=p.fatInit||'';el('tzFatLose').value=p.fatLose||'';el('tzMmInit').value=p.mmInit||'';el('tzMmGain').value=p.mmGain||'';
+    el('tzPhase').value=p.phase||'treat';el('tzTaperFrom').value=p.taperFrom||0;
+    el('tzScheduled').value=p.scheduled||'';el('tzMaxSess').value=p.maxSess||24;el('tzObs').value=p.obs||'';
+    while((p.sessions||[]).length<(p.maxSess||24)) p.sessions.push(tzMakeSess());
+    el('tzSessRows').innerHTML=buildTzSessRows(p.sessions,p.maxSess||24,p.taperFrom||0);
+    el('tzDelete').style.display=isNew?'none':'block';
+    el('tzModal').classList.add('open');el('tzModal')._idx=idx;el('tzModal')._isNew=isNew;el('tzModal')._patId=p.id;
+  }
+
+  el('tzCancel').addEventListener('click',function(){el('tzModal').classList.remove('open');});
+  el('tzModal').addEventListener('click',function(e){if(e.target===this) this.classList.remove('open');});
+  el('tzMaxSess').addEventListener('input',function(){
+    var mx=parseInt(this.value)||24;var sess=readTzSess();var tf=parseInt(el('tzTaperFrom').value)||0;
+    while(sess.length<mx) sess.push(tzMakeSess());
+    el('tzSessRows').innerHTML=buildTzSessRows(sess,mx,tf);
+  });
+
+  function readTzSess(){
+    var dates=document.querySelectorAll('.tz-date'),fats=document.querySelectorAll('.tz-fat'),mms=document.querySelectorAll('.tz-mm'),regs=document.querySelectorAll('.tz-reg'),doses=document.querySelectorAll('.tz-dose');
+    var arr=[];for(var i=0;i<dates.length;i++) arr.push({date:dates[i].value||'',fat:fats[i].value||'',mm:mms[i].value||'',regiao:regs[i].value||'',dose:doses[i].value||''});
+    return arr;
+  }
+
+  el('tzSave').addEventListener('click',function(){
+    var idx=el('tzModal')._idx,isNew=el('tzModal')._isNew;
+    var p={id:el('tzModal')._patId,name:el('tzName').value.trim(),dur:parseInt(el('tzDur').value)||6,start:el('tzStart').value,
+      fatInit:parseFloat(el('tzFatInit').value)||0,fatLose:parseFloat(el('tzFatLose').value)||0,fatGoal:Math.max(0,(parseFloat(el('tzFatInit').value)||0)-(parseFloat(el('tzFatLose').value)||0)),mmInit:parseFloat(el('tzMmInit').value)||0,mmGain:parseFloat(el('tzMmGain').value)||0,
+      phase:el('tzPhase').value,taperFrom:parseInt(el('tzTaperFrom').value)||0,scheduled:el('tzScheduled').value||'',maxSess:parseInt(el('tzMaxSess').value)||24,obs:el('tzObs').value.trim(),sessions:readTzSess()};
+    if(!p.name) return;
+    if(isNew) tzPatients.push(p);else{p.hidden=tzPatients[idx].hidden;tzPatients[idx]=p;}
+    el('tzModal').classList.remove('open');renderTirzSess();tzSaveCloud();
+  });
+  el('tzDelete').addEventListener('click',function(){var idx=el('tzModal')._idx;var name=tzPatients[idx]?tzPatients[idx].name:'';el('tzModal').classList.remove('open');el('tzConfirmName').textContent=name;el('tzConfirmModal').classList.add('open');el('tzConfirmModal')._idx=idx;});
+  el('tzConfirmCancel').addEventListener('click',function(){el('tzConfirmModal').classList.remove('open');});
+  el('tzConfirmYes').addEventListener('click',function(){var idx=el('tzConfirmModal')._idx;if(idx>=0) tzPatients.splice(idx,1);el('tzConfirmModal').classList.remove('open');renderTirzSess();tzSaveCloud();});
+  el('tzConfirmModal').addEventListener('click',function(e){if(e.target===this) this.classList.remove('open');});
+  el('tzAddPat').addEventListener('click',function(){openTzModal(-1);});
+  document.getElementById('tzShowHidden').addEventListener('click',function(){var h=document.getElementById('tzHiddenList');h.style.display=h.style.display==='none'?'block':'none';});
+  el('tzSearch').addEventListener('input',function(){var q=normalize(this.value);document.querySelectorAll('#tirzsess .inj-pat').forEach(function(c){var n=c.querySelector('.con-pat-name');c.style.display=(!q||normalize(n.textContent).indexOf(q)>=0)?'':'none';});});
+
+  // mg → UI converter using concentration
+  function tzUpdateConv(){
+    var mg=parseFloat(el('tzConvMg').value)||0;
+    var prodMg=parseFloat(el('tzProdMg').value)||90;
+    var prodMl=parseFloat(el('tzProdMl').value)||3.6;
+    var concMgPerMl=prodMg/prodMl;
+    var ml=concMgPerMl>0?mg/concMgPerMl:0;
+    var ui=Math.round(ml*100*100)/100; // 1ml=100UI for insulin syringes
+    el('tzConvUI').textContent=ui.toFixed(1)+' UI';
+  }
+  el('tzConvMg').addEventListener('input',tzUpdateConv);
+  el('tzProdMg').addEventListener('input',tzUpdateConv);
+  el('tzProdMl').addEventListener('input',tzUpdateConv);
+  tzUpdateConv();
+
+  // ============ BUDGET ============
+  var BUD_ITEMS=[
+    {name:'Consulta médica',price:500,qty:3},
+    {name:'Sessão de Injetáveis via intramuscular',price:350,qty:12},
+    {name:'Sessão de aplicação de medicação via subcutânea',price:500,qty:12}
+  ];
+  var BUD_FEES=[
+    {x:1,fee:3.15},{x:2,fee:5.39},{x:3,fee:6.12},{x:4,fee:6.85},
+    {x:5,fee:7.57},{x:6,fee:8.28},{x:7,fee:8.99},{x:8,fee:9.69},
+    {x:9,fee:10.38},{x:10,fee:11.06},{x:11,fee:11.74}
+  ];
+  var budItems=JSON.parse(JSON.stringify(BUD_ITEMS));
+  var budFees=JSON.parse(JSON.stringify(BUD_FEES));
+  try{var bs=localStorage.getItem('bud_data3');if(bs){var bd=JSON.parse(bs);if(bd.items) budItems=bd.items;if(bd.fees) budFees=bd.fees;setTimeout(function(){el('budBonusIM').value=bd.bonusIM||0;el('budBonusSC').value=bd.bonusSC||0;el('budPixPct').value=bd.pixPct||10;el('budCredParcelas').value=bd.credParcelas||5;renderBudget();},50);}}catch(e){}
+
+  function budSave(){
+    try{localStorage.setItem('bud_data3',JSON.stringify({items:budItems,fees:budFees,bonusIM:parseInt(el('budBonusIM').value)||0,bonusSC:parseInt(el('budBonusSC').value)||0,pixPct:parseFloat(el('budPixPct').value)||10,credParcelas:parseInt(el('budCredParcelas').value)||5}));}catch(e){}
+  }
+
+  function fmtR(v){return'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function budGetFee(x){for(var i=0;i<budFees.length;i++) if(budFees[i].x===x) return budFees[i].fee;return 0;}
+
+  function renderBudget(){
+    var html='';
+    budItems.forEach(function(item,i){
+      var sub=item.price*item.qty;
+      html+='<div class="bud-item">'
+        +'<div class="bud-item-name">'+item.name+'</div>'
+        +'<div class="bud-item-field"><label>Preço unit.</label><div style="display:flex;align-items:center;gap:2px;"><span style="color:var(--mist);font-size:12px;">R$</span><input type="number" class="bud-item-price bud-up" data-i="'+i+'" value="'+item.price+'" min="0" step="10"></div></div>'
+        +'<div class="bud-item-field"><label>Qtde</label><input class="bud-item-qty bud-uq" type="number" data-i="'+i+'" value="'+item.qty+'" min="0" max="99"></div>'
+        +'<div class="bud-item-sub">'+fmtR(sub)+'</div>'
+      +'</div>';
+    });
+    el('budItems').innerHTML=html;
+
+    // Calculate totals
+    var totalFull=0;
+    budItems.forEach(function(item){totalFull+=item.price*item.qty;});
+
+    var bonusIM=parseInt(el('budBonusIM').value)||0;
+    var bonusSC=parseInt(el('budBonusSC').value)||0;
+    var priceIM=budItems[1]?budItems[1].price:350;
+    var priceSC=budItems[2]?budItems[2].price:500;
+    var bonusValIM=bonusIM*priceIM;
+    var bonusValSC=bonusSC*priceSC;
+    var bonusTotal=bonusValIM+bonusValSC;
+    var priceAfterBonus=Math.max(0,totalFull-bonusTotal);
+
+    var tfoot='<div class="bud-totals-row"><span>Valor cheio</span><span class="btr-val">'+fmtR(totalFull)+'</span></div>';
+    if(bonusTotal>0){
+      if(bonusIM>0) tfoot+='<div class="bud-totals-row bonus"><span>Bônus: '+bonusIM+' sessão(ões) IM × '+fmtR(priceIM)+'</span><span class="btr-val" style="color:var(--danger);">- '+fmtR(bonusValIM)+'</span></div>';
+      if(bonusSC>0) tfoot+='<div class="bud-totals-row bonus"><span>Bônus: '+bonusSC+' sessão(ões) SC × '+fmtR(priceSC)+'</span><span class="btr-val" style="color:var(--danger);">- '+fmtR(bonusValSC)+'</span></div>';
+      tfoot+='<div class="bud-totals-row"><span style="color:var(--gold-soft);">Total bônus</span><span class="btr-val" style="color:var(--danger);">- '+fmtR(bonusTotal)+'</span></div>';
+    }
+    tfoot+='<div class="bud-totals-row final"><span style="color:#39ff14;">Valor do plano (crédito 10x)</span><span class="btr-val" style="color:#39ff14;font-size:18px;">'+fmtR(priceAfterBonus)+'</span></div>';
+    el('budTotals').innerHTML=tfoot;
+
+    // Credit discount: fee difference between 10x and selected parcelas
+    var credParc=parseInt(el('budCredParcelas').value)||5;
+    var fee10x=budGetFee(10);
+    var feeN=budGetFee(credParc);
+    var descCredPct=Math.max(0,fee10x-feeN);
+    var descCredVal=priceAfterBonus*descCredPct/100;
+    var priceCreditDisc=priceAfterBonus-descCredVal;
+
+    // What I receive after operator fee
+    var receiveBase10x=priceAfterBonus*(1-fee10x/100);
+    var receiveN=priceCreditDisc*(1-feeN/100);
+
+    // PIX
+    var pixPct=parseFloat(el('budPixPct').value)||0;
+    var pricePix=priceAfterBonus*(1-pixPct/100);
+
+    // Discount % from full price
+    var discPct10x=totalFull>0?((1-priceAfterBonus/totalFull)*100):0;
+    var discPctCred=totalFull>0?((1-priceCreditDisc/totalFull)*100):0;
+    var discPctPix=totalFull>0?((1-pricePix/totalFull)*100):0;
+
+    // Payment cards
+    var payHtml='<div class="bud-pay-card">'
+      +'<h4>💳 Cartão de crédito (10x)</h4>'
+      +'<div class="bud-pay-big">'+fmtR(priceAfterBonus)+'</div>'
+      +'<div class="bud-pay-detail"><b>10x de '+fmtR(priceAfterBonus/10)+'</b> sem juros para o paciente</div>'
+      +'<div class="bud-pay-detail" style="margin-top:6px;">Desconto: <b>'+discPct10x.toFixed(1)+'%</b> do preço cheio</div>'
+      +'<div style="margin-top:8px;padding:8px 10px;background:rgba(255,255,255,.04);border-radius:8px;font-size:11px;color:var(--mist);">'
+      +'<div style="margin-bottom:4px;color:var(--gold);font-weight:600;">Recebimento líquido (D+1)</div>';
+    budFees.forEach(function(f){
+      var receive=priceAfterBonus*(1-f.fee/100);
+      payHtml+='<div class="bud-inst-row"><span>'+f.x+'x</span><span>Taxa: <b>'+f.fee.toFixed(2)+'%</b></span><span>Recebo: <b>'+fmtR(receive)+'</b></span></div>';
+    });
+    payHtml+='</div></div>';
+
+    payHtml+='<div class="bud-pay-card">'
+      +'<h4>💳 Crédito em '+credParc+'x (com desconto)</h4>'
+      +'<div class="bud-pay-big">'+fmtR(priceCreditDisc)+'</div>'
+      +'<div class="bud-pay-detail"><b>'+credParc+'x de '+fmtR(priceCreditDisc/credParc)+'</b> sem juros para o paciente</div>'
+      +'<div class="bud-pay-detail" style="margin-top:6px;">Desconto: <b>'+discPctCred.toFixed(1)+'%</b> do preço cheio</div>'
+      +'<div class="bud-pay-detail" style="margin-top:4px;">Lógica: taxa 10x (<b>'+fee10x.toFixed(2)+'%</b>) − taxa '+credParc+'x (<b>'+feeN.toFixed(2)+'%</b>) = <b style="color:#39ff14;">'+descCredPct.toFixed(2)+'%</b> de desconto adicional ('+fmtR(descCredVal)+')</div>'
+      +'<div class="bud-pay-detail" style="margin-top:4px;">Recebo líquido: <b>'+fmtR(receiveN)+'</b></div>'
+      +'</div>';
+
+    payHtml+='<div class="bud-pay-card" style="border-color:rgba(57,255,20,.3);">'
+      +'<h4 style="color:#39ff14;">🟢 PIX</h4>'
+      +'<div class="bud-pay-big">'+fmtR(pricePix)+'</div>'
+      +'<div class="bud-pay-detail">Desconto: <b>'+discPctPix.toFixed(1)+'%</b> do preço cheio (<b>'+pixPct+'%</b> sobre o valor do plano)</div>'
+      +'<div class="bud-pay-detail" style="margin-top:4px;">Recebo líquido: <b>'+fmtR(pricePix)+'</b> (sem taxa)</div>'
+      +'<div class="bud-pay-detail" style="margin-top:4px;">Economia do paciente: <b style="color:#39ff14;">'+fmtR(priceAfterBonus-pricePix)+'</b> vs crédito 10x</div>'
+      +'</div>';
+    el('budPayments').innerHTML=payHtml;
+
+    // Contract unit prices with discount % shown
+    var conHtml='';
+    var contractItems=budItems.filter(function(it){return it.qty>0;});
+    var totalQtyW=0;contractItems.forEach(function(it){totalQtyW+=it.price*it.qty;});
+    contractItems.forEach(function(it){
+      var prop=(it.price*it.qty)/totalQtyW;
+      var unit10x=(priceAfterBonus*prop)/it.qty;
+      var unitCred=(priceCreditDisc*prop)/it.qty;
+      var unitPix=(pricePix*prop)/it.qty;
+      conHtml+='<tr><td>'+it.name+'</td><td>'+fmtR(unit10x)+'</td><td>'+fmtR(unitCred)+'</td><td>'+fmtR(unitPix)+'</td></tr>';
+    });
+    conHtml+='<tr style="border-top:2px solid var(--line);"><td style="color:var(--gold-soft);">Desconto sobre preço cheio ('+fmtR(totalFull)+')</td><td style="color:var(--gold-soft);text-align:right;font-family:\'IBM Plex Mono\',monospace;">'+discPct10x.toFixed(1)+'%</td><td style="color:var(--gold-soft);text-align:right;font-family:\'IBM Plex Mono\',monospace;">'+discPctCred.toFixed(1)+'%</td><td style="color:var(--gold-soft);text-align:right;font-family:\'IBM Plex Mono\',monospace;">'+discPctPix.toFixed(1)+'%</td></tr>';
+    el('budContract').innerHTML=conHtml;
+
+    // Editable fees
+    var feesHtml='';
+    budFees.forEach(function(f,i){
+      feesHtml+='<div style="background:var(--ink);border:1px solid var(--line-soft);border-radius:8px;padding:8px 10px;text-align:center;">'
+        +'<div style="font-size:14px;color:var(--paper);font-weight:600;">'+f.x+'x</div>'
+        +'<div style="display:flex;align-items:center;justify-content:center;gap:2px;margin-top:4px;"><input type="number" class="bud-fee-input" data-fi="'+i+'" value="'+f.fee.toFixed(2)+'" step="0.01" min="0" style="width:65px;background:var(--ink-2);border:1px solid var(--line-soft);border-radius:5px;color:var(--paper);font-size:12px;padding:4px 6px;text-align:center;font-family:\'IBM Plex Mono\',monospace;"><span style="font-size:11px;color:var(--mist);">%</span></div>'
+        +'</div>';
+    });
+    el('budFees').innerHTML=feesHtml;
+
+    // Listeners
+    document.querySelectorAll('.bud-up').forEach(function(inp){
+      inp.addEventListener('input',function(){budItems[parseInt(this.getAttribute('data-i'))].price=parseFloat(this.value)||0;renderBudget();budSave();});
+    });
+    document.querySelectorAll('.bud-uq').forEach(function(inp){
+      inp.addEventListener('input',function(){budItems[parseInt(this.getAttribute('data-i'))].qty=parseInt(this.value)||0;renderBudget();budSave();});
+    });
+    document.querySelectorAll('.bud-fee-input').forEach(function(inp){
+      inp.addEventListener('input',function(){budFees[parseInt(this.getAttribute('data-fi'))].fee=parseFloat(this.value)||0;renderBudget();budSave();});
+    });
+  }
+  el('budBonusIM').addEventListener('input',function(){renderBudget();budSave();});
+  el('budBonusSC').addEventListener('input',function(){renderBudget();budSave();});
+  el('budPixPct').addEventListener('input',function(){renderBudget();budSave();});
+  el('budCredParcelas').addEventListener('input',function(){renderBudget();budSave();});
+
+  // ============ CHECKINS ============
+  var ciRef=fbDb.ref('checkins');
+  var CI_MSGS=[
+    'Olá, [Nome]!\n\nComo parte do seu acompanhamento, enviarei semanalmente um check-in rápido para monitorarmos juntos o seu progresso. Ele leva apenas alguns minutos para preencher e é muito importante para que eu possa personalizar cada vez mais o seu tratamento.\n\nAcesse pelo link abaixo:\n🔗 [link]\n\nQualquer dúvida, estou à disposição!',
+    'Olá, [Nome]!\n\nChegou a hora do seu check-in semanal! Reserve alguns minutos para preencher, suas respostas são essenciais para o acompanhamento do seu progresso.\n\n🔗 [link]\n\nBom fim de semana!',
+    'Olá, [Nome]!\n\nSeu check-in da semana está disponível! Leva poucos minutos e faz toda a diferença no seu acompanhamento.\n\n🔗 [link]\n\nAté breve!',
+    'Olá, [Nome]!\n\nNão esqueça do seu check-in desta semana! São poucos minutos que fazem toda a diferença no seu tratamento.\n\n🔗 [link]\n\nQualquer dúvida, estou aqui!'
+  ];
+
+  var ciPatients=[];var ciNextId=500;var ciSaving=false;
+  var ciDefaults=[
+    {id:501,name:'Andrea Correa Dias Duque',link:'https://app.supportclinic.com.br/anamnese/responder/ed610da3-6d37-46e3-9069-6929a52444a4',checks:[{sent:true,date:'',fb:false},{sent:true,date:'',fb:false},{sent:true,date:'',fb:false},{sent:true,date:'',fb:false}]},
+    {id:502,name:'Wagna Carmem Souza Gomes',link:'https://app.supportclinic.com.br/anamnese/responder/c469fb5d-42f1-4543-a421-cd12e95507ac',checks:[{sent:true,date:'2026-04-17',fb:true},{sent:true,date:'2026-04-24',fb:true},{sent:true,date:'2026-05-08',fb:true},{sent:true,date:'2026-05-15',fb:false}]},
+    {id:503,name:'Lincoln Diniz Carvalho',link:'https://app.supportclinic.com.br/anamnese/responder/435315fd-ce04-498f-91db-82c2e5b04e82',checks:[{sent:true,date:'2026-05-29',fb:true},{sent:true,date:'2026-06-05',fb:true},{sent:true,date:'2026-06-12',fb:false},{sent:false,date:'',fb:false}]}
+  ];
+
+  function ciSyncSt(m,ok){var s=document.getElementById('ciSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}}
+  function ciSaveCloud(){try{localStorage.setItem('ci_data',JSON.stringify({patients:ciPatients,nextId:ciNextId}));}catch(e){}ciSaving=true;ciSyncSt('Salvando...',true);ciRef.set({patients:ciPatients,nextId:ciNextId}).then(function(){ciSaving=false;ciSyncSt('Salvo ✓',true);}).catch(function(){ciSaving=false;ciSyncSt('Local',true);});}
+  function ciLoadLocal(){try{var r=localStorage.getItem('ci_data');if(r){var d=JSON.parse(r);if(d.patients&&d.patients.length){ciPatients=d.patients;ciNextId=d.nextId||500;return true;}}}catch(e){}return false;}
+  var ciLocalLoaded=ciLoadLocal();
+  if(!ciLocalLoaded){ciRef.once('value').then(function(s){var d=s.val();if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;}else if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}).catch(function(){if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));});}
+  ciRef.on('value',function(s){if(ciSaving)return;if(ciLocalLoaded){ciLocalLoaded=false;return;}var d=s.val();if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}});
+
+  function renderCheckins(){
+    var html='';
+    ciPatients.forEach(function(p,pi){
+      var nextIdx=-1;for(var i=0;i<4;i++){if(!p.checks[i]||!p.checks[i].sent){nextIdx=i;break;}}
+      var pendFb=0;p.checks.forEach(function(c){if(c&&c.sent&&!c.fb) pendFb++;});
+      var info='';
+      if(nextIdx>=0) info='<span style="font-size:11px;color:#7ab8f0;font-family:\'IBM Plex Mono\',monospace;"> · Próximo: Check-in '+(nextIdx+1)+'</span>';
+      else info='<span style="font-size:11px;color:#9be3cd;font-family:\'IBM Plex Mono\',monospace;"> · Todos enviados ✓</span>';
+      if(pendFb>0) info+='<span style="font-size:11px;color:var(--gold-soft);font-family:\'IBM Plex Mono\',monospace;"> · '+pendFb+' feedback(s) pendente(s)</span>';
+
+      html+='<div class="ci-pat" data-pi="'+pi+'"><div class="ci-pat-head"><div class="ci-pat-name">'+p.name+info+'</div></div><div class="ci-grid">';
+      for(var i=0;i<4;i++){
+        var c=p.checks[i]||{sent:false,date:'',fb:false};
+        var cls=c.fb?'fb-sent':c.sent?'sent':'';
+        var st=c.fb?'✓ Feedback':(c.sent?(c.date?'✓ '+conDisplayDate(c.date):'✓ Enviado'):'Pendente');
+        html+='<div class="ci-item '+cls+'" data-pi="'+pi+'" data-ci="'+i+'"><div class="ci-item-n">Check-in '+(i+1)+'</div><div class="ci-item-st">'+st+'</div></div>';
+      }
+      html+='</div></div>';
+    });
+    el('ciPatients').innerHTML=html;
+    document.querySelectorAll('.ci-item').forEach(function(it){
+      it.addEventListener('click',function(){openCiMsg(parseInt(this.getAttribute('data-pi')),parseInt(this.getAttribute('data-ci')));});
+    });
+  }
+
+  function openCiMsg(pi,ci){
+    var p=ciPatients[pi];var c=p.checks[ci]||{sent:false,date:'',fb:false};
+    var msgIdx=ci%4;
+    var msg=CI_MSGS[msgIdx].replace(/\[Nome\]/g,p.name.split(' ')[0]).replace(/\[link\]/g,p.link||'[link]');
+    el('ciMsgTitle').textContent='Check-in '+(ci+1)+' — '+p.name.split(' ')[0];
+    el('ciMsgBox').textContent=msg;
+    el('ciMsgDate').value=c.date||new Date().toISOString().slice(0,10);
+    el('ciMsgSave').style.display=c.sent?'none':'block';
+    el('ciMsgFb').style.display=(c.sent&&!c.fb)?'block':'none';
+    el('ciMsgModal').classList.add('open');
+    el('ciMsgModal')._pi=pi;el('ciMsgModal')._ci=ci;el('ciMsgModal')._msg=msg;
+  }
+  el('ciMsgCancel').addEventListener('click',function(){el('ciMsgModal').classList.remove('open');});
+  el('ciMsgModal').addEventListener('click',function(e){if(e.target===this) this.classList.remove('open');});
+  el('ciMsgCopy').addEventListener('click',function(){
+    navigator.clipboard.writeText(el('ciMsgModal')._msg).then(function(){el('ciMsgCopy').textContent='✓ Copiado!';setTimeout(function(){el('ciMsgCopy').textContent='📋 Copiar mensagem';},2000);});
+  });
+  el('ciMsgSave').addEventListener('click',function(){
+    var pi=el('ciMsgModal')._pi,ci=el('ciMsgModal')._ci;
+    ciPatients[pi].checks[ci].sent=true;ciPatients[pi].checks[ci].date=el('ciMsgDate').value||'';
+    el('ciMsgModal').classList.remove('open');renderCheckins();ciSaveCloud();
+  });
+  el('ciMsgFb').addEventListener('click',function(){
+    var pi=el('ciMsgModal')._pi,ci=el('ciMsgModal')._ci;
+    ciPatients[pi].checks[ci].fb=true;
+    el('ciMsgModal').classList.remove('open');renderCheckins();ciSaveCloud();
+  });
+  el('ciAddPat').addEventListener('click',function(){el('ciNewName').value='';el('ciNewLink').value='';el('ciAddModal').classList.add('open');});
+  el('ciAddCancel').addEventListener('click',function(){el('ciAddModal').classList.remove('open');});
+  el('ciAddModal').addEventListener('click',function(e){if(e.target===this) this.classList.remove('open');});
+  el('ciAddSave').addEventListener('click',function(){
+    var name=el('ciNewName').value.trim(),link=el('ciNewLink').value.trim();if(!name) return;
+    ciPatients.push({id:ciNextId++,name:name,link:link,checks:[{sent:false,date:'',fb:false},{sent:false,date:'',fb:false},{sent:false,date:'',fb:false},{sent:false,date:'',fb:false}]});
+    el('ciAddModal').classList.remove('open');renderCheckins();ciSaveCloud();
+  });
+  el('ciSearch').addEventListener('input',function(){var q=normalize(this.value);document.querySelectorAll('.ci-pat').forEach(function(c){c.style.display=(!q||normalize(c.querySelector('.ci-pat-name').textContent).indexOf(q)>=0)?'':'none';});});
+
+  // ============ END CHECKINS ============
+
+  // ============ EBOOKS ============
+  var ebRef=fbDb.ref('ebooks');
+  var EB_TITLES=['Orientações Bioimpedanciometria','Guia Científico para Emagrecimento Saudável','Alimentação Inteligente','Atividade Física para Saúde e Emagrecimento','Higiene do Sono','Regulação Emocional'];
+  var EB_MSGS=[
+    'Seu caminho para resultados precisos e personalizados começa aqui! ✨\n\nTe envio nosso guia "Orientações - Bioimpedanciometria", a chave para um dos exames mais precisos que utilizamos no acompanhamento. Ele vai muito além do peso, revelando a verdadeira composição do seu corpo: músculos, gordura, hidratação e metabolismo.\n\nSeguindo cada passo, garantimos que sua avaliação será um retrato fiel do seu momento, permitindo ajustes certeiros na sua jornada.\nLeia, prepare-se e venha com tudo! Estarei aqui para interpretar cada detalhe com você.\n\nUm abraço',
+    'Acredito no seu potencial (NOME)! Vamos juntos nessa jornada de saúde! 🚀\n\nEstou te enviando nosso "Guia Científico para Emagrecimento Saudável", um material exclusivo que preparei para te ajudar a entender a fundo os princípios do emagrecimento sustentável.\n\nNele você vai encontrar:\n\n🎯 Como definir metas realistas\n📊 O método S.M.A.R.T. para alcançar seus objetivos\n🔄 Como evitar o efeito sanfona\n🛌💪 A importância do sono e da atividade física\n\nLeia com calma e use essas informações como um complemento ao nosso acompanhamento.\n\nQualquer dúvida, estou à disposição! Um abraço\n\nAh, e como estão os exames? Já fez ou já se planejou para fazer?',
+    'Vamos juntos rumo à sua melhor versão (NOME)! 🚀\n\nEnvio o guia "Alimentação Inteligente", um material completo que preparei para transformar sua relação com a comida de forma prática e sustentável.\n\nNele você vai descobrir:\n🥑 Os 7 pilares da alimentação saudável\n🛒 Como identificar comida de verdade\n⏰ Organização prática das refeições\n🧠 Comer consciente\n📋 Planejamento semanal\n🎯 Estratégia 80/20\n❌ Mitos desmascarados\n\nConte comigo! Um abraço',
+    'Seguimos em frente (NOME)! Hoje é mais um dia para evoluir na sua jornada. 💪\n\nO exercício físico é um dos pilares mais importantes para o emagrecimento sustentável e qualidade de vida. Por isso, estou te enviando este guia completo sobre Atividade Física para Saúde e Emagrecimento.\n\nNele você vai aprender:\n🏃 A importância do exercício para longevidade\n🔥 Por que a musculação é mais eficiente que o aeróbico\n🔄 Um plano progressivo para sair do zero em 12 semanas\n✅ Estratégias para manter a consistência\n❌ Os 6 erros mais comuns\n🎯 Como transformar em estilo de vida\n\nLeia no seu ritmo! Abraço!',
+    'Sua saúde ganhando novo significado (NOME)! Material especial chegando. 🌙\n\nUm dos pilares MAIS importantes para o sucesso do emagrecimento é uma boa noite de sono. Por isso, estou te enviando este guia completo sobre Higiene do Sono.\n\nNele você descobre:\n😴 Por que o sono é fundamental para regular a fome e o metabolismo\n🛌 Medidas simples e eficazes para melhorar a qualidade do seu sono\n🧘 Rotinas de relaxamento pré-sono\n⏰ Quando é hora de buscar ajuda profissional\n\nPequenos ajustes na rotina noturna podem fazer uma GRANDE diferença nos seus resultados.\n\nConte comigo! Abraço',
+    '(NOME), Acredite no processo! Mais uma ferramenta para sua transformação. 🌙\n\nMuitas vezes, comemos não por fome física, mas por emoções como ansiedade, tédio ou estresse. Por isso, estou te enviando este material especial sobre Regulação Emocional.\n\nNele você vai aprender:\n🧭 Como identificar fome física vs fome emocional\n🛠️ Técnicas para lidar com ansiedade e estresse\n📝 Exercícios de autocompaixão e mindfulness\n💡 Estratégias para momentos de compulsão\n🗓️ Plano de 8 semanas para resiliência emocional\n\nUse essas ferramentas a seu favor! Qualquer dúvida, estou aqui. Um abraço'
+  ];
+
+  var ebPatients=[];var ebNextId=400;var ebSaving=false;
+  var ebDefaults=[
+    {id:401,name:'Glória Maria Peixoto Pereira',ebooks:[{sent:true,date:''},{sent:true,date:''},{sent:true,date:''},{sent:true,date:''},{sent:false,date:''},{sent:false,date:''}]},
+    {id:402,name:'Carla Paiva Souza Oliveira',ebooks:[{sent:true,date:'2026-01-27'},{sent:true,date:'2026-02-05'},{sent:true,date:'2026-02-10'},{sent:true,date:'2026-02-12'},{sent:false,date:''},{sent:false,date:''}]},
+    {id:403,name:'Andrea Correa Dias Duque',ebooks:[{sent:true,date:'2026-01-27'},{sent:true,date:'2026-02-05'},{sent:true,date:'2026-02-10'},{sent:true,date:'2026-02-12'},{sent:false,date:''},{sent:false,date:''}]},
+    {id:404,name:'Wagna Carmem Souza Gomes',ebooks:[{sent:true,date:'2026-02-02'},{sent:true,date:'2026-02-10'},{sent:true,date:'2026-02-12'},{sent:true,date:'2026-02-18'},{sent:false,date:''},{sent:false,date:''}]},
+    {id:405,name:'Lincoln Diniz Carvalho',ebooks:[{sent:true,date:'2026-04-08'},{sent:true,date:'2026-04-22'},{sent:true,date:'2026-04-29'},{sent:true,date:'2026-05-06'},{sent:false,date:''},{sent:false,date:''}]},
+    {id:406,name:'Gleides Faria Garcia',ebooks:[{sent:true,date:'2026-04-07'},{sent:false,date:''},{sent:false,date:''},{sent:false,date:''},{sent:false,date:''},{sent:false,date:''}]}
+  ];
+
+  function ebSyncSt(m,ok){var s=document.getElementById('ebSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}}
+  function ebSaveCloud(){try{localStorage.setItem('eb_data',JSON.stringify({patients:ebPatients,nextId:ebNextId}));}catch(e){}ebSaving=true;ebSyncSt('Salvando...',true);ebRef.set({patients:ebPatients,nextId:ebNextId}).then(function(){ebSaving=false;ebSyncSt('Salvo ✓',true);}).catch(function(){ebSaving=false;ebSyncSt('Local',true);});}
+  function ebLoadLocal(){try{var r=localStorage.getItem('eb_data');if(r){var d=JSON.parse(r);if(d.patients&&d.patients.length){ebPatients=d.patients;ebNextId=d.nextId||400;return true;}}}catch(e){}return false;}
+  var ebLocalLoaded=ebLoadLocal();
+  if(!ebLocalLoaded){ebRef.once('value').then(function(s){var d=s.val();if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;}else if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}).catch(function(){if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));});}
+  ebRef.on('value',function(s){if(ebSaving)return;if(ebLocalLoaded){ebLocalLoaded=false;return;}var d=s.val();if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}});
+
+  function ebFirstName(n){return(n||'').split(' ')[0];}
+
+  function renderEbooks(){
+    var html='';
+    ebPatients.forEach(function(p,pi){
+      var nextIdx=-1;for(var i=0;i<6;i++){if(!p.ebooks[i]||!p.ebooks[i].sent){nextIdx=i;break;}}
+      html+='<div class="eb-pat" data-pi="'+pi+'"><div class="eb-pat-name">'+p.name+(nextIdx>=0?' <span style="font-size:11px;color:var(--gold-soft);font-family:\'IBM Plex Mono\',monospace;">· Próximo: '+EB_TITLES[nextIdx]+'</span>':'<span style="font-size:11px;color:#9be3cd;font-family:\'IBM Plex Mono\',monospace;"> · Todos enviados ✓</span>')+'</div><div class="eb-grid">';
+      for(var i=0;i<6;i++){
+        var eb=p.ebooks[i]||{sent:false,date:''};
+        var cls=eb.sent?'sent':'';
+        var status=eb.sent?(eb.date?'✓ '+conDisplayDate(eb.date):'✓ Enviado'):'Pendente';
+        html+='<div class="eb-item '+cls+'" data-pi="'+pi+'" data-ei="'+i+'"><div class="eb-item-title">'+EB_TITLES[i]+'</div><div class="eb-item-status">'+status+'</div></div>';
+      }
+      html+='</div></div>';
+    });
+    el('ebPatients').innerHTML=html;
+    document.querySelectorAll('.eb-item').forEach(function(it){
+      it.addEventListener('click',function(){openEbMsg(parseInt(this.getAttribute('data-pi')),parseInt(this.getAttribute('data-ei')));});
+    });
+  }
+
+  function openEbMsg(pi,ei){
+    var p=ebPatients[pi];var eb=p.ebooks[ei]||{sent:false,date:''};
+    var msg=EB_MSGS[ei].replace(/\(NOME\)/g,ebFirstName(p.name));
+    el('ebMsgTitle').textContent=EB_TITLES[ei]+' — '+ebFirstName(p.name);
+    el('ebMsgBox').textContent=msg;
+    el('ebMsgDate').value=eb.date||new Date().toISOString().slice(0,10);
+    el('ebMsgModal').classList.add('open');
+    el('ebMsgModal')._pi=pi;el('ebMsgModal')._ei=ei;el('ebMsgModal')._msg=msg;
+  }
+  el('ebMsgCancel').addEventListener('click',function(){el('ebMsgModal').classList.remove('open');});
+  el('ebMsgModal').addEventListener('click',function(e){if(e.target===this) this.classList.remove('open');});
+  el('ebMsgCopy').addEventListener('click',function(){
+    var msg=el('ebMsgModal')._msg;
+    navigator.clipboard.writeText(msg).then(function(){el('ebMsgCopy').textContent='✓ Copiado!';setTimeout(function(){el('ebMsgCopy').textContent='📋 Copiar mensagem';},2000);});
+  });
+  el('ebMsgSave').addEventListener('click',function(){
+    var pi=el('ebMsgModal')._pi,ei=el('ebMsgModal')._ei;
+    ebPatients[pi].ebooks[ei]={sent:true,date:el('ebMsgDate').value||''};
+    el('ebMsgModal').classList.remove('open');renderEbooks();ebSaveCloud();
+  });
+  el('ebAddPat').addEventListener('click',function(){el('ebNewName').value='';el('ebAddModal').classList.add('open');});
+  el('ebAddCancel').addEventListener('click',function(){el('ebAddModal').classList.remove('open');});
+  el('ebAddModal').addEventListener('click',function(e){if(e.target===this) this.classList.remove('open');});
+  el('ebAddSave').addEventListener('click',function(){
+    var name=el('ebNewName').value.trim();if(!name) return;
+    ebPatients.push({id:ebNextId++,name:name,ebooks:[{sent:false,date:''},{sent:false,date:''},{sent:false,date:''},{sent:false,date:''},{sent:false,date:''},{sent:false,date:''}]});
+    el('ebAddModal').classList.remove('open');renderEbooks();ebSaveCloud();
+  });
+  el('ebSearch').addEventListener('input',function(){var q=normalize(this.value);document.querySelectorAll('.eb-pat').forEach(function(c){c.style.display=(!q||normalize(c.querySelector('.eb-pat-name').textContent).indexOf(q)>=0)?'':'none';});});
+
+  // Day-based reminders
+  function checkReminders(){
+    var today=new Date();var day=today.getDay();var dateStr=today.toISOString().slice(0,10);
+    // Wednesday: ebooks
+    if(day===3&&!localStorage.getItem('wed_dismiss_'+dateStr)) el('wedReminder').style.display='block';
+    // Friday: check-ins
+    if(day===5&&!localStorage.getItem('fri_dismiss_'+dateStr)) el('friReminder').style.display='block';
+    // Monday: feedback
+    if(day===1&&!localStorage.getItem('mon_dismiss_'+dateStr)) el('monReminder').style.display='block';
+  }
+  checkReminders();
+  el('wedDismiss').addEventListener('click',function(){localStorage.setItem('wed_dismiss_'+new Date().toISOString().slice(0,10),'1');el('wedReminder').style.display='none';});
+  el('friDismiss').addEventListener('click',function(){localStorage.setItem('fri_dismiss_'+new Date().toISOString().slice(0,10),'1');el('friReminder').style.display='none';});
+  el('monDismiss').addEventListener('click',function(){localStorage.setItem('mon_dismiss_'+new Date().toISOString().slice(0,10),'1');el('monReminder').style.display='none';});
+
+  // Add ebooks to home search
+  // (handled via ebPatients in existing search)
+
+  // ============ END EBOOKS ============
+
+  // ============ END BUDGET ============
+
+  // ============ END TIRZ SESSIONS ============
+
   // ============ END INJECTABLES ============
 
   // ============ END CONSULTATIONS ============
@@ -3092,12 +4382,96 @@
 
   document.getElementById('costMonths').addEventListener('input',renderCost);
   document.getElementById('costSession').addEventListener('input',renderCost);
+  document.getElementById('costPharmName').addEventListener('input',renderCost);
+  document.getElementById('costCompMg').addEventListener('input',renderCost);
+  document.getElementById('costCompPrice').addEventListener('input',renderCost);
   el('backHome3').addEventListener('click',function(){ showView('tirz'); });
 
   // init
   treat=buildStandard(clamp(parseInt(E.nweeks.value,10),1,48));
   buildPriceEditors();
+  // ============ SEARCH ============
+  function normalize(s){return(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+
+  // Home search
+  el('homeSearch').addEventListener('input',function(){
+    var q=normalize(this.value);
+    var res=document.getElementById('homeSearchResults');
+    if(!q){res.style.display='none';res.innerHTML='';return;}
+    var found={};
+    conPatients.forEach(function(p){if(!p.hidden&&normalize(p.name).indexOf(q)>=0) found[p.name]=(found[p.name]||{tabs:[]});if(!p.hidden&&normalize(p.name).indexOf(q)>=0&&found[p.name].tabs.indexOf('consult')<0) found[p.name].tabs.push('consult');});
+    injPatients.forEach(function(p){if(!p.hidden&&normalize(p.name).indexOf(q)>=0){if(!found[p.name]) found[p.name]={tabs:[]};if(found[p.name].tabs.indexOf('inject')<0) found[p.name].tabs.push('inject');}});
+    tzPatients.forEach(function(p){if(!p.hidden&&normalize(p.name).indexOf(q)>=0){if(!found[p.name]) found[p.name]={tabs:[]};if(found[p.name].tabs.indexOf('tirzsess')<0) found[p.name].tabs.push('tirzsess');}});
+    ebPatients.forEach(function(p){if(normalize(p.name).indexOf(q)>=0){if(!found[p.name]) found[p.name]={tabs:[]};if(found[p.name].tabs.indexOf('ebooks')<0) found[p.name].tabs.push('ebooks');}});
+    var keys=Object.keys(found);
+    if(!keys.length){res.style.display='none';return;}
+    var h='<div class="search-results">';
+    keys.forEach(function(name){
+      var firstTab=found[name].tabs[0];
+      h+='<div class="sr-item" data-name="'+name+'" data-tab="'+firstTab+'" style="cursor:pointer;"><span class="sr-name">'+name+'</span><div class="sr-tags">';
+      found[name].tabs.forEach(function(t){
+        var label=t==='consult'?'Consultas':t==='inject'?'Injetáveis':t==='tirzsess'?'Tirzepatida':t==='ebooks'?'Ebooks':'Outro';
+        h+='<span class="sr-tag" data-tab="'+t+'">'+label+'</span>';
+      });
+      h+='</div></div>';
+    });
+    h+='</div>';
+    res.innerHTML=h;res.style.display='block';
+
+    function goToTab(tab,patName){
+      if(tab==='consult'){showView('consult');renderConsult();el('conSearch').value=patName;document.querySelectorAll('.con-pat').forEach(function(c){var n=c.querySelector('.con-pat-name');c.style.display=(!n||normalize(n.textContent).indexOf(normalize(patName))<0)?'none':'';});}
+      else if(tab==='inject'){showView('inject');renderInject();el('injSearch').value=patName;document.querySelectorAll('.inj-pat').forEach(function(c){var n=c.querySelector('.con-pat-name');c.style.display=(!n||normalize(n.textContent).indexOf(normalize(patName))<0)?'none':'';});}
+      else if(tab==='tirzsess'){showView('tirzsess');renderTirzSess();el('tzSearch').value=patName;document.querySelectorAll('#tirzsess .inj-pat').forEach(function(c){var n=c.querySelector('.con-pat-name');c.style.display=(!n||normalize(n.textContent).indexOf(normalize(patName))<0)?'none':'';});}
+      else if(tab==='ebooks'){showView('ebooks');renderEbooks();el('ebSearch').value=patName;document.querySelectorAll('.eb-pat').forEach(function(c){c.style.display=normalize(c.querySelector('.eb-pat-name').textContent).indexOf(normalize(patName))<0?'none':'';});}
+      el('homeSearch').value='';res.style.display='none';
+    }
+    res.querySelectorAll('.sr-item').forEach(function(item){
+      item.addEventListener('click',function(e){
+        if(e.target.classList.contains('sr-tag')) return;
+        goToTab(this.getAttribute('data-tab'),this.getAttribute('data-name'));
+      });
+    });
+    res.querySelectorAll('.sr-tag').forEach(function(tag){
+      tag.addEventListener('click',function(e){
+        e.stopPropagation();
+        var patName=this.closest('.sr-item').getAttribute('data-name');
+        goToTab(this.getAttribute('data-tab'),patName);
+      });
+    });
+  });
+
+  // Consultation search filter
+  el('conSearch').addEventListener('input',function(){
+    var q=normalize(this.value);
+    document.querySelectorAll('.con-pat').forEach(function(card){
+      var name=card.querySelector('.con-pat-name');
+      if(!name) return;
+      card.style.display=(!q||normalize(name.textContent).indexOf(q)>=0)?'':'none';
+    });
+  });
+
+  // Injectable search filter
+  el('injSearch').addEventListener('input',function(){
+    var q=normalize(this.value);
+    document.querySelectorAll('.inj-pat').forEach(function(card){
+      var name=card.querySelector('.con-pat-name');
+      if(!name) return;
+      card.style.display=(!q||normalize(name.textContent).indexOf(q)>=0)?'':'none';
+    });
+  });
+
+  // ============ DOSE INTERVAL (TIRZEPATIDA) ============
   syncMonths();
+
+  // Force all date inputs to use calendar picker only
+  document.addEventListener('click',function(e){
+    if(e.target&&e.target.type==='date') e.target.showPicker&&e.target.showPicker();
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.target&&e.target.type==='date'&&!e.target.disabled){
+      if(e.key!=='Tab'&&e.key!=='Escape') e.preventDefault();
+    }
+  });
 })();
 </script>
 </body>
