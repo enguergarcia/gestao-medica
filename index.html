@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="version" content="2026-06-16-v3">
 <title>Gestão Médica — Dr. Enguer Beraldo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -838,6 +842,7 @@
     <div style="font-size:40px;margin-bottom:16px;">🔒</div>
     <div style="font-family:'Fraunces',serif;font-size:22px;color:#fff;margin-bottom:6px;">Acesso restrito</div>
     <div style="font-size:13px;color:#9DB2C8;margin-bottom:24px;">Dr. Enguer Beraldo · Sistema de gestão médica</div>
+    <div style="font-size:9px;color:#4a5568;margin-bottom:8px;font-family:'IBM Plex Mono',monospace;">v2026-06-16-v3</div>
     <input type="password" id="pinInput" placeholder="••••" maxlength="10" 
       style="width:100%;box-sizing:border-box;background:#161b22;border:2px solid #30363d;border-radius:12px;color:#fff;font-size:24px;padding:14px;text-align:center;font-family:'IBM Plex Mono',monospace;letter-spacing:8px;outline:none;">
     <div id="pinError" style="color:#e08a6b;font-size:12px;margin-top:10px;min-height:18px;"></div>
@@ -1866,6 +1871,7 @@
 <script>
 (function(){
   "use strict";
+  console.log('[GestaoMedica] v2026-06-16-v3 loaded');
 
   // ============ FIREBASE INIT ============
   firebase.initializeApp({
@@ -3834,8 +3840,9 @@
   function tzLoadLocal(){try{var r=localStorage.getItem('tz_data');if(r){var ld=JSON.parse(r);if(ld.patients&&ld.patients.length){tzPatients=ld.patients;tzNextId=ld.nextId||300;return true;}}}catch(e){}return false;}
   var tzHadLocal=tzLoadLocal();
   if(tzHadLocal){tzSyncStatus('Sincronizado',true);}
-  tzRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}else{if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSyncStatus('Enviando dados...',true);tzSaveCloud();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}}).catch(function(err){if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSyncStatus('Offline',false);console.error('tzLoad error:',err);});
-  tzRef.on('value',function(snap){if(tzSaving) return;var d=snap.val();if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();tzSyncStatus('Atualizado ✓',true);}});
+  console.log('[TZ] localStorage loaded:',tzHadLocal,'patients:',tzPatients.length);
+  tzRef.once('value').then(function(snap){var d=snap.val();console.log('[TZ] Firebase once:',d?'has data ('+((d.patients||[]).length)+' patients)':'EMPTY');if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}else{if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));console.log('[TZ] Pushing local data to cloud...');tzSyncStatus('Enviando dados...',true);tzSaveCloud();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}}).catch(function(err){if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSyncStatus('Offline',false);console.error('[TZ] Load error:',err);});
+  tzRef.on('value',function(snap){if(tzSaving){console.log('[TZ] on:value skipped (saving)');return;}var d=snap.val();console.log('[TZ] on:value received:',d?'has data':'null');if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();tzSyncStatus('Atualizado ✓',true);}});
 
   function renderTirzSess(){
     var items=[],hiddenItems=[];
