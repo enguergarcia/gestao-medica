@@ -842,7 +842,7 @@
     <div style="font-size:40px;margin-bottom:16px;">🔒</div>
     <div style="font-family:'Fraunces',serif;font-size:22px;color:#fff;margin-bottom:6px;">Acesso restrito</div>
     <div style="font-size:13px;color:#9DB2C8;margin-bottom:24px;">Dr. Enguer Beraldo · Sistema de gestão médica</div>
-    <div style="font-size:9px;color:#4a5568;margin-bottom:8px;font-family:'IBM Plex Mono',monospace;">v2026-06-16-v4</div>
+    <div style="font-size:9px;color:#4a5568;margin-bottom:8px;font-family:'IBM Plex Mono',monospace;">v2026-06-17-v5</div>
     <input type="password" id="pinInput" placeholder="••••" maxlength="10" 
       style="width:100%;box-sizing:border-box;background:#161b22;border:2px solid #30363d;border-radius:12px;color:#fff;font-size:24px;padding:14px;text-align:center;font-family:'IBM Plex Mono',monospace;letter-spacing:8px;outline:none;">
     <div id="pinError" style="color:#e08a6b;font-size:12px;margin-top:10px;min-height:18px;"></div>
@@ -1871,7 +1871,7 @@
 <script>
 (function(){
   "use strict";
-  console.log('[GestaoMedica] v2026-06-16-v4 loaded');
+  console.log('[GestaoMedica] v2026-06-17-v5 loaded');
 
   // ============ FIREBASE INIT ============
   firebase.initializeApp({
@@ -1887,40 +1887,9 @@
   var fbRef = fbDb.ref('schedule');
   var FB_URL='https://gestao-medica-9ead6-default-rtdb.firebaseio.com';
 
-  // REST API fallback for when WebSocket SDK hangs (common on mobile)
-  var fbRest={
-    get:function(path){return fetch(FB_URL+'/'+path+'.json').then(function(r){return r.json();});},
-    set:function(path,data){return fetch(FB_URL+'/'+path+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).then(function(r){return r.json();});}
-  };
-  // Race: SDK once('value') vs REST with timeout
-  function fbLoad(ref,path,timeout){
-    timeout=timeout||5000;
-    return new Promise(function(resolve,reject){
-      var done=false;
-      // Try SDK first
-      ref.once('value').then(function(snap){if(!done){done=true;resolve(snap.val());}}).catch(function(){});
-      // REST fallback after timeout
-      setTimeout(function(){
-        if(!done){
-          console.log('[FB] SDK timeout for '+path+', using REST fallback');
-          fbRest.get(path).then(function(d){if(!done){done=true;resolve(d);}}).catch(function(e){if(!done){done=true;reject(e);}});
-        }
-      },timeout);
-    });
-  }
-  function fbSave(ref,path,data){
-    return new Promise(function(resolve,reject){
-      var done=false;
-      ref.set(data).then(function(){if(!done){done=true;resolve(true);}}).catch(function(){});
-      // REST fallback after 4s
-      setTimeout(function(){
-        if(!done){
-          console.log('[FB] SDK save timeout for '+path+', using REST');
-          fbRest.set(path,data).then(function(){if(!done){done=true;resolve(true);}}).catch(function(e){if(!done){done=true;reject(e);}});
-        }
-      },4000);
-    });
-  }
+  // REST API direct calls (bypass WebSocket)
+  function fbRestGet(path){return fetch(FB_URL+'/'+path+'.json').then(function(r){return r.json();});}
+  function fbRestPut(path,data){return fetch(FB_URL+'/'+path+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).then(function(r){if(!r.ok) throw new Error('HTTP '+r.status);return r.json();});}
 
   var OPTS=[0,2.5,5,7.5,10,12.5,15], REF=5, SPD=4, WASH=4;
   var STD=[2.5,2.5,2.5,2.5,5,5,5,5,7.5,7.5,7.5,7.5,10,10,10,10,12.5,12.5,12.5,12.5,15,15,15,15];
@@ -2933,18 +2902,17 @@
     // save to Firebase
     schSaving=true;
     schSyncStatus('Salvando...',true);
-    fbSave(fbRef,'schedule',schGetState()).then(function(){
+    fbRef.set(schGetState()).then(function(){
       schSaving=false;
       schSyncStatus('Salvo na nuvem ✓',true);
     }).catch(function(err){
-      schSaving=false;
-      schSyncStatus('Erro ao salvar',false);
+      fbRestPut('schedule',schGetState()).then(function(){schSaving=false;schSyncStatus('Salvo na nuvem ✓',true);}).catch(function(){schSaving=false;schSyncStatus('Erro ao salvar',false);});
     });
   }
 
   // Load from Firebase on init, fallback to localStorage, then default
   var schInitLoaded=false;
-  fbLoad(fbRef,'schedule',5000).then(function(data){
+  fbRef.once('value').then(function(snap){var data=snap.val();
     if(data&&data.activities&&data.slots&&data.grid){
       schApplyState(data);
       schInitLoaded=true;
@@ -2959,6 +2927,7 @@
     // offline, try localStorage
     schLoadLocalFallback();
   });
+  setTimeout(function(){if(!schInitLoaded&&document.getElementById('schSyncStatus')&&document.getElementById('schSyncStatus').textContent==='Sincronizando...'){console.log('[SCH] SDK timeout, REST fallback');fbRestGet('schedule').then(function(data){if(!schInitLoaded&&data&&data.activities&&data.slots&&data.grid){schApplyState(data);schInitLoaded=true;if(document.getElementById('schedule').classList.contains('active')) renderSchedule();schSyncStatus('Sincronizado',true);}});}},5000);
 
   function schLoadLocalFallback(){
     try{
@@ -3322,7 +3291,7 @@
     try{localStorage.setItem('con_data',JSON.stringify({patients:conPatients,nextId:conNextId}));}catch(e){}
     conSaving=true;
     conSyncStatus('Salvando...',true);
-    fbSave(conRef,'consultations',{patients:conPatients,nextId:conNextId}).then(function(){conSaving=false;conSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){conSaving=false;conSyncStatus('⚠ Erro ao salvar',false);console.error('[CON] save error:',err);});
+    conRef.set({patients:conPatients,nextId:conNextId}).then(function(){conSaving=false;conSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){console.warn('[CON] SDK save failed, REST retry:',err);fbRestPut('consultations',{patients:conPatients,nextId:conNextId}).then(function(){conSaving=false;conSyncStatus('Salvo na nuvem ✓',true);}).catch(function(e2){conSaving=false;conSyncStatus('⚠ Erro ao salvar',false);});});
   }
   function conSaveLocal(){
     try{localStorage.setItem('con_data',JSON.stringify({patients:conPatients,nextId:conNextId}));}catch(e){}
@@ -3333,12 +3302,13 @@
   }
   var conHadLocal=conLoadLocal();
   if(conHadLocal) conSyncStatus('Sincronizado',true);
-  fbLoad(conRef,'consultations',5000).then(function(d){
+  conRef.once('value').then(function(snap){var d=snap.val();
     if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSyncStatus('Sincronizado',true);conSaveLocal();if(document.getElementById('consult').classList.contains('active')) renderConsult();}
     else{if(!conPatients.length) conPatients=conDefaults.slice();conSaveCloud();if(document.getElementById('consult').classList.contains('active')) renderConsult();}
   }).catch(function(err){
     if(!conPatients.length) conPatients=conDefaults.slice();conSyncStatus('Offline',false);console.error('conLoad error:',err);
   });
+  setTimeout(function(){if(document.getElementById('conSync')&&document.getElementById('conSync').textContent==='Sincronizando...'){console.log('[CON] SDK timeout, REST fallback');fbRestGet('consultations').then(function(d){if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSyncStatus('Sincronizado',true);conSaveLocal();if(document.getElementById('consult').classList.contains('active')) renderConsult();}});}},5000);
 
   conRef.on('value',function(snap){
     if(conSaving) return;
@@ -3671,7 +3641,7 @@
   function injSaveCloud(){
     try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
     injSaving=true;injSyncStatus('Salvando...',true);
-    fbSave(injRef,'injectables',{patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){injSaving=false;injSyncStatus('⚠ Erro ao salvar',false);console.error('[INJ] save error:',err);});
+    injRef.set({patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){console.warn('[INJ] SDK save failed, REST retry:',err);fbRestPut('injectables',{patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(e2){injSaving=false;injSyncStatus('⚠ Erro ao salvar',false);});});
   }
   function injSaveLocal(){
     try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
@@ -3682,9 +3652,10 @@
   }
   var injHadLocal=injLoadLocal();
   if(injHadLocal) injSyncStatus('Sincronizado',true);
-  fbLoad(injRef,'injectables',5000).then(function(d){if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();}
+  injRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();}
     else{if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));injSaveCloud();if(document.getElementById('inject').classList.contains('active')) renderInject();}
   }).catch(function(err){if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));injSyncStatus('Offline',false);console.error('injLoad error:',err);});
+  setTimeout(function(){if(document.getElementById('injSync')&&document.getElementById('injSync').textContent==='Sincronizando...'){console.log('[INJ] SDK timeout, REST fallback');fbRestGet('injectables').then(function(d){if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();}});}},5000);
   injRef.on('value',function(snap){
     if(injSaving) return;
     var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();injSyncStatus('Atualizado ✓',true);}
@@ -3865,13 +3836,53 @@
   }
 
   function tzSyncStatus(m,ok){var s=document.getElementById('tzSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}if(ok) setTimeout(function(){if(s&&s.textContent===m) s.textContent='Sincronizado';},2000);}
-  function tzSaveCloud(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}tzSaving=true;tzSyncStatus('Salvando...',true);var data={patients:tzPatients,nextId:tzNextId};fbSave(tzRef,'tirzsessions',data).then(function(){tzSaving=false;tzSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){tzSaving=false;tzSyncStatus('⚠ Erro ao salvar',false);console.error('[TZ] save error:',err);});}
+  function tzSaveCloud(){
+    try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}
+    tzSaving=true;tzSyncStatus('Salvando...',true);
+    var data={patients:tzPatients,nextId:tzNextId};
+    tzRef.set(data).then(function(){
+      tzSaving=false;tzSyncStatus('Salvo na nuvem ✓',true);console.log('[TZ] SDK save OK');
+    }).catch(function(err){
+      console.warn('[TZ] SDK save failed, trying REST:',err);
+      fbRestPut('tirzsessions',data).then(function(){
+        tzSaving=false;tzSyncStatus('Salvo na nuvem ✓',true);console.log('[TZ] REST save OK');
+      }).catch(function(err2){
+        tzSaving=false;tzSyncStatus('⚠ Erro ao salvar',false);console.error('[TZ] REST save also failed:',err2);
+      });
+    });
+  }
   function tzSaveLocal(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}}
   function tzLoadLocal(){try{var r=localStorage.getItem('tz_data');if(r){var ld=JSON.parse(r);if(ld.patients&&ld.patients.length){tzPatients=ld.patients;tzNextId=ld.nextId||300;return true;}}}catch(e){}return false;}
   var tzHadLocal=tzLoadLocal();
   if(tzHadLocal){tzSyncStatus('Sincronizado',true);}
   console.log('[TZ] localStorage:',tzHadLocal,'patients:',tzPatients.length);
-  fbLoad(tzRef,'tirzsessions',5000).then(function(d){console.log('[TZ] loaded:',d?'has data':'EMPTY');if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}else{if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSaveCloud();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}}).catch(function(err){if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSyncStatus('Offline',false);console.error('[TZ] load error:',err);});
+  // Load: SDK with REST fallback after 5s
+  var tzLoaded=false;
+  tzRef.once('value').then(function(snap){
+    if(tzLoaded) return; tzLoaded=true;
+    var d=snap.val();console.log('[TZ] SDK load:',d?'has data':'EMPTY');
+    if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();}
+    else{if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSaveCloud();}
+    if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();
+  }).catch(function(err){
+    if(tzLoaded) return; tzLoaded=true;
+    console.warn('[TZ] SDK load failed:',err);
+    if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));
+    tzSyncStatus('Offline',false);
+  });
+  setTimeout(function(){
+    if(tzLoaded) return; console.log('[TZ] SDK timeout, trying REST...');
+    fbRestGet('tirzsessions').then(function(d){
+      if(tzLoaded) return; tzLoaded=true; console.log('[TZ] REST load:',d?'has data':'EMPTY');
+      if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();}
+      else{if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSaveCloud();}
+      if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();
+    }).catch(function(err){
+      if(tzLoaded) return; tzLoaded=true;
+      if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));
+      tzSyncStatus('Offline',false);console.error('[TZ] REST load also failed:',err);
+    });
+  },5000);
   tzRef.on('value',function(snap){if(tzSaving) return;var d=snap.val();if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();tzSyncStatus('Atualizado ✓',true);}});
 
   function renderTirzSess(){
@@ -4285,11 +4296,12 @@
   ];
 
   function ciSyncSt(m,ok){var s=document.getElementById('ciSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}}
-  function ciSaveCloud(){try{localStorage.setItem('ci_data',JSON.stringify({patients:ciPatients,nextId:ciNextId}));}catch(e){}ciSaving=true;ciSyncSt('Salvando...',true);fbSave(ciRef,'checkins',{patients:ciPatients,nextId:ciNextId}).then(function(){ciSaving=false;ciSyncSt('Salvo ✓',true);}).catch(function(err){ciSaving=false;ciSyncSt('⚠ Erro',false);console.error('[CI] save error:',err);});}
+  function ciSaveCloud(){try{localStorage.setItem('ci_data',JSON.stringify({patients:ciPatients,nextId:ciNextId}));}catch(e){}ciSaving=true;ciSyncSt('Salvando...',true);ciRef.set({patients:ciPatients,nextId:ciNextId}).then(function(){ciSaving=false;ciSyncSt('Salvo ✓',true);}).catch(function(err){fbRestPut('checkins',{patients:ciPatients,nextId:ciNextId}).then(function(){ciSaving=false;ciSyncSt('Salvo ✓',true);}).catch(function(){ciSaving=false;ciSyncSt('⚠ Erro',false);});});}
   function ciLoadLocal(){try{var r=localStorage.getItem('ci_data');if(r){var d=JSON.parse(r);if(d.patients&&d.patients.length){ciPatients=d.patients;ciNextId=d.nextId||500;return true;}}}catch(e){}return false;}
   var ciHadLocal=ciLoadLocal();
   if(ciHadLocal) ciSyncSt('Sincronizado',true);
-  fbLoad(ciRef,'checkins',5000).then(function(d){if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Sincronizado',true);}else{if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSaveCloud();}if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}).catch(function(err){if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSyncSt('Offline',false);console.error('ciLoad error:',err);});
+  ciRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Sincronizado',true);}else{if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSaveCloud();}if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}).catch(function(err){if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSyncSt('Offline',false);console.error('ciLoad error:',err);});
+  setTimeout(function(){if(document.getElementById('ciSync')&&document.getElementById('ciSync').textContent==='Sincronizando...'){fbRestGet('checkins').then(function(d){if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Sincronizado',true);if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}});}},5000);
   ciRef.on('value',function(s){if(ciSaving)return;var d=s.val();if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Atualizado ✓',true);if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}});
 
   function renderCheckins(){
@@ -4379,11 +4391,12 @@
   ];
 
   function ebSyncSt(m,ok){var s=document.getElementById('ebSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}}
-  function ebSaveCloud(){try{localStorage.setItem('eb_data',JSON.stringify({patients:ebPatients,nextId:ebNextId}));}catch(e){}ebSaving=true;ebSyncSt('Salvando...',true);fbSave(ebRef,'ebooks',{patients:ebPatients,nextId:ebNextId}).then(function(){ebSaving=false;ebSyncSt('Salvo ✓',true);}).catch(function(err){ebSaving=false;ebSyncSt('⚠ Erro',false);console.error('[EB] save error:',err);});}
+  function ebSaveCloud(){try{localStorage.setItem('eb_data',JSON.stringify({patients:ebPatients,nextId:ebNextId}));}catch(e){}ebSaving=true;ebSyncSt('Salvando...',true);ebRef.set({patients:ebPatients,nextId:ebNextId}).then(function(){ebSaving=false;ebSyncSt('Salvo ✓',true);}).catch(function(err){fbRestPut('ebooks',{patients:ebPatients,nextId:ebNextId}).then(function(){ebSaving=false;ebSyncSt('Salvo ✓',true);}).catch(function(){ebSaving=false;ebSyncSt('⚠ Erro',false);});});}
   function ebLoadLocal(){try{var r=localStorage.getItem('eb_data');if(r){var d=JSON.parse(r);if(d.patients&&d.patients.length){ebPatients=d.patients;ebNextId=d.nextId||400;return true;}}}catch(e){}return false;}
   var ebHadLocal=ebLoadLocal();
   if(ebHadLocal) ebSyncSt('Sincronizado',true);
-  fbLoad(ebRef,'ebooks',5000).then(function(d){if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Sincronizado',true);}else{if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSaveCloud();}if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}).catch(function(err){if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSyncSt('Offline',false);console.error('ebLoad error:',err);});
+  ebRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Sincronizado',true);}else{if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSaveCloud();}if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}).catch(function(err){if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSyncSt('Offline',false);console.error('ebLoad error:',err);});
+  setTimeout(function(){if(document.getElementById('ebSync')&&document.getElementById('ebSync').textContent==='Sincronizando...'){fbRestGet('ebooks').then(function(d){if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Sincronizado',true);if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}});}},5000);
   ebRef.on('value',function(s){if(ebSaving)return;var d=s.val();if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Atualizado ✓',true);if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}});
 
   function ebFirstName(n){return(n||'').split(' ')[0];}
