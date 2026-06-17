@@ -232,6 +232,34 @@
   .con-pat-next{font-size:12px;color:var(--mist);margin-top:10px;font-family:'IBM Plex Mono',monospace;}
   .con-dot.indic{background:rgba(160,130,220,.2);color:#b8a0e8;border:1px solid rgba(160,130,220,.4);font-size:14px;}
   .con-dot.agendar{background:rgba(255,160,120,.15);color:#ffa078;border:1px solid rgba(255,160,120,.35);font-size:9px;font-weight:600;width:auto;padding:0 8px;}
+  .note-toggle{display:inline-flex;align-items:center;gap:4px;background:none;border:1px solid var(--line-soft);border-radius:6px;color:var(--mist);font-size:11px;padding:3px 8px;cursor:pointer;font-family:'IBM Plex Mono',monospace;margin-top:4px;transition:all .2s;}
+  .note-toggle:hover{border-color:var(--gold);color:var(--gold-soft);}
+  .note-toggle.has-note{border-color:rgba(201,162,78,.4);color:var(--gold-soft);background:rgba(201,162,78,.08);}
+  .note-toggle.note-done{border-color:rgba(127,211,187,.3);color:#9be3cd;background:rgba(127,211,187,.08);text-decoration:line-through;opacity:.7;}
+  .note-area{display:none;margin-top:6px;padding:8px 10px;background:var(--ink);border:1px solid var(--line-soft);border-radius:8px;}
+  .note-area.open{display:block;}
+  .note-area textarea{width:100%;min-height:50px;background:transparent;border:none;color:var(--paper);font-family:'Inter',sans-serif;font-size:12px;line-height:1.5;resize:vertical;outline:none;}
+  .note-area textarea::placeholder{color:var(--mist);opacity:.6;}
+  .note-done-row{display:flex;align-items:center;gap:6px;margin-top:6px;}
+  .note-done-check{appearance:none;-webkit-appearance:none;width:16px;height:16px;border:1.5px solid var(--mist);border-radius:4px;cursor:pointer;position:relative;flex:none;background:transparent;}
+  .note-done-check:checked{background:rgba(127,211,187,.2);border-color:#9be3cd;}
+  .note-done-check:checked::after{content:'✓';position:absolute;top:-1px;left:2px;font-size:12px;color:#9be3cd;}
+  .note-done-lbl{font-size:11px;color:var(--mist);cursor:pointer;}
+  .home-notes{margin-bottom:16px;}
+  .home-notes-title{font-family:'Fraunces',serif;font-size:18px;color:var(--gold-soft);margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .home-notes-title .count{background:var(--danger);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;padding:2px 7px;border-radius:10px;}
+  .hn-card{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;transition:opacity .3s;}
+  .hn-card.done{opacity:.45;}
+  .hn-check{appearance:none;-webkit-appearance:none;width:20px;height:20px;min-width:20px;border:2px solid var(--gold);border-radius:6px;cursor:pointer;position:relative;margin-top:2px;background:transparent;}
+  .hn-check:checked{background:rgba(127,211,187,.2);border-color:#9be3cd;}
+  .hn-check:checked::after{content:'✓';position:absolute;top:-1px;left:3px;font-size:13px;color:#9be3cd;}
+  .hn-body{flex:1;min-width:0;}
+  .hn-meta{font-size:11px;color:var(--mist);font-family:'IBM Plex Mono',monospace;margin-bottom:4px;display:flex;flex-wrap:wrap;gap:6px;}
+  .hn-badge{padding:1px 7px;border-radius:5px;font-size:10px;font-weight:600;}
+  .hn-badge.con{background:rgba(201,162,78,.12);color:var(--gold-soft);}
+  .hn-badge.inj{background:rgba(100,160,230,.12);color:#7ab8f0;}
+  .hn-badge.tz{background:rgba(160,130,220,.12);color:#b8a0e8;}
+  .hn-text{font-size:13px;color:var(--paper);line-height:1.5;word-break:break-word;}
   .con-pat-next b{color:var(--gold-soft);}
   .con-hide-btn{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid var(--line-soft);background:transparent;color:var(--mist);cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap;}
   .con-hide-btn:hover{border-color:var(--gold);color:var(--gold-soft);}
@@ -784,6 +812,9 @@
 
     /* general */
     .backbar{padding:12px 0 6px;}
+    .note-toggle{font-size:10px;padding:2px 6px;}
+    .hn-card{padding:12px;gap:8px;}
+    .hn-text{font-size:12px;}
   }
 
   /* ============ SMALL MOBILE (≤ 360px) ============ */
@@ -882,6 +913,33 @@
   </div>
 
   <div class="wrap">
+    <!-- Pending notes -->
+    <div class="home-notes" id="homeNotes" style="display:none">
+      <div class="home-notes-title">📌 Anotações pendentes <span class="count" id="homeNotesCount">0</span></div>
+      <div id="homeNotesList"></div>
+    </div>
+    <!-- Wednesday reminder -->
+    <div id="wedReminder" style="display:none;margin-bottom:10px;padding:14px 18px;background:rgba(201,162,78,.1);border:1px solid rgba(201,162,78,.3);border-radius:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="font-size:14px;color:var(--gold-soft);"><b>📚 Lembrete:</b> Enviar ebooks para os pacientes</div>
+        <button id="wedDismiss" style="background:rgba(201,162,78,.2);border:1px solid rgba(201,162,78,.4);border-radius:8px;color:var(--gold-soft);font-size:12px;padding:6px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;white-space:nowrap;">✓ Verificado</button>
+      </div>
+    </div>
+    <!-- Friday reminder -->
+    <div id="friReminder" style="display:none;margin-bottom:10px;padding:14px 18px;background:rgba(100,160,230,.1);border:1px solid rgba(100,160,230,.3);border-radius:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="font-size:14px;color:#7ab8f0;"><b>📋 Lembrete:</b> Enviar check-ins semanais para os pacientes</div>
+        <button id="friDismiss" style="background:rgba(100,160,230,.2);border:1px solid rgba(100,160,230,.4);border-radius:8px;color:#7ab8f0;font-size:12px;padding:6px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;white-space:nowrap;">✓ Enviados</button>
+      </div>
+    </div>
+    <!-- Monday reminder -->
+    <div id="monReminder" style="display:none;margin-bottom:10px;padding:14px 18px;background:rgba(127,211,187,.1);border:1px solid rgba(127,211,187,.3);border-radius:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="font-size:14px;color:#9be3cd;"><b>💬 Lembrete:</b> Enviar feedbacks dos check-ins preenchidos</div>
+        <button id="monDismiss" style="background:rgba(127,211,187,.2);border:1px solid rgba(127,211,187,.4);border-radius:8px;color:#9be3cd;font-size:12px;padding:6px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;white-space:nowrap;">✓ Enviados</button>
+      </div>
+    </div>
+
     <div class="search-bar">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="var(--mist)" stroke-width="1.8"/><path d="M20 20l-4-4" stroke="var(--mist)" stroke-width="1.8" stroke-linecap="round"/></svg>
       <input type="text" id="homeSearch" placeholder="Buscar paciente por nome...">
@@ -959,27 +1017,6 @@
         <p>Simulador de acúmulo, manejo de efeitos colaterais e comparativo de custos manipulada × Mounjaro.</p>
         <div class="go">Abrir ferramentas →</div>
       </button>
-    </div>
-    <!-- Wednesday reminder -->
-    <div id="wedReminder" style="display:none;margin-top:16px;padding:14px 18px;background:rgba(201,162,78,.1);border:1px solid rgba(201,162,78,.3);border-radius:12px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-        <div style="font-size:14px;color:var(--gold-soft);"><b>📚 Lembrete:</b> Enviar ebooks para os pacientes</div>
-        <button id="wedDismiss" style="background:rgba(201,162,78,.2);border:1px solid rgba(201,162,78,.4);border-radius:8px;color:var(--gold-soft);font-size:12px;padding:6px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;white-space:nowrap;">✓ Verificado</button>
-      </div>
-    </div>
-    <!-- Friday reminder -->
-    <div id="friReminder" style="display:none;margin-top:10px;padding:14px 18px;background:rgba(100,160,230,.1);border:1px solid rgba(100,160,230,.3);border-radius:12px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-        <div style="font-size:14px;color:#7ab8f0;"><b>📋 Lembrete:</b> Enviar check-ins semanais para os pacientes</div>
-        <button id="friDismiss" style="background:rgba(100,160,230,.2);border:1px solid rgba(100,160,230,.4);border-radius:8px;color:#7ab8f0;font-size:12px;padding:6px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;white-space:nowrap;">✓ Enviados</button>
-      </div>
-    </div>
-    <!-- Monday reminder -->
-    <div id="monReminder" style="display:none;margin-top:10px;padding:14px 18px;background:rgba(127,211,187,.1);border:1px solid rgba(127,211,187,.3);border-radius:12px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-        <div style="font-size:14px;color:#9be3cd;"><b>💬 Lembrete:</b> Enviar feedbacks dos check-ins preenchidos</div>
-        <button id="monDismiss" style="background:rgba(127,211,187,.2);border:1px solid rgba(127,211,187,.4);border-radius:8px;color:#9be3cd;font-size:12px;padding:6px 14px;cursor:pointer;font-family:'IBM Plex Mono',monospace;white-space:nowrap;">✓ Enviados</button>
-      </div>
     </div>
   </div>
 </section>
@@ -2323,6 +2360,7 @@
       document.getElementById(id).classList.toggle('active', id===v);
     });
     window.scrollTo(0,0);
+    if(v==='home') renderHomeNotes();
   }
   document.querySelectorAll('.tool[data-tool]').forEach(function(b){
     b.addEventListener('click',function(){
@@ -3422,13 +3460,15 @@
     for(var ni=0;ni<total;ni++){if(!consults[ni]||!consults[ni].real){nextIdx=ni;break;}}
     for(var i=0;i<total;i++){
       var c=consults[i]||{int:30,sug:'',real:''};
+      var nt=c.note||'',nd=!!c.noteDone,tCls='note-toggle'+(nt?(nd?' note-done':' has-note'):''),tLbl=nt?(nd?'\u2713 Conclu\u00edda':'\ud83d\udcdd Anota\u00e7\u00e3o'):'\ud83d\udcdd Anotar';
       var rowCls=i===nextIdx?' next-row':'';
       html+='<div class="con-row'+rowCls+'">'
         +'<div class="cr-n">'+( i+1)+'</div>'
         +'<div><div class="cr-lbl">Intervalo (dias)</div><input type="number" class="cr-int" value="'+(c.int||30)+'" min="1" data-i="'+i+'"></div>'
         +'<div><div class="cr-lbl">Data sugerida</div><input type="date" class="cr-sug" value="'+(c.sug||'')+'" data-i="'+i+'"></div>'
         +'<div><div class="cr-lbl">Data realizada</div><input type="date" class="cr-rea" value="'+(c.real||'')+'" data-i="'+i+'"></div>'
-      +'</div>';
+      +'</div>'
+      +'<div style="padding:0 0 8px 40px;"><button type="button" class="'+tCls+'" onclick="toggleNoteArea(this)" data-target="conNote_'+i+'">'+tLbl+'</button><div class="note-area" id="conNote_'+i+'"><textarea class="cr-note" data-i="'+i+'" placeholder="Anota\u00e7\u00e3o sobre esta consulta...">'+nt.replace(/</g,'&lt;')+'</textarea><div class="note-done-row"><input type="checkbox" class="note-done-check cr-notedone" data-i="'+i+'" id="crnd_'+i+'"'+(nd?' checked':'')+'><label class="note-done-lbl" for="crnd_'+i+'">Conclu\u00eddo</label></div></div></div>';
     }
     return html;
   }
@@ -3496,8 +3536,9 @@
     var sugs=document.querySelectorAll('.cr-sug');
     var reas=document.querySelectorAll('.cr-rea');
     var arr=[];
+    var notes=document.querySelectorAll('.cr-note'),dones=document.querySelectorAll('.cr-notedone');
     for(var i=0;i<ints.length;i++){
-      arr.push({int:parseInt(ints[i].value)||30,sug:sugs[i].value||'',real:reas[i].value||''});
+      arr.push({int:parseInt(ints[i].value)||30,sug:sugs[i].value||'',real:reas[i].value||'',note:(notes[i]?notes[i].value.trim():''),noteDone:!!(dones[i]&&dones[i].checked)});
     }
     return arr;
   }
@@ -3698,6 +3739,7 @@
       html+='<div class="inj-sg-phase"><div class="inj-sg-phase-title">'+INJ_PHASES[pi].name+' (padrão: '+INJ_PHASES[pi].defInt+' dias)</div>';
       for(var si=INJ_PHASES[pi].from;si<=INJ_PHASES[pi].to;si++){
         var s=sessions[si]||{int:injDefInterval(si),sug:'',real:''};
+        var nt=s.note||'',nd=!!s.noteDone,tCls='note-toggle'+(nt?(nd?' note-done':' has-note'):''),tLbl=nt?(nd?'\u2713 Conclu\u00edda':'\ud83d\udcdd Anota\u00e7\u00e3o'):'\ud83d\udcdd Anotar';
         var rowCls=si===nextIdx?' next-row':'';
         html+='<div class="inj-sg-row'+rowCls+'">'
           +'<div class="isr-n">'+(si+1)+'</div>'
@@ -3705,7 +3747,8 @@
           +'<div><input type="number" class="isr-int" data-si="'+si+'" value="'+(s.int||injDefInterval(si))+'" min="1" placeholder="dias" title="Intervalo (dias)"></div>'
           +'<div><input type="date" class="isr-sug" data-si="'+si+'" value="'+(s.sug||'')+'" title="Data sugerida" style="opacity:.7;" disabled></div>'
           +'<div><input type="date" class="isr-real" data-si="'+si+'" value="'+(s.real||'')+'" title="Data realizada"></div>'
-        +'</div>';
+        +'</div>'
+        +'<div style="padding:0 0 6px 0;"><button type="button" class="'+tCls+'" onclick="toggleNoteArea(this)" data-target="injNote_'+si+'">'+tLbl+'</button><div class="note-area" id="injNote_'+si+'"><textarea class="isr-note" data-si="'+si+'" placeholder="Anota\u00e7\u00e3o sobre esta sess\u00e3o...">'+nt.replace(/</g,'&lt;')+'</textarea><div class="note-done-row"><input type="checkbox" class="note-done-check isr-notedone" data-si="'+si+'" id="isrnd_'+si+'"'+(nd?' checked':'')+'><label class="note-done-lbl" for="isrnd_'+si+'">Conclu\u00eddo</label></div></div></div>';
       }
       html+='</div>';
     }
@@ -3747,6 +3790,8 @@
     document.querySelectorAll('.isr-int').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].int=parseInt(inp.value)||injDefInterval(si);});
     document.querySelectorAll('.isr-sug').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].sug=inp.value||'';});
     document.querySelectorAll('.isr-real').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].real=inp.value||'';});
+    document.querySelectorAll('.isr-note').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].note=inp.value.trim()||'';});
+    document.querySelectorAll('.isr-notedone').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].noteDone=!!inp.checked;});
     var p={id:el('injModal')._patId,name:el('injName').value.trim(),start:el('injStart').value,dur:parseInt(el('injDur').value)||6,scheduled:el('injScheduled').value||'',obs:el('injObs').value.trim(),sessions:sess,vitD:el('injAvVitD').value||'',b12:el('injAvB12').value||''};
     if(!p.name) return;
     if(isNew) injPatients.push(p);else{p.hidden=injPatients[idx].hidden;injPatients[idx]=p;}
@@ -4022,7 +4067,8 @@
 
   function readTzSess(){
     var dates=document.querySelectorAll('.tz-date'),fats=document.querySelectorAll('.tz-fat'),mms=document.querySelectorAll('.tz-mm'),regs=document.querySelectorAll('.tz-reg'),doses=document.querySelectorAll('.tz-dose');
-    var arr=[];for(var i=0;i<dates.length;i++) arr.push({date:dates[i].value||'',fat:fats[i].value||'',mm:mms[i].value||'',regiao:regs[i].value||'',dose:doses[i].value||''});
+    var notes=document.querySelectorAll('.tz-note'),dones=document.querySelectorAll('.tz-notedone');
+    var arr=[];for(var i=0;i<dates.length;i++) arr.push({date:dates[i].value||'',fat:fats[i].value||'',mm:mms[i].value||'',regiao:regs[i].value||'',dose:doses[i].value||'',note:(notes[i]?notes[i].value.trim():''),noteDone:!!(dones[i]&&dones[i].checked)});
     return arr;
   }
 
@@ -4499,6 +4545,33 @@
       if(e.key!=='Tab'&&e.key!=='Escape') e.preventDefault();
     }
   });
+  // ============ NOTES SYSTEM ============
+  window.toggleNoteArea=function(btn){var area=document.getElementById(btn.getAttribute('data-target'));if(area) area.classList.toggle('open');};
+  function renderHomeNotes(){
+    var items=[];
+    (conPatients||[]).forEach(function(p,pi){if(p.hidden) return;(p.consults||[]).forEach(function(c,ci){if(c.note&&c.note.trim()&&!c.noteDone) items.push({mod:'con',modLabel:'Consulta '+(ci+1),name:p.name,text:c.note,pi:pi,ci:ci});});});
+    (injPatients||[]).forEach(function(p,pi){if(p.hidden) return;(p.sessions||[]).forEach(function(s,si){if(s&&s.note&&s.note.trim()&&!s.noteDone) items.push({mod:'inj',modLabel:'Sessão IM '+(si+1),name:p.name,text:s.note,pi:pi,ci:si});});});
+    (tzPatients||[]).forEach(function(p,pi){if(p.hidden) return;(p.sessions||[]).forEach(function(s,si){if(s&&s.note&&s.note.trim()&&!s.noteDone) items.push({mod:'tz',modLabel:'Sessão TZ '+(si+1),name:p.name,text:s.note,pi:pi,ci:si});});});
+    var panel=document.getElementById('homeNotes'),list=document.getElementById('homeNotesList'),countEl=document.getElementById('homeNotesCount');
+    if(!items.length){panel.style.display='none';return;}
+    panel.style.display='block';countEl.textContent=items.length;
+    var html='';items.forEach(function(it,idx){
+      html+='<div class="hn-card" id="hnCard_'+idx+'"><input type="checkbox" class="hn-check" data-mod="'+it.mod+'" data-pi="'+it.pi+'" data-ci="'+it.ci+'" data-idx="'+idx+'"><div class="hn-body"><div class="hn-meta"><span class="hn-badge '+it.mod+'">'+({con:'Consultas',inj:'Injetáveis',tz:'Tirzepatida'}[it.mod])+'</span> <span>'+it.name+'</span> · <span>'+it.modLabel+'</span></div><div class="hn-text">'+it.text.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div></div></div>';
+    });
+    list.innerHTML=html;
+    list.querySelectorAll('.hn-check').forEach(function(chk){chk.addEventListener('change',function(){
+      var mod=this.getAttribute('data-mod'),pi=parseInt(this.getAttribute('data-pi')),ci=parseInt(this.getAttribute('data-ci')),idx=this.getAttribute('data-idx');
+      if(this.checked){
+        if(mod==='con'&&conPatients[pi]&&conPatients[pi].consults[ci]){conPatients[pi].consults[ci].noteDone=true;conSaveCloud();}
+        else if(mod==='inj'&&injPatients[pi]&&injPatients[pi].sessions[ci]){injPatients[pi].sessions[ci].noteDone=true;injSaveCloud();}
+        else if(mod==='tz'&&tzPatients[pi]&&tzPatients[pi].sessions[ci]){tzPatients[pi].sessions[ci].noteDone=true;tzSaveCloud();}
+        var card=document.getElementById('hnCard_'+idx);if(card) card.classList.add('done');
+        setTimeout(function(){renderHomeNotes();},800);
+      }
+    });});
+  }
+  setTimeout(function(){renderHomeNotes();},2000);
+
 })();
 </script>
 </body>
