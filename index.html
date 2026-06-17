@@ -2,11 +2,11 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="version" content="2026-06-16-v3">
+<meta name="version" content="v6">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gestão Médica — Dr. Enguer Beraldo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -232,34 +232,6 @@
   .con-pat-next{font-size:12px;color:var(--mist);margin-top:10px;font-family:'IBM Plex Mono',monospace;}
   .con-dot.indic{background:rgba(160,130,220,.2);color:#b8a0e8;border:1px solid rgba(160,130,220,.4);font-size:14px;}
   .con-dot.agendar{background:rgba(255,160,120,.15);color:#ffa078;border:1px solid rgba(255,160,120,.35);font-size:9px;font-weight:600;width:auto;padding:0 8px;}
-  .note-toggle{display:inline-flex;align-items:center;gap:4px;background:none;border:1px solid var(--line-soft);border-radius:6px;color:var(--mist);font-size:11px;padding:3px 8px;cursor:pointer;font-family:'IBM Plex Mono',monospace;margin-top:4px;transition:all .2s;}
-  .note-toggle:hover{border-color:var(--gold);color:var(--gold-soft);}
-  .note-toggle.has-note{border-color:rgba(201,162,78,.4);color:var(--gold-soft);background:rgba(201,162,78,.08);}
-  .note-toggle.note-done{border-color:rgba(127,211,187,.3);color:#9be3cd;background:rgba(127,211,187,.08);text-decoration:line-through;opacity:.7;}
-  .note-area{display:none;margin-top:6px;padding:8px 10px;background:var(--ink);border:1px solid var(--line-soft);border-radius:8px;}
-  .note-area.open{display:block;}
-  .note-area textarea{width:100%;min-height:50px;background:transparent;border:none;color:var(--paper);font-family:'Inter',sans-serif;font-size:12px;line-height:1.5;resize:vertical;outline:none;}
-  .note-area textarea::placeholder{color:var(--mist);opacity:.6;}
-  .note-done-row{display:flex;align-items:center;gap:6px;margin-top:6px;}
-  .note-done-check{appearance:none;-webkit-appearance:none;width:16px;height:16px;border:1.5px solid var(--mist);border-radius:4px;cursor:pointer;position:relative;flex:none;background:transparent;}
-  .note-done-check:checked{background:rgba(127,211,187,.2);border-color:#9be3cd;}
-  .note-done-check:checked::after{content:'✓';position:absolute;top:-1px;left:2px;font-size:12px;color:#9be3cd;}
-  .note-done-lbl{font-size:11px;color:var(--mist);cursor:pointer;}
-  .home-notes{margin-top:20px;}
-  .home-notes-title{font-family:'Fraunces',serif;font-size:18px;color:var(--gold-soft);margin:0 0 12px;display:flex;align-items:center;gap:8px;}
-  .home-notes-title .count{background:var(--danger);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;padding:2px 7px;border-radius:10px;}
-  .hn-card{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;transition:opacity .3s;}
-  .hn-card.done{opacity:.45;}
-  .hn-check{appearance:none;-webkit-appearance:none;width:20px;height:20px;min-width:20px;border:2px solid var(--gold);border-radius:6px;cursor:pointer;position:relative;margin-top:2px;background:transparent;}
-  .hn-check:checked{background:rgba(127,211,187,.2);border-color:#9be3cd;}
-  .hn-check:checked::after{content:'✓';position:absolute;top:-1px;left:3px;font-size:13px;color:#9be3cd;}
-  .hn-body{flex:1;min-width:0;}
-  .hn-meta{font-size:11px;color:var(--mist);font-family:'IBM Plex Mono',monospace;margin-bottom:4px;display:flex;flex-wrap:wrap;gap:6px;}
-  .hn-badge{padding:1px 7px;border-radius:5px;font-size:10px;font-weight:600;}
-  .hn-badge.con{background:rgba(201,162,78,.12);color:var(--gold-soft);}
-  .hn-badge.inj{background:rgba(100,160,230,.12);color:#7ab8f0;}
-  .hn-badge.tz{background:rgba(160,130,220,.12);color:#b8a0e8;}
-  .hn-text{font-size:13px;color:var(--paper);line-height:1.5;word-break:break-word;}
   .con-pat-next b{color:var(--gold-soft);}
   .con-hide-btn{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid var(--line-soft);background:transparent;color:var(--mist);cursor:pointer;transition:border-color .15s,color .15s;white-space:nowrap;}
   .con-hide-btn:hover{border-color:var(--gold);color:var(--gold-soft);}
@@ -812,9 +784,6 @@
 
     /* general */
     .backbar{padding:12px 0 6px;}
-    .note-toggle{font-size:10px;padding:2px 6px;}
-    .hn-card{padding:12px;gap:8px;}
-    .hn-text{font-size:12px;}
   }
 
   /* ============ SMALL MOBILE (≤ 360px) ============ */
@@ -842,7 +811,6 @@
     <div style="font-size:40px;margin-bottom:16px;">🔒</div>
     <div style="font-family:'Fraunces',serif;font-size:22px;color:#fff;margin-bottom:6px;">Acesso restrito</div>
     <div style="font-size:13px;color:#9DB2C8;margin-bottom:24px;">Dr. Enguer Beraldo · Sistema de gestão médica</div>
-    <div style="font-size:9px;color:#4a5568;margin-bottom:8px;font-family:'IBM Plex Mono',monospace;">v2026-06-17-v5</div>
     <input type="password" id="pinInput" placeholder="••••" maxlength="10" 
       style="width:100%;box-sizing:border-box;background:#161b22;border:2px solid #30363d;border-radius:12px;color:#fff;font-size:24px;padding:14px;text-align:center;font-family:'IBM Plex Mono',monospace;letter-spacing:8px;outline:none;">
     <div id="pinError" style="color:#e08a6b;font-size:12px;margin-top:10px;min-height:18px;"></div>
@@ -976,10 +944,6 @@
         <p>Simulador de acúmulo, manejo de efeitos colaterais e comparativo de custos manipulada × Mounjaro.</p>
         <div class="go">Abrir ferramentas →</div>
       </button>
-    </div>
-    <div class="home-notes" id="homeNotes" style="display:none">
-      <div class="home-notes-title">📌 Anotações pendentes <span class="count" id="homeNotesCount">0</span></div>
-      <div id="homeNotesList"></div>
     </div>
     <!-- Wednesday reminder -->
     <div id="wedReminder" style="display:none;margin-top:16px;padding:14px 18px;background:rgba(201,162,78,.1);border:1px solid rgba(201,162,78,.3);border-radius:12px;">
@@ -1871,7 +1835,6 @@
 <script>
 (function(){
   "use strict";
-  console.log('[GestaoMedica] v2026-06-17-v5 loaded');
 
   // ============ FIREBASE INIT ============
   firebase.initializeApp({
@@ -1885,11 +1848,10 @@
   });
   var fbDb = firebase.database();
   var fbRef = fbDb.ref('schedule');
-  var FB_URL='https://gestao-medica-9ead6-default-rtdb.firebaseio.com';
-
-  // REST API direct calls (bypass WebSocket)
-  function fbRestGet(path){return fetch(FB_URL+'/'+path+'.json').then(function(r){return r.json();});}
-  function fbRestPut(path,data){return fetch(FB_URL+'/'+path+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).then(function(r){if(!r.ok) throw new Error('HTTP '+r.status);return r.json();});}
+  var FB_REST='https://gestao-medica-9ead6-default-rtdb.firebaseio.com';
+  function fbGet(p){return fetch(FB_REST+'/'+p+'.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});}
+  function fbPut(p,d){return fetch(FB_REST+'/'+p+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});}
+  console.log('[GM] v6 loaded — REST-only sync');
 
   var OPTS=[0,2.5,5,7.5,10,12.5,15], REF=5, SPD=4, WASH=4;
   var STD=[2.5,2.5,2.5,2.5,5,5,5,5,7.5,7.5,7.5,7.5,10,10,10,10,12.5,12.5,12.5,12.5,15,15,15,15];
@@ -2346,7 +2308,6 @@
       document.getElementById(id).classList.toggle('active', id===v);
     });
     window.scrollTo(0,0);
-    if(v==='home') renderHomeNotes();
   }
   document.querySelectorAll('.tool[data-tool]').forEach(function(b){
     b.addEventListener('click',function(){
@@ -2902,17 +2863,19 @@
     // save to Firebase
     schSaving=true;
     schSyncStatus('Salvando...',true);
-    fbRef.set(schGetState()).then(function(){
+    fbPut('schedule',schGetState()).then(function(){
       schSaving=false;
       schSyncStatus('Salvo na nuvem ✓',true);
     }).catch(function(err){
-      fbRestPut('schedule',schGetState()).then(function(){schSaving=false;schSyncStatus('Salvo na nuvem ✓',true);}).catch(function(){schSaving=false;schSyncStatus('Erro ao salvar',false);});
+      schSaving=false;
+      schSyncStatus('Erro ao salvar',false);
+      console.error('[SCH] save error:',err);
     });
   }
 
   // Load from Firebase on init, fallback to localStorage, then default
   var schInitLoaded=false;
-  fbRef.once('value').then(function(snap){var data=snap.val();
+  fbGet('schedule').then(function(data){
     if(data&&data.activities&&data.slots&&data.grid){
       schApplyState(data);
       schInitLoaded=true;
@@ -2927,7 +2890,6 @@
     // offline, try localStorage
     schLoadLocalFallback();
   });
-  setTimeout(function(){if(!schInitLoaded&&document.getElementById('schSyncStatus')&&document.getElementById('schSyncStatus').textContent==='Sincronizando...'){console.log('[SCH] SDK timeout, REST fallback');fbRestGet('schedule').then(function(data){if(!schInitLoaded&&data&&data.activities&&data.slots&&data.grid){schApplyState(data);schInitLoaded=true;if(document.getElementById('schedule').classList.contains('active')) renderSchedule();schSyncStatus('Sincronizado',true);}});}},5000);
 
   function schLoadLocalFallback(){
     try{
@@ -2946,16 +2908,17 @@
     for(var _si=0;_si<schGrid.length;_si++) schGrid[_si]._slot=schSlots[_si];
   }
 
-  // Real-time listener: if another device saves, update here automatically
-  fbRef.on('value',function(snap){
-    if(schSaving) return; // ignore echo from own save
-    var data=snap.val();
+  // Polling: check for updates from other devices every 15s
+  setInterval(function(){
+    if(schSaving) return;
+    fbGet('schedule').then(function(data){
     if(data&&data.activities&&data.slots&&data.grid){
       schApplyState(data);
       if(document.getElementById('schedule').classList.contains('active')) renderSchedule();
-      schSyncStatus('Atualizado de outro dispositivo ✓',true);
+      schSyncStatus('Atualizado ✓',true);
     }
-  });
+    }).catch(function(){});
+  },15000);
 
   function schApplyGranularity(newGran){
     var oldGran=schGranularity;
@@ -3291,7 +3254,11 @@
     try{localStorage.setItem('con_data',JSON.stringify({patients:conPatients,nextId:conNextId}));}catch(e){}
     conSaving=true;
     conSyncStatus('Salvando...',true);
-    conRef.set({patients:conPatients,nextId:conNextId}).then(function(){conSaving=false;conSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){console.warn('[CON] SDK save failed, REST retry:',err);fbRestPut('consultations',{patients:conPatients,nextId:conNextId}).then(function(){conSaving=false;conSyncStatus('Salvo na nuvem ✓',true);}).catch(function(e2){conSaving=false;conSyncStatus('⚠ Erro ao salvar',false);});});
+    fbPut('consultations',{patients:conPatients,nextId:conNextId}).then(function(){
+      conSaving=false; conSyncStatus('Salvo na nuvem ✓',true);
+    }).catch(function(err){
+      conSaving=false; conSyncStatus('⚠ Erro ao salvar',false);console.error('[CON] save:',err);
+    });
   }
   function conSaveLocal(){
     try{localStorage.setItem('con_data',JSON.stringify({patients:conPatients,nextId:conNextId}));}catch(e){}
@@ -3300,24 +3267,17 @@
     try{var r=localStorage.getItem('con_data');if(r){var ld=JSON.parse(r);if(ld.patients&&ld.patients.length){conPatients=ld.patients;conNextId=ld.nextId||100;return true;}}}catch(e){}
     return false;
   }
+  // Load: localStorage first, then Firebase, then defaults
   var conHadLocal=conLoadLocal();
-  if(conHadLocal) conSyncStatus('Sincronizado',true);
-  conRef.once('value').then(function(snap){var d=snap.val();
-    if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSyncStatus('Sincronizado',true);conSaveLocal();if(document.getElementById('consult').classList.contains('active')) renderConsult();}
-    else{if(!conPatients.length) conPatients=conDefaults.slice();conSaveCloud();if(document.getElementById('consult').classList.contains('active')) renderConsult();}
+  if(conHadLocal) conSyncStatus('Local',true);
+  fbGet('consultations').then(function(d){
+    if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSyncStatus('Sincronizado',true);conSaveLocal();}
+    else{if(!conPatients.length) conPatients=conDefaults.slice();fbPut('consultations',{patients:conPatients,nextId:conNextId});}
+    if(document.getElementById('consult').classList.contains('active')) renderConsult();
   }).catch(function(err){
-    if(!conPatients.length) conPatients=conDefaults.slice();conSyncStatus('Offline',false);console.error('conLoad error:',err);
+    if(!conPatients.length) conPatients=conDefaults.slice();conSyncStatus('Offline',false);console.error('[CON] load:',err);
   });
-  setTimeout(function(){if(document.getElementById('conSync')&&document.getElementById('conSync').textContent==='Sincronizando...'){console.log('[CON] SDK timeout, REST fallback');fbRestGet('consultations').then(function(d){if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSyncStatus('Sincronizado',true);conSaveLocal();if(document.getElementById('consult').classList.contains('active')) renderConsult();}});}},5000);
-
-  conRef.on('value',function(snap){
-    if(conSaving) return;
-    var d=snap.val();
-    if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSaveLocal();
-      if(document.getElementById('consult').classList.contains('active')) renderConsult();
-      conSyncStatus('Atualizado ✓',true);
-    }
-  });
+  setInterval(function(){if(conSaving)return;fbGet('consultations').then(function(d){if(d&&d.patients){conPatients=d.patients;conNextId=d.nextId||100;conSaveLocal();if(document.getElementById('consult').classList.contains('active')) renderConsult();conSyncStatus('Atualizado ✓',true);}}).catch(function(){});},15000);
 
   function renderConsult(){
     var items=[];
@@ -3451,22 +3411,12 @@
     for(var ni=0;ni<total;ni++){if(!consults[ni]||!consults[ni].real){nextIdx=ni;break;}}
     for(var i=0;i<total;i++){
       var c=consults[i]||{int:30,sug:'',real:''};
-      var nt=c.note||'',nd=!!c.noteDone;
-      var tCls='note-toggle'+(nt?(nd?' note-done':' has-note'):'');
-      var tLbl=nt?(nd?'\u2713 Conclu\u00edda':'\ud83d\udcdd Anota\u00e7\u00e3o'):'\ud83d\udcdd Anotar';
       var rowCls=i===nextIdx?' next-row':'';
       html+='<div class="con-row'+rowCls+'">'
         +'<div class="cr-n">'+( i+1)+'</div>'
         +'<div><div class="cr-lbl">Intervalo (dias)</div><input type="number" class="cr-int" value="'+(c.int||30)+'" min="1" data-i="'+i+'"></div>'
         +'<div><div class="cr-lbl">Data sugerida</div><input type="date" class="cr-sug" value="'+(c.sug||'')+'" data-i="'+i+'"></div>'
         +'<div><div class="cr-lbl">Data realizada</div><input type="date" class="cr-rea" value="'+(c.real||'')+'" data-i="'+i+'"></div>'
-      +'</div>'
-      +'<div style="padding:0 0 8px 40px;">'
-        +'<button type="button" class="'+tCls+'" onclick="toggleNoteArea(this)" data-target="conNote_'+i+'">'+tLbl+'</button>'
-        +'<div class="note-area" id="conNote_'+i+'">'
-          +'<textarea class="cr-note" data-i="'+i+'" placeholder="Anota\u00e7\u00e3o sobre esta consulta...">'+nt.replace(/</g,'&lt;')+'</textarea>'
-          +'<div class="note-done-row"><input type="checkbox" class="note-done-check cr-notedone" data-i="'+i+'" id="crnd_'+i+'"'+(nd?' checked':'')+'><label class="note-done-lbl" for="crnd_'+i+'">Conclu\u00eddo</label></div>'
-        +'</div>'
       +'</div>';
     }
     return html;
@@ -3534,11 +3484,9 @@
     var ints=document.querySelectorAll('.cr-int');
     var sugs=document.querySelectorAll('.cr-sug');
     var reas=document.querySelectorAll('.cr-rea');
-    var notes=document.querySelectorAll('.cr-note');
-    var dones=document.querySelectorAll('.cr-notedone');
     var arr=[];
     for(var i=0;i<ints.length;i++){
-      arr.push({int:parseInt(ints[i].value)||30,sug:sugs[i].value||'',real:reas[i].value||'',note:(notes[i]?notes[i].value.trim():''),noteDone:!!(dones[i]&&dones[i].checked)});
+      arr.push({int:parseInt(ints[i].value)||30,sug:sugs[i].value||'',real:reas[i].value||''});
     }
     return arr;
   }
@@ -3641,7 +3589,7 @@
   function injSaveCloud(){
     try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
     injSaving=true;injSyncStatus('Salvando...',true);
-    injRef.set({patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){console.warn('[INJ] SDK save failed, REST retry:',err);fbRestPut('injectables',{patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(e2){injSaving=false;injSyncStatus('⚠ Erro ao salvar',false);});});
+    fbPut('injectables',{patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){injSaving=false;injSyncStatus('⚠ Erro',false);console.error('[INJ] save:',err);});
   }
   function injSaveLocal(){
     try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
@@ -3650,16 +3598,14 @@
     try{var r=localStorage.getItem('inj_data');if(r){var ld=JSON.parse(r);if(ld.patients&&ld.patients.length){injPatients=ld.patients;injNextId=ld.nextId||200;return true;}}}catch(e){}
     return false;
   }
+  // Load: localStorage first (preserves local edits), then Firebase, then defaults
   var injHadLocal=injLoadLocal();
-  if(injHadLocal) injSyncStatus('Sincronizado',true);
-  injRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();}
-    else{if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));injSaveCloud();if(document.getElementById('inject').classList.contains('active')) renderInject();}
-  }).catch(function(err){if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));injSyncStatus('Offline',false);console.error('injLoad error:',err);});
-  setTimeout(function(){if(document.getElementById('injSync')&&document.getElementById('injSync').textContent==='Sincronizando...'){console.log('[INJ] SDK timeout, REST fallback');fbRestGet('injectables').then(function(d){if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();}});}},5000);
-  injRef.on('value',function(snap){
-    if(injSaving) return;
-    var d=snap.val();if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();injSyncStatus('Atualizado ✓',true);}
-  });
+  if(injHadLocal) injSyncStatus('Local',true);
+  fbGet('injectables').then(function(d){if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSyncStatus('Sincronizado',true);injSaveLocal();}
+    else{if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));fbPut('injectables',{patients:injPatients,nextId:injNextId});}
+    if(document.getElementById('inject').classList.contains('active')) renderInject();
+  }).catch(function(err){if(!injPatients.length) injPatients=JSON.parse(JSON.stringify(injDefaults));injSyncStatus('Offline',false);console.error('[INJ] load:',err);});
+  setInterval(function(){if(injSaving)return;fbGet('injectables').then(function(d){if(d&&d.patients){injPatients=d.patients;injNextId=d.nextId||200;injSaveLocal();if(document.getElementById('inject').classList.contains('active')) renderInject();injSyncStatus('Atualizado ✓',true);}}).catch(function(){});},15000);
 
   function renderInject(){
     var items=[],hiddenItems=[];
@@ -3741,7 +3687,6 @@
       html+='<div class="inj-sg-phase"><div class="inj-sg-phase-title">'+INJ_PHASES[pi].name+' (padrão: '+INJ_PHASES[pi].defInt+' dias)</div>';
       for(var si=INJ_PHASES[pi].from;si<=INJ_PHASES[pi].to;si++){
         var s=sessions[si]||{int:injDefInterval(si),sug:'',real:''};
-        var nt=s.note||'',nd=!!s.noteDone;var tCls='note-toggle'+(nt?(nd?' note-done':' has-note'):'');var tLbl=nt?(nd?'✓ Concluída':'📝 Anotação'):'📝 Anotar';
         var rowCls=si===nextIdx?' next-row':'';
         html+='<div class="inj-sg-row'+rowCls+'">'
           +'<div class="isr-n">'+(si+1)+'</div>'
@@ -3749,8 +3694,7 @@
           +'<div><input type="number" class="isr-int" data-si="'+si+'" value="'+(s.int||injDefInterval(si))+'" min="1" placeholder="dias" title="Intervalo (dias)"></div>'
           +'<div><input type="date" class="isr-sug" data-si="'+si+'" value="'+(s.sug||'')+'" title="Data sugerida" style="opacity:.7;" disabled></div>'
           +'<div><input type="date" class="isr-real" data-si="'+si+'" value="'+(s.real||'')+'" title="Data realizada"></div>'
-        +'</div>'
-        +'<div style="padding:0 0 6px 0;"><button type="button" class="'+tCls+'" onclick="toggleNoteArea(this)" data-target="injNote_'+si+'">'+tLbl+'</button><div class="note-area" id="injNote_'+si+'"><textarea class="isr-note" data-si="'+si+'" placeholder="Anotação sobre esta sessão...">'+nt.replace(/</g,'&lt;')+'</textarea><div class="note-done-row"><input type="checkbox" class="note-done-check isr-notedone" data-si="'+si+'" id="isrnd_'+si+'"'+(nd?' checked':'')+'><label class="note-done-lbl" for="isrnd_'+si+'">Concluído</label></div></div></div>';
+        +'</div>';
       }
       html+='</div>';
     }
@@ -3792,8 +3736,6 @@
     document.querySelectorAll('.isr-int').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].int=parseInt(inp.value)||injDefInterval(si);});
     document.querySelectorAll('.isr-sug').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].sug=inp.value||'';});
     document.querySelectorAll('.isr-real').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].real=inp.value||'';});
-    document.querySelectorAll('.isr-note').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].note=inp.value.trim()||'';});
-    document.querySelectorAll('.isr-notedone').forEach(function(inp){var si=parseInt(inp.getAttribute('data-si'));if(!sess[si]) sess[si]={};sess[si].noteDone=!!inp.checked;});
     var p={id:el('injModal')._patId,name:el('injName').value.trim(),start:el('injStart').value,dur:parseInt(el('injDur').value)||6,scheduled:el('injScheduled').value||'',obs:el('injObs').value.trim(),sessions:sess,vitD:el('injAvVitD').value||'',b12:el('injAvB12').value||''};
     if(!p.name) return;
     if(isNew) injPatients.push(p);else{p.hidden=injPatients[idx].hidden;injPatients[idx]=p;}
@@ -3836,54 +3778,13 @@
   }
 
   function tzSyncStatus(m,ok){var s=document.getElementById('tzSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}if(ok) setTimeout(function(){if(s&&s.textContent===m) s.textContent='Sincronizado';},2000);}
-  function tzSaveCloud(){
-    try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}
-    tzSaving=true;tzSyncStatus('Salvando...',true);
-    var data={patients:tzPatients,nextId:tzNextId};
-    tzRef.set(data).then(function(){
-      tzSaving=false;tzSyncStatus('Salvo na nuvem ✓',true);console.log('[TZ] SDK save OK');
-    }).catch(function(err){
-      console.warn('[TZ] SDK save failed, trying REST:',err);
-      fbRestPut('tirzsessions',data).then(function(){
-        tzSaving=false;tzSyncStatus('Salvo na nuvem ✓',true);console.log('[TZ] REST save OK');
-      }).catch(function(err2){
-        tzSaving=false;tzSyncStatus('⚠ Erro ao salvar',false);console.error('[TZ] REST save also failed:',err2);
-      });
-    });
-  }
+  function tzSaveCloud(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}tzSaving=true;tzSyncStatus('Salvando...',true);fbPut('tirzsessions',{patients:tzPatients,nextId:tzNextId}).then(function(){tzSaving=false;tzSyncStatus('Salvo na nuvem ✓',true);console.log('[TZ] save OK');}).catch(function(err){tzSaving=false;tzSyncStatus('⚠ Erro ao salvar',false);console.error('[TZ] save:',err);});}
   function tzSaveLocal(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}}
   function tzLoadLocal(){try{var r=localStorage.getItem('tz_data');if(r){var ld=JSON.parse(r);if(ld.patients&&ld.patients.length){tzPatients=ld.patients;tzNextId=ld.nextId||300;return true;}}}catch(e){}return false;}
   var tzHadLocal=tzLoadLocal();
-  if(tzHadLocal){tzSyncStatus('Sincronizado',true);}
-  console.log('[TZ] localStorage:',tzHadLocal,'patients:',tzPatients.length);
-  // Load: SDK with REST fallback after 5s
-  var tzLoaded=false;
-  tzRef.once('value').then(function(snap){
-    if(tzLoaded) return; tzLoaded=true;
-    var d=snap.val();console.log('[TZ] SDK load:',d?'has data':'EMPTY');
-    if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();}
-    else{if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSaveCloud();}
-    if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();
-  }).catch(function(err){
-    if(tzLoaded) return; tzLoaded=true;
-    console.warn('[TZ] SDK load failed:',err);
-    if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));
-    tzSyncStatus('Offline',false);
-  });
-  setTimeout(function(){
-    if(tzLoaded) return; console.log('[TZ] SDK timeout, trying REST...');
-    fbRestGet('tirzsessions').then(function(d){
-      if(tzLoaded) return; tzLoaded=true; console.log('[TZ] REST load:',d?'has data':'EMPTY');
-      if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();}
-      else{if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSaveCloud();}
-      if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();
-    }).catch(function(err){
-      if(tzLoaded) return; tzLoaded=true;
-      if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));
-      tzSyncStatus('Offline',false);console.error('[TZ] REST load also failed:',err);
-    });
-  },5000);
-  tzRef.on('value',function(snap){if(tzSaving) return;var d=snap.val();if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();tzSyncStatus('Atualizado ✓',true);}});
+  if(tzHadLocal) tzSyncStatus('Local',true);
+  fbGet('tirzsessions').then(function(d){console.log('[TZ] load:',d?'has data':'empty');if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSyncStatus('Sincronizado',true);tzSaveLocal();}else{if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSaveCloud();}if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();}).catch(function(err){if(!tzPatients.length) tzPatients=JSON.parse(JSON.stringify(tzDefaults));tzSyncStatus('Offline',false);console.error('[TZ] load:',err);});
+  setInterval(function(){if(tzSaving)return;fbGet('tirzsessions').then(function(d){if(d&&d.patients){tzPatients=d.patients;tzNextId=d.nextId||300;tzSaveLocal();if(document.getElementById('tirzsess').classList.contains('active')) renderTirzSess();tzSyncStatus('Atualizado ✓',true);}}).catch(function(){});},15000);
 
   function renderTirzSess(){
     var items=[],hiddenItems=[];
@@ -4047,7 +3948,6 @@
         shownTaperHeader=true;
       }
       var s=sessions[i]||{};
-      var nt=s.note||'',nd=!!s.noteDone;var tCls='note-toggle'+(nt?(nd?' note-done':' has-note'):'');var tLbl=nt?(nd?'✓ Concluída':'📝 Anotação'):'📝 Anotar';
       var rowCls=i===nextIdx?' next-row':'';
       html+='<div class="tz-sg-row'+rowCls+'">'
         +'<div class="isr-n">'+(i+1)+'</div>'
@@ -4058,8 +3958,7 @@
       REGIOES.forEach(function(r){html+='<option value="'+r+'"'+(s.regiao===r?' selected':'')+'>'+r+'</option>';});
       html+='</select></div>'
         +'<div><input type="number" class="tz-dose" data-si="'+i+'" value="'+(s.dose||'')+'" step="0.01" placeholder="mg"></div>'
-      +'</div>'
-      +'<div style="padding:0 0 6px 36px;"><button type="button" class="'+tCls+'" onclick="toggleNoteArea(this)" data-target="tzNote_'+i+'">'+tLbl+'</button><div class="note-area" id="tzNote_'+i+'"><textarea class="tz-note" data-si="'+i+'" placeholder="Anotação sobre esta sessão...">'+nt.replace(/</g,'&lt;')+'</textarea><div class="note-done-row"><input type="checkbox" class="note-done-check tz-notedone" data-si="'+i+'" id="tznd_'+i+'"'+(nd?' checked':'')+'><label class="note-done-lbl" for="tznd_'+i+'">Concluído</label></div></div></div>';
+      +'</div>';
     }
     return html;
   }
@@ -4092,8 +3991,7 @@
 
   function readTzSess(){
     var dates=document.querySelectorAll('.tz-date'),fats=document.querySelectorAll('.tz-fat'),mms=document.querySelectorAll('.tz-mm'),regs=document.querySelectorAll('.tz-reg'),doses=document.querySelectorAll('.tz-dose');
-    var notes=document.querySelectorAll('.tz-note'),dones=document.querySelectorAll('.tz-notedone');
-    var arr=[];for(var i=0;i<dates.length;i++) arr.push({date:dates[i].value||'',fat:fats[i].value||'',mm:mms[i].value||'',regiao:regs[i].value||'',dose:doses[i].value||'',note:(notes[i]?notes[i].value.trim():''),noteDone:!!(dones[i]&&dones[i].checked)});
+    var arr=[];for(var i=0;i<dates.length;i++) arr.push({date:dates[i].value||'',fat:fats[i].value||'',mm:mms[i].value||'',regiao:regs[i].value||'',dose:doses[i].value||''});
     return arr;
   }
 
@@ -4296,13 +4194,12 @@
   ];
 
   function ciSyncSt(m,ok){var s=document.getElementById('ciSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}}
-  function ciSaveCloud(){try{localStorage.setItem('ci_data',JSON.stringify({patients:ciPatients,nextId:ciNextId}));}catch(e){}ciSaving=true;ciSyncSt('Salvando...',true);ciRef.set({patients:ciPatients,nextId:ciNextId}).then(function(){ciSaving=false;ciSyncSt('Salvo ✓',true);}).catch(function(err){fbRestPut('checkins',{patients:ciPatients,nextId:ciNextId}).then(function(){ciSaving=false;ciSyncSt('Salvo ✓',true);}).catch(function(){ciSaving=false;ciSyncSt('⚠ Erro',false);});});}
+  function ciSaveCloud(){try{localStorage.setItem('ci_data',JSON.stringify({patients:ciPatients,nextId:ciNextId}));}catch(e){}ciSaving=true;ciSyncSt('Salvando...',true);fbPut('checkins',{patients:ciPatients,nextId:ciNextId}).then(function(){ciSaving=false;ciSyncSt('Salvo na nuvem ✓',true);}).catch(function(err){ciSaving=false;ciSyncSt('⚠ Erro',false);console.error('[CI] save:',err);});}
   function ciLoadLocal(){try{var r=localStorage.getItem('ci_data');if(r){var d=JSON.parse(r);if(d.patients&&d.patients.length){ciPatients=d.patients;ciNextId=d.nextId||500;return true;}}}catch(e){}return false;}
   var ciHadLocal=ciLoadLocal();
-  if(ciHadLocal) ciSyncSt('Sincronizado',true);
-  ciRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Sincronizado',true);}else{if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSaveCloud();}if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}).catch(function(err){if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSyncSt('Offline',false);console.error('ciLoad error:',err);});
-  setTimeout(function(){if(document.getElementById('ciSync')&&document.getElementById('ciSync').textContent==='Sincronizando...'){fbRestGet('checkins').then(function(d){if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Sincronizado',true);if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}});}},5000);
-  ciRef.on('value',function(s){if(ciSaving)return;var d=s.val();if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Atualizado ✓',true);if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}});
+  if(ciHadLocal) ciSyncSt('Local',true);
+  fbGet('checkins').then(function(d){if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;ciSyncSt('Sincronizado',true);}else{if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));fbPut('checkins',{patients:ciPatients,nextId:ciNextId});}if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}).catch(function(err){if(!ciPatients.length) ciPatients=JSON.parse(JSON.stringify(ciDefaults));ciSyncSt('Offline',false);});
+  setInterval(function(){if(ciSaving)return;fbGet('checkins').then(function(d){if(d&&d.patients){ciPatients=d.patients;ciNextId=d.nextId||500;if(document.getElementById('checkin').classList.contains('active')) renderCheckins();}}).catch(function(){});},15000);
 
   function renderCheckins(){
     var html='';
@@ -4391,13 +4288,12 @@
   ];
 
   function ebSyncSt(m,ok){var s=document.getElementById('ebSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}}
-  function ebSaveCloud(){try{localStorage.setItem('eb_data',JSON.stringify({patients:ebPatients,nextId:ebNextId}));}catch(e){}ebSaving=true;ebSyncSt('Salvando...',true);ebRef.set({patients:ebPatients,nextId:ebNextId}).then(function(){ebSaving=false;ebSyncSt('Salvo ✓',true);}).catch(function(err){fbRestPut('ebooks',{patients:ebPatients,nextId:ebNextId}).then(function(){ebSaving=false;ebSyncSt('Salvo ✓',true);}).catch(function(){ebSaving=false;ebSyncSt('⚠ Erro',false);});});}
+  function ebSaveCloud(){try{localStorage.setItem('eb_data',JSON.stringify({patients:ebPatients,nextId:ebNextId}));}catch(e){}ebSaving=true;ebSyncSt('Salvando...',true);fbPut('ebooks',{patients:ebPatients,nextId:ebNextId}).then(function(){ebSaving=false;ebSyncSt('Salvo na nuvem ✓',true);}).catch(function(err){ebSaving=false;ebSyncSt('⚠ Erro',false);console.error('[EB] save:',err);});}
   function ebLoadLocal(){try{var r=localStorage.getItem('eb_data');if(r){var d=JSON.parse(r);if(d.patients&&d.patients.length){ebPatients=d.patients;ebNextId=d.nextId||400;return true;}}}catch(e){}return false;}
   var ebHadLocal=ebLoadLocal();
-  if(ebHadLocal) ebSyncSt('Sincronizado',true);
-  ebRef.once('value').then(function(snap){var d=snap.val();if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Sincronizado',true);}else{if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSaveCloud();}if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}).catch(function(err){if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSyncSt('Offline',false);console.error('ebLoad error:',err);});
-  setTimeout(function(){if(document.getElementById('ebSync')&&document.getElementById('ebSync').textContent==='Sincronizando...'){fbRestGet('ebooks').then(function(d){if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Sincronizado',true);if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}});}},5000);
-  ebRef.on('value',function(s){if(ebSaving)return;var d=s.val();if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Atualizado ✓',true);if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}});
+  if(ebHadLocal) ebSyncSt('Local',true);
+  fbGet('ebooks').then(function(d){if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;ebSyncSt('Sincronizado',true);}else{if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));fbPut('ebooks',{patients:ebPatients,nextId:ebNextId});}if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}).catch(function(err){if(!ebPatients.length) ebPatients=JSON.parse(JSON.stringify(ebDefaults));ebSyncSt('Offline',false);});
+  setInterval(function(){if(ebSaving)return;fbGet('ebooks').then(function(d){if(d&&d.patients){ebPatients=d.patients;ebNextId=d.nextId||400;if(document.getElementById('ebooks').classList.contains('active')) renderEbooks();}}).catch(function(){});},15000);
 
   function ebFirstName(n){return(n||'').split(' ')[0];}
 
@@ -4572,33 +4468,6 @@
       if(e.key!=='Tab'&&e.key!=='Escape') e.preventDefault();
     }
   });
-  // ============ NOTES SYSTEM ============
-  window.toggleNoteArea=function(btn){var area=document.getElementById(btn.getAttribute('data-target'));if(area) area.classList.toggle('open');};
-  function renderHomeNotes(){
-    var items=[];
-    (conPatients||[]).forEach(function(p,pi){if(p.hidden) return;(p.consults||[]).forEach(function(c,ci){if(c.note&&c.note.trim()&&!c.noteDone) items.push({mod:'con',modLabel:'Consulta '+(ci+1),name:p.name,text:c.note,pi:pi,ci:ci});});});
-    (injPatients||[]).forEach(function(p,pi){if(p.hidden) return;(p.sessions||[]).forEach(function(s,si){if(s&&s.note&&s.note.trim()&&!s.noteDone) items.push({mod:'inj',modLabel:'Sessão IM '+(si+1),name:p.name,text:s.note,pi:pi,ci:si});});});
-    (tzPatients||[]).forEach(function(p,pi){if(p.hidden) return;(p.sessions||[]).forEach(function(s,si){if(s&&s.note&&s.note.trim()&&!s.noteDone) items.push({mod:'tz',modLabel:'Sessão TZ '+(si+1),name:p.name,text:s.note,pi:pi,ci:si});});});
-    var panel=document.getElementById('homeNotes'),list=document.getElementById('homeNotesList'),countEl=document.getElementById('homeNotesCount');
-    if(!items.length){panel.style.display='none';return;}
-    panel.style.display='block';countEl.textContent=items.length;
-    var html='';items.forEach(function(it,idx){
-      html+='<div class="hn-card" id="hnCard_'+idx+'"><input type="checkbox" class="hn-check" data-mod="'+it.mod+'" data-pi="'+it.pi+'" data-ci="'+it.ci+'" data-idx="'+idx+'"><div class="hn-body"><div class="hn-meta"><span class="hn-badge '+it.mod+'">'+({con:'Consultas',inj:'Injetáveis',tz:'Tirzepatida'}[it.mod])+'</span> <span>'+it.name+'</span> · <span>'+it.modLabel+'</span></div><div class="hn-text">'+it.text.replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div></div></div>';
-    });
-    list.innerHTML=html;
-    list.querySelectorAll('.hn-check').forEach(function(chk){chk.addEventListener('change',function(){
-      var mod=this.getAttribute('data-mod'),pi=parseInt(this.getAttribute('data-pi')),ci=parseInt(this.getAttribute('data-ci')),idx=this.getAttribute('data-idx');
-      if(this.checked){
-        if(mod==='con'&&conPatients[pi]&&conPatients[pi].consults[ci]){conPatients[pi].consults[ci].noteDone=true;conSaveCloud();}
-        else if(mod==='inj'&&injPatients[pi]&&injPatients[pi].sessions[ci]){injPatients[pi].sessions[ci].noteDone=true;injSaveCloud();}
-        else if(mod==='tz'&&tzPatients[pi]&&tzPatients[pi].sessions[ci]){tzPatients[pi].sessions[ci].noteDone=true;tzSaveCloud();}
-        var card=document.getElementById('hnCard_'+idx);if(card) card.classList.add('done');
-        setTimeout(function(){renderHomeNotes();},800);
-      }
-    });});
-  }
-  setTimeout(function(){renderHomeNotes();},1500);
-
 })();
 </script>
 </body>
