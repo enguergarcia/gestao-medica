@@ -815,6 +815,21 @@
       style="width:100%;box-sizing:border-box;background:#161b22;border:2px solid #30363d;border-radius:12px;color:#fff;font-size:24px;padding:14px;text-align:center;font-family:'IBM Plex Mono',monospace;letter-spacing:8px;outline:none;">
     <div id="pinError" style="color:#e08a6b;font-size:12px;margin-top:10px;min-height:18px;"></div>
     <button id="pinSubmit" style="width:100%;margin-top:8px;padding:12px;background:linear-gradient(135deg,#c9a24e,#a67c2e);border:none;border-radius:10px;color:#0d1117;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;">Entrar</button>
+    <button id="syncTest" style="width:100%;margin-top:16px;padding:8px;background:transparent;border:1px solid #30363d;border-radius:8px;color:#9DB2C8;font-size:11px;cursor:pointer;font-family:'IBM Plex Mono',monospace;" onclick="
+      var u='https://gestao-medica-9ead6-default-rtdb.firebaseio.com';
+      var r=document.getElementById('syncTestResult');
+      r.textContent='Testando...';r.style.color='#9DB2C8';
+      var ts=Date.now();
+      fetch(u+'/_synctest.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({t:ts})})
+      .then(function(res){r.textContent='PUT: '+res.status;return fetch(u+'/_synctest.json');})
+      .then(function(res){return res.json();})
+      .then(function(d){
+        if(d&&d.t===ts){r.textContent='✅ OK — leitura e escrita funcionam';r.style.color='#9be3cd';fetch(u+'/_synctest.json',{method:'DELETE'});}
+        else{r.textContent='⚠ Escreveu mas leu valor diferente';r.style.color='#e08a6b';}
+      })
+      .catch(function(e){r.textContent='❌ ERRO: '+e.message;r.style.color='#e08a6b';});
+    ">🔍 Testar Sincronização</button>
+    <div id="syncTestResult" style="font-size:11px;color:#9DB2C8;margin-top:8px;font-family:'IBM Plex Mono',monospace;min-height:16px;text-align:center;"></div>
   </div>
 </div>
 <script>
