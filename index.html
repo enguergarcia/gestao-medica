@@ -3269,11 +3269,7 @@
     try{localStorage.setItem('con_data',JSON.stringify({patients:conPatients,nextId:conNextId}));}catch(e){}
     conSaving=true;
     conSyncStatus('Salvando...',true);
-    fbPut('consultations',{patients:conPatients,nextId:conNextId}).then(function(){
-      conSaving=false; conSyncStatus('Salvo na nuvem ✓',true);
-    }).catch(function(err){
-      conSaving=false; conSyncStatus('⚠ Erro ao salvar',false);console.error('[CON] save:',err);
-    });
+    fbPut('consultations',{patients:conPatients,nextId:conNextId}).then(function(){return fbGet('consultations');}).then(function(check){conSaving=false;if(check&&check.patients){conSyncStatus('Salvo na nuvem ✓ ('+check.patients.length+' pac.)',true);}else{conSyncStatus('⚠ Salvou mas vazio!',false);}}).catch(function(err){conSaving=false;conSyncStatus('⚠ Erro: '+err.message,false);});
   }
   function conSaveLocal(){
     try{localStorage.setItem('con_data',JSON.stringify({patients:conPatients,nextId:conNextId}));}catch(e){}
@@ -3604,7 +3600,7 @@
   function injSaveCloud(){
     try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
     injSaving=true;injSyncStatus('Salvando...',true);
-    fbPut('injectables',{patients:injPatients,nextId:injNextId}).then(function(){injSaving=false;injSyncStatus('Salvo na nuvem ✓',true);}).catch(function(err){injSaving=false;injSyncStatus('⚠ Erro',false);console.error('[INJ] save:',err);});
+    fbPut('injectables',{patients:injPatients,nextId:injNextId}).then(function(){return fbGet('injectables');}).then(function(check){injSaving=false;if(check&&check.patients){injSyncStatus('Salvo na nuvem ✓ ('+check.patients.length+' pac.)',true);}else{injSyncStatus('⚠ Salvou mas vazio!',false);}}).catch(function(err){injSaving=false;injSyncStatus('⚠ Erro: '+err.message,false);});
   }
   function injSaveLocal(){
     try{localStorage.setItem('inj_data',JSON.stringify({patients:injPatients,nextId:injNextId}));}catch(e){}
@@ -3793,7 +3789,27 @@
   }
 
   function tzSyncStatus(m,ok){var s=document.getElementById('tzSync');if(s){s.textContent=m;s.style.color=ok?'#9be3cd':'var(--danger)';}if(ok) setTimeout(function(){if(s&&s.textContent===m) s.textContent='Sincronizado';},2000);}
-  function tzSaveCloud(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}tzSaving=true;tzSyncStatus('Salvando...',true);fbPut('tirzsessions',{patients:tzPatients,nextId:tzNextId}).then(function(){tzSaving=false;tzSyncStatus('Salvo na nuvem ✓',true);console.log('[TZ] save OK');}).catch(function(err){tzSaving=false;tzSyncStatus('⚠ Erro ao salvar',false);console.error('[TZ] save:',err);});}
+  function tzSaveCloud(){
+    try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}
+    tzSaving=true;tzSyncStatus('Salvando...',true);
+    var data={patients:tzPatients,nextId:tzNextId};
+    fbPut('tirzsessions',data).then(function(){
+      console.log('[TZ] save OK, verifying...');
+      return fbGet('tirzsessions');
+    }).then(function(check){
+      tzSaving=false;
+      if(check&&check.patients&&check.patients.length){
+        tzSyncStatus('Salvo na nuvem ✓ ('+check.patients.length+' pac.)',true);
+        console.log('[TZ] verified:',check.patients.length,'patients');
+      } else {
+        tzSyncStatus('⚠ Salvou mas Firebase vazio!',false);
+        console.error('[TZ] verify failed:',check);
+      }
+    }).catch(function(err){
+      tzSaving=false;tzSyncStatus('⚠ Erro: '+err.message,false);
+      console.error('[TZ] save error:',err);
+    });
+  }
   function tzSaveLocal(){try{localStorage.setItem('tz_data',JSON.stringify({patients:tzPatients,nextId:tzNextId}));}catch(e){}}
   function tzLoadLocal(){try{var r=localStorage.getItem('tz_data');if(r){var ld=JSON.parse(r);if(ld.patients&&ld.patients.length){tzPatients=ld.patients;tzNextId=ld.nextId||300;return true;}}}catch(e){}return false;}
   var tzHadLocal=tzLoadLocal();
