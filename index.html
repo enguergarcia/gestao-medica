@@ -67,6 +67,7 @@
 
   /* ============ SIM ============ */
   #sim{padding:26px 0 60px;}
+  #tirz{padding:26px 0 60px;}
   #sim .wrap{max-width:1800px;}
   #cost .wrap{max-width:1800px;}
   #effects{padding:26px 0 60px;}
@@ -1015,7 +1016,7 @@
 </style><meta id="nedeegdmhlnmboboahchfpkmdnnemapd"><meta id="dcngeagmmhegagicpcmpinaoklddcgon"></head>
 <body>
 <!-- PIN Lock Screen -->
-<div id="lockScreen" style="position: fixed; inset: 0px; z-index: 99999; background: rgb(13, 17, 23); display: none; align-items: center; justify-content: center;">
+<div id="lockScreen" style="position: fixed; inset: 0px; z-index: 99999; background: rgb(13, 17, 23); display: flex; align-items: center; justify-content: center;">
   <div style="text-align:center;max-width:320px;padding:30px;">
     <div style="font-size:40px;margin-bottom:16px;">🔒</div>
     <div style="font-family:'Fraunces',serif;font-size:22px;color:#fff;margin-bottom:6px;">Acesso restrito</div>
@@ -1692,7 +1693,7 @@
       <div class="sf"><label>Data de envio</label><input type="date" id="ciMsgDate"></div>
       <div class="sf" style="display:flex;align-items:flex-end;"><button id="ciMsgCopy" style="width:100%;background:var(--gold);color:var(--ink);border:none;border-radius:9px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;">📋 Copiar mensagem</button></div>
     </div>
-    <div class="con-modal-btns" style="margin-top:14px;flex-wrap:wrap;">
+    <div class="con-modal-btns" style="margin-top:14px;flex-wrap:wrap;gap:8px;">
       <button class="con-cancel" id="ciMsgCancel">Fechar</button>
       <button class="con-save" id="ciMsgSave">Enviado</button>
       <button id="ciMsgFb" style="background:rgba(127,211,187,.2);color:#9be3cd;border:1px solid rgba(127,211,187,.4);border-radius:9px;padding:10px 14px;font-size:13px;cursor:pointer;display:none;">Feedback enviado</button>
@@ -2986,7 +2987,8 @@
         +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line-soft);"><span style="color:var(--mist);">Sessões de 5 mg</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+Math.floor(compMg/5)+'</span></div>'
         +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line-soft);"><span style="color:var(--mist);">Sessões de 7,5 mg</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+Math.floor(compMg/7.5)+'</span></div>'
         +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line-soft);"><span style="color:var(--mist);">Sessões de 10 mg</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+Math.floor(compMg/10)+'</span></div>'
-        +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;"><span style="color:var(--mist);">Sessões de 12,5 mg</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+Math.floor(compMg/12.5)+'</span></div>'
+        +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line-soft);"><span style="color:var(--mist);">Sessões de 12,5 mg</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+Math.floor(compMg/12.5)+'</span></div>'
+        +'<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px;"><span style="color:var(--mist);">Sessões de 15 mg</span><span style="color:var(--paper);font-family:IBM Plex Mono,monospace;font-weight:600;">'+Math.floor(compMg/15)+'</span></div>'
       +'</div>'
     // Custo por mg do Mounjaro
       +'<div style="background:var(--ink);border:1px solid var(--line-soft);border-radius:10px;padding:14px 16px;">'
